@@ -166,6 +166,7 @@
       display: inline-flex;
       align-items: center;
       gap: 12px;
+      max-width: 100%;
       padding: 12px 14px;
       border-radius: 14px;
       background: #0f172a;
@@ -173,6 +174,8 @@
       font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
       font-size: 0.95rem;
       box-shadow: var(--shadow);
+      overflow-x: auto;
+      white-space: nowrap;
     }
 
     .install span {
@@ -635,6 +638,7 @@
       .hero, .split, .cta, .mcp-panel { grid-template-columns: 1fr; }
       .cards, .standards { grid-template-columns: repeat(2, 1fr); }
       .steps { grid-template-columns: 1fr 1fr; }
+      .footer-grid { grid-template-columns: repeat(2, 1fr); }
     }
 
     @media (max-width: 620px) {
