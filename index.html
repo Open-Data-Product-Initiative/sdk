@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Open Data Products SDK</title>
+  <style>
+    :root {
+      --bg: #070b16;
+      --surface: #101827;
+      --surface-soft: #0d1422;
+      --text: #f8fafc;
+      --muted: #94a3b8;
+      --line: rgba(148, 163, 184, 0.18);
+      --blue: #4f7cff;
+      --cyan: #22d3ee;
+      --green: #34d399;
+      --orange: #f59e0b;
+      --purple: #a78bfa;
+      --shadow: 0 22px 70px rgba(0, 0, 0, 0.36);
+      --radius: 24px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(79, 124, 255, 0.22), transparent 34rem),
+        radial-gradient(circle at top right, rgba(34, 211, 238, 0.16), transparent 30rem),
+        linear-gradient(180deg, #090f1f 0%, #070b16 52%, #050812 100%);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .page {
+      width: min(1180px, calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+    header {
+      padding: 28px 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 800;
+      letter-spacing: -0.01em;
+      color: var(--text);
+    }
+
+
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      color: var(--muted);
+      font-size: 0.95rem;
+      font-weight: 600;
+    }
+
+    nav a:hover {
+      color: var(--blue);
+    }
+
+    .hero {
+      padding: 70px 0 50px;
+      display: grid;
+      grid-template-columns: 1.04fr 0.96fr;
+      gap: 44px;
+      align-items: center;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: rgba(79, 124, 255, 0.14);
+      color: #dbeafe;
+      border: 1px solid rgba(147, 197, 253, 0.22);
+      font-weight: 750;
+      font-size: 0.88rem;
+      margin-bottom: 22px;
+    }
+
+    h1 {
+      font-size: clamp(2.8rem, 5vw, 5.1rem);
+      line-height: 0.95;
+      letter-spacing: -0.01em;
+      margin-bottom: 24px;
+    }
+
+    .lead {
+      max-width: 680px;
+      color: var(--muted);
+      font-size: 1.22rem;
+      margin-bottom: 32px;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-bottom: 30px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 14px 20px;
+      border-radius: 14px;
+      font-weight: 800;
+      border: 1px solid transparent;
+      transition: transform 0.15s ease, box-shadow 0.15s ease, border 0.15s ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+    }
+
+    .btn-primary {
+      background: var(--blue);
+      color: #fff;
+      box-shadow: 0 14px 32px rgba(36, 84, 255, 0.26);
+    }
+
+    .btn-secondary {
+      background: rgba(255,255,255,0.06);
+      color: var(--text);
+      border-color: var(--line);
+    }
+
+    .install {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 14px;
+      border-radius: 14px;
+      background: #0f172a;
+      color: #e5e7eb;
+      font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+      font-size: 0.95rem;
+      box-shadow: var(--shadow);
+    }
+
+    .install span {
+      color: #93c5fd;
+    }
+
+    .mcp-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 18px;
+      padding: 12px 15px;
+      border-radius: 16px;
+      background: rgba(34, 211, 238, 0.12);
+      color: #cffafe;
+      border: 1px solid rgba(34, 211, 238, 0.28);
+      font-weight: 850;
+      box-shadow: 0 16px 36px rgba(34, 211, 238, 0.10);
+    }
+
+    .mcp-badge span {
+      display: inline-grid;
+      place-items: center;
+      width: 30px;
+      height: 30px;
+      border-radius: 10px;
+      background: var(--cyan);
+      color: #06111f;
+      font-size: 0.82rem;
+      font-weight: 950;
+    }
+
+    .hero-card {
+      background: rgba(16, 24, 39, 0.78);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(148, 163, 184, 0.20);
+      border-radius: 34px;
+      padding: 26px;
+      box-shadow: var(--shadow);
+    }
+
+    .terminal {
+      background: #0f172a;
+      color: #e5e7eb;
+      border-radius: 22px;
+      overflow: hidden;
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.08);
+    }
+
+    .terminal-top {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      padding: 14px 16px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .dot {
+      width: 11px;
+      height: 11px;
+      border-radius: 50%;
+      background: #64748b;
+    }
+
+    .terminal-body {
+      padding: 20px;
+      font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+      font-size: 0.92rem;
+      line-height: 1.85;
+      overflow-x: auto;
+    }
+
+    .prompt { color: #93c5fd; }
+    .comment { color: #94a3b8; }
+    .ok { color: #86efac; }
+
+    .status-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-top: 16px;
+    }
+
+    .status {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 16px;
+    }
+
+    .status strong {
+      display: block;
+      font-size: 1.55rem;
+      line-height: 1;
+      letter-spacing: -0.01em;
+    }
+
+    .status span {
+      color: var(--muted);
+      font-size: 0.9rem;
+      font-weight: 650;
+    }
+
+    section {
+      padding: 58px 0;
+    }
+
+    .section-title {
+      max-width: 760px;
+      margin-bottom: 28px;
+    }
+
+    h2 {
+      font-size: clamp(2rem, 3.2vw, 3rem);
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      margin-bottom: 14px;
+    }
+
+    .section-title p {
+      color: var(--muted);
+      font-size: 1.08rem;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .mcp-panel {
+      display: grid;
+      grid-template-columns: 0.95fr 1.05fr;
+      gap: 22px;
+      align-items: stretch;
+      background: linear-gradient(135deg, rgba(34, 211, 238, 0.12), rgba(79, 124, 255, 0.10));
+      border: 1px solid rgba(34, 211, 238, 0.24);
+      border-radius: 32px;
+      padding: 28px;
+      box-shadow: var(--shadow);
+    }
+
+    .mcp-panel h2 {
+      margin-bottom: 14px;
+    }
+
+    .mcp-panel p {
+      color: var(--muted);
+      font-size: 1.04rem;
+    }
+
+    .mcp-list {
+      display: grid;
+      gap: 12px;
+    }
+
+    .mcp-item {
+      background: rgba(7, 11, 22, 0.36);
+      border: 1px solid rgba(148, 163, 184, 0.18);
+      border-radius: 20px;
+      padding: 18px;
+    }
+
+    .mcp-item strong {
+      display: block;
+      margin-bottom: 6px;
+      letter-spacing: -0.01em;
+    }
+
+    .mcp-item span {
+      color: var(--muted);
+      font-size: 0.94rem;
+    }
+
+    .card {
+      background: rgba(16, 24, 39, 0.86);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 24px;
+      box-shadow: 0 16px 42px rgba(0, 0, 0, 0.22);
+    }
+
+    .icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 14px;
+      display: grid;
+      place-items: center;
+      color: #fff;
+      font-weight: 900;
+      margin-bottom: 18px;
+    }
+
+    .icon.blue { background: var(--blue); }
+    .icon.cyan { background: var(--cyan); }
+    .icon.green { background: var(--green); }
+    .icon.orange { background: var(--orange); }
+    .icon.purple { background: var(--purple); }
+
+    .card h3 {
+      font-size: 1.2rem;
+      letter-spacing: -0.01em;
+      margin-bottom: 8px;
+    }
+
+    .card p {
+      color: var(--muted);
+      font-size: 0.98rem;
+    }
+
+    .standards {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 16px;
+    }
+
+    .standard {
+      background: rgba(16, 24, 39, 0.86);
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      padding: 20px;
+      min-height: 170px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .standard::before {
+      content: "";
+      position: absolute;
+      inset: 0 0 auto;
+      height: 5px;
+      background: var(--blue);
+    }
+
+    .standard:nth-child(2)::before { background: var(--cyan); }
+    .standard:nth-child(3)::before { background: var(--green); }
+    .standard:nth-child(4)::before { background: var(--purple); }
+    .standard:nth-child(5)::before { background: var(--orange); }
+
+    .standard small {
+      color: var(--muted);
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .standard h3 {
+      margin: 10px 0 8px;
+      letter-spacing: -0.01em;
+      font-size: 1.35rem;
+    }
+
+    .standard p {
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .workflow {
+      background: rgba(16, 24, 39, 0.86);
+      border: 1px solid var(--line);
+      border-radius: 32px;
+      padding: 28px;
+      box-shadow: var(--shadow);
+    }
+
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 12px;
+    }
+
+    .step {
+      padding: 18px;
+      border-radius: 20px;
+      background: rgba(13, 20, 34, 0.9);
+      border: 1px solid rgba(147, 197, 253, 0.16);
+    }
+
+    .step-number {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background: var(--blue);
+      color: #fff;
+      display: grid;
+      place-items: center;
+      font-weight: 900;
+      font-size: 0.85rem;
+      margin-bottom: 12px;
+    }
+
+    .step h3 {
+      font-size: 1rem;
+      margin-bottom: 6px;
+      letter-spacing: -0.01em;
+    }
+
+    .step p {
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    .split {
+      display: grid;
+      grid-template-columns: 0.9fr 1.1fr;
+      gap: 22px;
+      align-items: stretch;
+    }
+
+    .code-panel {
+      background: #0f172a;
+      color: #e5e7eb;
+      border-radius: 26px;
+      padding: 24px;
+      font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+      font-size: 0.92rem;
+      overflow-x: auto;
+      box-shadow: var(--shadow);
+    }
+
+    .code-panel pre {
+      white-space: pre-wrap;
+    }
+
+    .cta {
+      margin: 48px 0 72px;
+      padding: 42px;
+      border-radius: 34px;
+      background: linear-gradient(135deg, #111827, #2454ff);
+      color: #fff;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 24px;
+      align-items: center;
+      box-shadow: 0 24px 70px rgba(36, 84, 255, 0.24);
+    }
+
+    .cta h2 {
+      color: #fff;
+      margin-bottom: 10px;
+    }
+
+    .cta p {
+      color: rgba(255,255,255,0.78);
+      max-width: 740px;
+    }
+
+    .cta .btn {
+      background: #f8fafc;
+      color: #2454ff;
+    }
+
+    footer {
+      padding: 26px 0 46px;
+      color: var(--muted);
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      border-top: 1px solid var(--line);
+      font-size: 0.95rem;
+    }
+
+    @media (max-width: 920px) {
+      nav { display: none; }
+      .hero, .split, .cta, .mcp-panel { grid-template-columns: 1fr; }
+      .cards, .standards { grid-template-columns: repeat(2, 1fr); }
+      .steps { grid-template-columns: 1fr 1fr; }
+    }
+
+    @media (max-width: 620px) {
+      .cards, .standards, .steps, .status-grid { grid-template-columns: 1fr; }
+      .hero { padding-top: 40px; }
+      .cta { padding: 28px; }
+      footer { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header>
+      <a class="brand" href="#">
+        <span>Open Data Products SDK</span>
+      </a>
+      <nav aria-label="Main navigation">
+        <a href="#why">Why</a>
+        <a href="#mcp">MCP</a>
+        <a href="#capabilities">Capabilities</a>
+        <a href="#standards">Standards</a>
+        <a href="#start">Start</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div>
+          <div class="eyebrow">AI Agent First Data Product Tooling</div>
+          <h1>The SDK for the data product economy</h1>
+          <p class="lead">
+            A practical Python SDK and MCP server that gives AI agents the structured context they need to operate with data product standards, ODPC catalogs, data contracts, product graphs, validation, search, and traversal.
+          </p>
+
+
+          <div class="actions">
+            <a class="btn btn-primary" href="https://github.com/Open-Data-Product-Initiative/odp-agent-sdk">View on GitHub</a>
+            <a class="btn btn-secondary" href="#start">Install and validate</a>
+          </div>
+
+          <div class="install" aria-label="Installation command">
+            <span>$</span> pip install open-data-products
+          </div>
+        </div>
+
+        <aside class="hero-card" aria-label="SDK command examples">
+          <div class="terminal">
+            <div class="terminal-top">
+              <span class="dot"></span>
+              <span class="dot"></span>
+              <span class="dot"></span>
+            </div>
+            <div class="terminal-body">
+              <div><span class="prompt">$</span> open-data-products validate product.yaml --json</div>
+              <div class="ok">✓ ODPS product validated</div>
+              <br />
+              <div><span class="prompt">$</span> open-data-products explain product.yaml</div>
+              <div class="comment"># Human readable product context</div>
+              <br />
+              <div><span class="prompt">$</span> open-data-products graph traverse catalog.yaml</div>
+              <div class="comment"># Products, objectives, KPIs, use cases, and signals</div>
+              <br />
+              <div><span class="prompt">$</span> open-data-products mcp serve</div>
+              <div class="ok">✓ MCP server ready for AI agents</div>
+            </div>
+          </div>
+
+          <div class="status-grid">
+            <div class="status">
+              <strong>6+</strong>
+              <span>standards supported</span>
+            </div>
+            <div class="status">
+              <strong>19+</strong>
+              <span>CLI commands</span>
+            </div>
+            <div class="status">
+              <strong>21+</strong>
+              <span>MCP tools</span>
+            </div>
+          </div>
+        </aside>
+      </section>
+
+      <section id="why">
+        <div class="section-title">
+          <h2>Built to give AI agents the context to operate</h2>
+          <p>
+            The SDK turns data product standards into executable context. Teams get validation. Developers get Python functions. AI agents get product context, ODPC catalogs, data contract support, graph relationships, vocabulary, and safe tools for real workflows.
+          </p>
+        </div>
+
+        <div class="cards">
+          <article class="card">
+            <div class="icon blue">1</div>
+            <h3>Validate product specs</h3>
+            <p>Check ODPS, ODPC catalogs, ODPG graphs, ODPV vocabulary, and data contract files before they move into production workflows.</p>
+          </article>
+          <article class="card">
+            <div class="icon cyan">2</div>
+            <h3>Create agent context</h3>
+            <p>Convert YAML and JSON into structured context that AI agents, product owners, stewards, and engineers can use.</p>
+          </article>
+          <article class="card">
+            <div class="icon green">3</div>
+            <h3>Build product graphs</h3>
+            <p>Create graph-ready relationships between products, use cases, objectives, KPIs, signals, and ODPG edges.</p>
+          </article>
+        </div>
+      </section>
+
+      <section id="mcp">
+        <div class="mcp-panel">
+          <div>
+            <div class="eyebrow">MCP Server Included</div>
+            <h2>Give AI agents the context layer for data product work</h2>
+            <p>
+              The SDK includes Model Context Protocol support so agent hosts can operate on Open Data Products files through safe tools, structured resources, standards-aware context, and graph relationships.
+            </p>
+          </div>
+
+          <div class="mcp-list">
+            <div class="mcp-item">
+              <strong>Agent-ready tools</strong>
+              <span>Expose validation, explanation, search, traversal, and product context actions through MCP.</span>
+            </div>
+            <div class="mcp-item">
+              <strong>Operational context</strong>
+              <span>Help AI agents understand ODPS, ODPC, ODPG, ODPV, data contracts, graph relationships, and related artifacts without guessing.</span>
+            </div>
+            <div class="mcp-item">
+              <strong>Local and service workflows</strong>
+              <span>Use the SDK with local LLMs, hosted LLMs, coding agents, and product engineering workflows.</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="capabilities">
+        <div class="section-title">
+          <h2>One SDK. Many execution paths</h2>
+          <p>
+            Use it from the terminal, from Python, or as an MCP server for AI agent workflows.
+          </p>
+        </div>
+
+        <div class="workflow">
+          <div class="steps">
+            <div class="step">
+              <div class="step-number">1</div>
+              <h3>Validate</h3>
+              <p>Check schemas and required structures.</p>
+            </div>
+            <div class="step">
+              <div class="step-number">2</div>
+              <h3>Explain</h3>
+              <p>Turn files into readable context.</p>
+            </div>
+            <div class="step">
+              <div class="step-number">3</div>
+              <h3>Search</h3>
+              <p>Find terms, products, ODPC catalog objects, data contracts, references, and graph items.</p>
+            </div>
+            <div class="step">
+              <div class="step-number">4</div>
+              <h3>Traverse</h3>
+              <p>Follow links across products and objectives.</p>
+            </div>
+            <div class="step">
+              <div class="step-number">5</div>
+              <h3>MCP</h3>
+              <p>Expose SDK capabilities to AI agents through safe tools.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="standards">
+        <div class="section-title">
+          <h2>Designed for the Open Data Products standards family</h2>
+          <p>
+            The SDK gives developers and AI agents one practical interface across product descriptions, ODPC catalogs, ODPG graphs, ODPV vocabulary, and data contract workflows.
+          </p>
+        </div>
+
+        <div class="standards">
+          <article class="standard">
+            <small>ODPS</small>
+            <h3>Product</h3>
+            <p>Defines the data product, its access, quality, SLA, pricing, support, license, and strategy.</p>
+          </article>
+          <article class="standard">
+            <small>ODPC</small>
+            <h3>Catalog</h3>
+            <p>Organizes products, objectives, use cases, KPIs, and demand signals at portfolio level.</p>
+          </article>
+          <article class="standard">
+            <small>ODPG</small>
+            <h3>Graph</h3>
+            <p>Connects products to business value through nodes, edges, and relationship paths.</p>
+          </article>
+          <article class="standard">
+            <small>ODPV</small>
+            <h3>Vocabulary</h3>
+            <p>Creates shared meaning for humans, platforms, and AI agents working with the standards.</p>
+          </article>
+          <article class="standard">
+            <small>Contracts</small>
+            <h3>Data Contracts</h3>
+            <p>Supports contract-aware workflows for structure, expectations, quality, access, and product handover.</p>
+          </article>
+        </div>
+      </section>
+
+      <section id="start">
+        <div class="split">
+          <div class="section-title">
+            <h2>Start with a virtual environment</h2>
+            <p>
+              Create a clean Python environment, install the SDK, then validate your first data product specification.
+            </p>
+          </div>
+
+          <div class="code-panel">
+<pre><span class="comment"># Create a project folder</span>
+mkdir odps-sdk-course
+cd odps-sdk-course
+
+<span class="comment"># Create and activate a virtual environment</span>
+python3 -m venv .venv-sdk
+source .venv-sdk/bin/activate
+
+<span class="comment"># Install the SDK</span>
+pip install open-data-products
+
+<span class="comment"># Validate a product spec</span>
+open-data-products validate product.yaml --json</pre>
+          </div>
+        </div>
+      </section>
+
+      <section class="cta">
+        <div>
+          <h2>Build data product workflows that AI agents understand</h2>
+          <p>
+            Use the SDK as the context and execution layer for AI agents working with data product standards, ODPC catalogs, data contracts, validation, graph traversal, vocabulary helpers, and agent-ready workflows.
+          </p>
+        </div>
+        <a class="btn" href="https://github.com/Open-Data-Product-Initiative/odp-agent-sdk">Open GitHub repo</a>
+      </section>
+    </main>
+
+    <footer>
+      <span>OpenDataProducts.org</span>
+      <span>AI Agent First Data Product Standards</span>
+    </footer>
+  </div>
+</body>
+</html>
