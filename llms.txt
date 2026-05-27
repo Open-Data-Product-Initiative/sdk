@@ -1,0 +1,93 @@
+# Open Data Products SDK
+
+> Agent-facing guide for the Open Data Products SDK landing page at https://opendataproducts.org/sdk/.
+
+The Open Data Products SDK is the primary implementation toolkit for the Open Data Products standards family. It is a Python SDK and MCP server for generating, validating, explaining, searching, and traversing Open Data Product artifacts.
+
+## Use This For
+
+- Generating standards-aware data product artifacts with local LLMs or service providers such as Claude, OpenAI, and OpenRouter.
+- Validating ODPS product specifications, ODPC catalogs, ODPG graphs, ODPV vocabulary, and data contract references.
+- Creating structured context for AI agents, product owners, stewards, and engineers.
+- Searching terms, products, ODPC catalog objects, data contracts, references, and graph items.
+- Traversing product, objective, KPI, use-case, signal, and graph relationships.
+- Exposing SDK operations to AI agents through the Model Context Protocol.
+
+## Project Links
+
+- SDK page: https://opendataproducts.org/sdk/
+- GitHub repository: https://github.com/Open-Data-Product-Initiative/odp-agent-sdk
+- Open Data Product Initiative: https://opendataproducts.org/
+- Standards family:
+  - ODPS: https://opendataproducts.org/v4.1/
+  - ODPV: https://opendataproducts.org/odpv-v1.0/
+  - ODPG: https://opendataproducts.org/odpg-v1.0/
+  - ODPC: https://opendataproducts.org/odpc-v1.0/
+
+## Install
+
+```bash
+pip install open-data-products
+```
+
+## CLI Entry Point
+
+Use the unified command:
+
+```bash
+open-data-products
+```
+
+Common workflows shown on the SDK page:
+
+```bash
+open-data-products validate product.yaml --json
+open-data-products explain product.yaml
+open-data-products graph traverse catalog.yaml
+open-data-products mcp serve
+```
+
+## LLM Usage
+
+The SDK supports LLM-assisted generation workflows. Agents and developers can use local LLMs or service providers such as Claude, OpenAI, and OpenRouter to help generate standards-aware data product artifacts.
+
+Keep generated output grounded in the standards family and validate artifacts after generation.
+
+Recommended generation loop:
+
+1. Load or create source context.
+2. Generate or update the artifact with a local LLM or provider.
+3. Validate the resulting YAML or JSON with `open-data-products validate`.
+4. Explain or inspect the artifact with `open-data-products explain`.
+5. Use graph traversal or search commands when relationships matter.
+
+## MCP Usage
+
+The SDK includes Model Context Protocol support for agent hosts.
+
+Run:
+
+```bash
+open-data-products mcp serve
+```
+
+Use MCP when an agent needs structured resources, safe tools, validation, explanation, search, traversal, product context, standards-aware graph relationships, or LLM-assisted generation workflows.
+
+## Standards Scope
+
+- ODPS: data product description, access, quality, SLA, pricing, support, license, and strategy.
+- ODPC: portfolio-level catalogs for products, objectives, use cases, KPIs, and demand signals.
+- ODPG: graph relationships connecting products to business value.
+- ODPV: shared vocabulary for humans, platforms, and AI agents.
+- Data contracts: contract-aware workflows for structure, expectations, quality, access, and product handover.
+
+## Maintainer
+
+- Jarkko Moilanen: https://www.linkedin.com/in/jarkkomoilanen/
+
+## Agent Notes
+
+- Prefer `open-data-products` examples when documenting SDK workflows.
+- Treat the SDK as the standards-family toolkit, not an ODPS-only tool.
+- Mention both local LLMs and service providers when describing generation.
+- Validate generated artifacts before presenting them as usable standards files.
