@@ -513,13 +513,108 @@
     }
 
     footer {
-      padding: 26px 0 46px;
+      margin-top: 36px;
+      padding: 54px 0 34px;
       color: var(--muted);
-      display: flex;
-      justify-content: space-between;
-      gap: 16px;
       border-top: 1px solid var(--line);
       font-size: 0.95rem;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.1fr repeat(3, 1fr);
+      gap: 34px;
+      align-items: start;
+    }
+
+    .footer-column h3,
+    .footer-column h4 {
+      color: var(--text);
+      line-height: 1.2;
+    }
+
+    .footer-column h3 {
+      font-size: 1rem;
+      margin-bottom: 14px;
+    }
+
+    .footer-column h4 {
+      font-size: 0.92rem;
+      margin: 22px 0 10px;
+    }
+
+    .footer-column p {
+      margin: 12px 0;
+      color: #cbd5e1;
+    }
+
+    .footer-column ul {
+      display: grid;
+      gap: 9px;
+      list-style: none;
+    }
+
+    .footer-column a {
+      color: #cbd5e1;
+      transition: color 0.15s ease;
+    }
+
+    .footer-column a:hover {
+      color: var(--cyan);
+    }
+
+    .footer-logo {
+      display: block;
+      width: min(190px, 100%);
+      height: auto;
+      margin: 12px 0;
+    }
+
+    .footer-logo.small {
+      width: min(150px, 100%);
+    }
+
+    .footer-badge {
+      display: inline-flex;
+      width: fit-content;
+      max-width: 100%;
+      margin-top: 4px;
+    }
+
+    .footer-badge img {
+      max-width: 190px;
+      height: auto;
+    }
+
+    .footer-rule {
+      border: 0;
+      border-top: 1px solid rgba(248, 250, 252, 0.2);
+      margin: 34px 0 24px;
+    }
+
+    .footer-legal {
+      display: grid;
+      gap: 10px;
+      justify-items: center;
+      text-align: center;
+      color: #cbd5e1;
+      font-size: 0.86rem;
+    }
+
+    .footer-legal nav {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 8px;
+      color: #dbeafe;
+      font-size: 0.86rem;
+      font-weight: 600;
+    }
+
+    .footer-legal a {
+      color: #dbeafe;
+      text-decoration: underline;
+      text-underline-offset: 3px;
     }
 
     @media (max-width: 920px) {
@@ -533,7 +628,9 @@
       .cards, .standards, .steps, .status-grid { grid-template-columns: 1fr; }
       .hero { padding-top: 40px; }
       .cta { padding: 28px; }
-      footer { flex-direction: column; }
+      .footer-grid { grid-template-columns: 1fr; }
+      .footer-legal { justify-items: start; text-align: left; }
+      .footer-legal nav { justify-content: flex-start; }
     }
   </style>
   <!-- Google tag (gtag.js) -->
@@ -789,8 +886,75 @@ open-data-products validate product.yaml --json</pre>
     </main>
 
     <footer>
-      <span>OpenDataProducts.org</span>
-      <span>AI Agent First Data Product Standards</span>
+      <div class="footer-grid">
+        <div class="footer-column">
+          <h3>About</h3>
+          <ul>
+            <li><a href="https://blog.opendataproducts.org/is-open-data-product-specification-the-swagger-of-the-data-economy-fe2349e39ea7" target="_blank" rel="noopener">Short history of ODPS</a></li>
+          </ul>
+          <p>ODPS is a Linux Foundation Project</p>
+          <img class="footer-logo" src="https://opendataproducts.org/images/partner.png" alt="Linux Foundation logo" />
+          <a class="footer-badge" href="https://www.bestpractices.dev/projects/10024" target="_blank" rel="noopener">
+            <img src="https://www.bestpractices.dev/projects/10024/badge" alt="OpenSSF Best Practices badge" />
+          </a>
+          <h4>Maintainers</h4>
+          <ul>
+            <li><a href="https://www.linkedin.com/in/jarkkomoilanen/" target="_blank" rel="noopener">Jarkko Moilanen (igniter)</a></li>
+            <li><a href="https://www.linkedin.com/in/manfred-sorg/" target="_blank" rel="noopener">Manfred Sorg</a></li>
+            <li><a href="https://www.linkedin.com/in/zaher-abou-shakra/" target="_blank" rel="noopener">Zaher Abou Shakra</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-column">
+          <h3>Standards Family</h3>
+          <ul>
+            <li><a href="https://opendataproducts.org/v4.1/" target="_blank" rel="noopener">Open Data Product Spec v4.1</a></li>
+            <li><a href="https://opendataproducts.org/odpv-v1.0/" target="_blank" rel="noopener">Open Data Product Vocab</a></li>
+            <li><a href="https://opendataproducts.org/odpg-v1.0/" target="_blank" rel="noopener">Open Data Product Graphs</a></li>
+            <li><a href="https://opendataproducts.org/odpc-v1.0/" target="_blank" rel="noopener">Open Data Product Catalogs</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-column">
+          <h3>Resources</h3>
+          <ul>
+            <li><a href="https://opendataproducts.org/howto/" target="_blank" rel="noopener">HowTos Knowledge Base</a></li>
+            <li><a href="https://opendataproducts.org/sdk/" target="_blank" rel="noopener">Open Data Products SDK</a></li>
+            <li><a href="https://github.com/Accenture/odps-python" target="_blank" rel="noopener">OPDS Python Library (by Accenture)</a></li>
+            <li><a href="https://github.com/Open-Data-Product-Initiative/odp-agent-sdk" target="_blank" rel="noopener">AI Agent Toolkit</a></li>
+            <li><a href="https://www.udemy.com/course/master-the-open-data-product-specification-with-gpt-tool" target="_blank" rel="noopener">Udemy MasterClass</a></li>
+            <li><a href="https://chatgpt.com/g/g-687a26b92c20819182e92a8641fbd02f-yaml-builder-for-open-data-products" target="_blank" rel="noopener">ODPS OpenAI GPT</a></li>
+            <li><a href="https://github.com/Open-Data-Product-Initiative" target="_blank" rel="noopener">Github home</a></li>
+            <li><a href="https://blog.opendataproducts.org/" target="_blank" rel="noopener">Blog posts in Medium</a></li>
+            <li><a href="https://github.com/Open-Data-Product-Initiative/odps-knowledge-base/blob/main/resources/Minimum%20Lovable%20Governance%20for%20Data%20Products%20Whitepaper.pdf" target="_blank" rel="noopener">Minimum Lovable Governance</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-column">
+          <h3>Collaboration</h3>
+          <a href="https://www.fiware.org/" target="_blank" rel="noopener">
+            <img class="footer-logo" src="https://opendataproducts.org/images/logo-fiware-white.png" alt="Fiware Foundation logo" />
+          </a>
+          <a href="https://maysano.com/" target="_blank" rel="noopener">
+            <img class="footer-logo small" src="https://opendataproducts.org/images/maysano.png" alt="Maysano Data Product Operating Layer" />
+          </a>
+        </div>
+      </div>
+
+      <hr class="footer-rule" />
+
+      <div class="footer-legal">
+        <p>Copyright &copy; Open Data Product Specification a Series of LF Projects.</p>
+        <nav aria-label="Footer legal links">
+          <a href="https://lfprojects.org/policies/trademark-policy/" target="_blank" rel="noopener">Trademark Policy</a>
+          <span aria-hidden="true">•</span>
+          <a href="https://lfprojects.org/policies/terms-of-use/" target="_blank" rel="noopener">Terms of Use</a>
+          <span aria-hidden="true">•</span>
+          <a href="https://lfprojects.org/policies/" target="_blank" rel="noopener">Project Policies</a>
+          <span aria-hidden="true">•</span>
+          <a href="https://lfprojects.org/cookie-policy/" target="_blank" rel="noopener">Cookie Policy</a>
+        </nav>
+      </div>
     </footer>
   </div>
 </body>
