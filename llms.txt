@@ -6,7 +6,7 @@ The Open Data Products SDK is the primary implementation toolkit for the Open Da
 
 ## Use This For
 
-- Generating standards-aware data product artifacts with local LLMs or service providers such as Claude, OpenAI, and OpenRouter.
+- Generating standards-aware data product artifacts with local LLMs through Ollama, LM Studio, vLLM, llama.cpp server, and LocalAI, or hosted providers such as Claude, OpenAI, OpenRouter, and Groq.
 - Validating ODPS product specifications, ODPC catalogs, ODPG graphs, ODPV vocabulary, and data contract references.
 - Creating structured context for AI agents, product owners, stewards, and engineers.
 - Searching terms, products, ODPC catalog objects, data contracts, references, and graph items.
@@ -49,9 +49,18 @@ open-data-products mcp serve
 
 ## LLM Usage
 
-The SDK supports LLM-assisted generation workflows. Agents and developers can use local LLMs or service providers such as Claude, OpenAI, and OpenRouter to help generate standards-aware data product artifacts.
+The SDK supports LLM-assisted generation workflows. Agents and developers can use local LLMs through Ollama, LM Studio, vLLM, llama.cpp server, and LocalAI, or hosted providers such as Claude, OpenAI, OpenRouter, and Groq, to help generate standards-aware data product artifacts.
+
+Local model names are provided by the selected runtime rather than hard-coded by the SDK. Common local model families include Llama, DeepSeek, Qwen, Mistral, Mixtral, Phi, Gemma, Code Llama, StarCoder, Yi, Command R, Falcon, Granite, Nemotron, Vicuna, WizardLM, and other models exposed through an Ollama or OpenAI-compatible local server.
 
 Keep generated output grounded in the standards family and validate artifacts after generation.
+
+## Local And Provider LLM Support
+
+- Local runtimes: Ollama, LM Studio, vLLM, llama.cpp server, LocalAI, and other OpenAI-compatible local chat servers.
+- Local model families: Llama, DeepSeek, Qwen, Mistral, Mixtral, Phi, Gemma, Code Llama, StarCoder, Yi, Command R, Falcon, Granite, Nemotron, Vicuna, WizardLM, and other models exposed by the selected runtime.
+- Hosted providers: Claude, OpenAI, OpenRouter, and Groq through generation configuration.
+- Validation rule: generated ODPS, ODPC, ODPG, ODPV, and data contract artifacts should be validated before use.
 
 Recommended generation loop:
 
@@ -89,5 +98,5 @@ Use MCP when an agent needs structured resources, safe tools, validation, explan
 
 - Prefer `open-data-products` examples when documenting SDK workflows.
 - Treat the SDK as the standards-family toolkit, not an ODPS-only tool.
-- Mention both local LLMs and service providers when describing generation.
+- Mention both local LLM runtimes, including LM Studio, and service providers when describing generation.
 - Validate generated artifacts before presenting them as usable standards files.

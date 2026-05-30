@@ -4,19 +4,19 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Open Data Products SDK | AI Agent and LLM Tooling</title>
-  <meta name="description" content="Open Data Products SDK is a Python SDK and MCP server for generating, validating, searching, and traversing Open Data Product standards with local LLMs or providers such as Claude, OpenAI, and OpenRouter." />
-  <meta name="keywords" content="Open Data Products SDK, open-data-products, ODPS, ODPC, ODPG, ODPV, MCP server, AI agents, LLM generation, Claude, OpenAI, OpenRouter, data products, data contracts" />
+  <meta name="description" content="Open Data Products SDK is a Python SDK and MCP server for generating, validating, searching, and traversing Open Data Product standards with local LLMs through Ollama, LM Studio, vLLM, llama.cpp, and LocalAI, or hosted providers such as Claude, OpenAI, OpenRouter, and Groq." />
+  <meta name="keywords" content="Open Data Products SDK, open-data-products, ODPS, ODPC, ODPG, ODPV, MCP server, AI agents, LLM generation, local LLMs, Ollama, LM Studio, vLLM, llama.cpp, LocalAI, Llama, DeepSeek, Qwen, Mistral, Mixtral, Phi, Gemma, Claude, OpenAI, OpenRouter, Groq, data products, data contracts" />
   <meta name="author" content="Dr. Jarkko Moilanen" />
   <link rel="canonical" href="https://opendataproducts.org/sdk/" />
   <meta property="og:title" content="Open Data Products SDK | AI Agent and LLM Tooling" />
-  <meta property="og:description" content="Generate, validate, search, and traverse Open Data Product standards with a Python SDK, MCP server, and local or hosted LLM workflows." />
+  <meta property="og:description" content="Generate, validate, search, and traverse Open Data Product standards with a Python SDK, MCP server, local LLM runtimes such as Ollama and LM Studio, and hosted LLM providers." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://opendataproducts.org/sdk/" />
   <meta property="og:image" content="https://opendataproducts.org/sdk/social.png" />
   <link rel="alternate" type="text/plain" href="https://opendataproducts.org/sdk/llms.txt" title="LLMs guide for the Open Data Products SDK" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Open Data Products SDK | AI Agent and LLM Tooling" />
-  <meta name="twitter:description" content="Python SDK and MCP server for Open Data Product standards, data contracts, graph traversal, and LLM-assisted generation." />
+  <meta name="twitter:description" content="Python SDK and MCP server for Open Data Product standards, data contracts, graph traversal, and LLM-assisted generation with local and hosted models." />
   <meta name="twitter:image" content="https://opendataproducts.org/sdk/social.png" />
   <style>
     :root {
@@ -393,6 +393,38 @@
       gap: 16px;
     }
 
+    .llm-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .llm-card {
+      background: rgba(16, 24, 39, 0.86);
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      padding: 22px;
+      min-height: 210px;
+    }
+
+    .llm-card small {
+      color: var(--cyan);
+      font-weight: 850;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .llm-card h3 {
+      margin: 10px 0 10px;
+      letter-spacing: -0.01em;
+      font-size: 1.3rem;
+    }
+
+    .llm-card p {
+      color: var(--muted);
+      font-size: 0.96rem;
+    }
+
     .standard {
       background: rgba(16, 24, 39, 0.86);
       border: 1px solid var(--line);
@@ -637,13 +669,13 @@
     @media (max-width: 920px) {
       nav { display: none; }
       .hero, .split, .cta, .mcp-panel { grid-template-columns: 1fr; }
-      .cards, .standards { grid-template-columns: repeat(2, 1fr); }
+      .cards, .standards, .llm-grid { grid-template-columns: repeat(2, 1fr); }
       .steps { grid-template-columns: 1fr 1fr; }
       .footer-grid { grid-template-columns: repeat(2, 1fr); }
     }
 
     @media (max-width: 620px) {
-      .cards, .standards, .steps, .status-grid { grid-template-columns: 1fr; }
+      .cards, .standards, .llm-grid, .steps, .status-grid { grid-template-columns: 1fr; }
       .hero { padding-top: 40px; }
       .cta { padding: 28px; }
       .footer-grid { grid-template-columns: 1fr; }
@@ -670,6 +702,7 @@
       <nav aria-label="Main navigation">
         <a href="#why">Why</a>
         <a href="#mcp">MCP</a>
+        <a href="#llms">LLMs</a>
         <a href="#capabilities">Capabilities</a>
         <a href="#standards">Standards</a>
         <a href="#start">Start</a>
@@ -682,7 +715,7 @@
           <div class="eyebrow">AI Agent First Data Product Tooling</div>
           <h1>The SDK for the data product economy</h1>
           <p class="lead">
-            A practical Python SDK and MCP server that uses local LLMs or service providers such as Claude, OpenAI, and OpenRouter to help AI agents generate, validate, search, and traverse data product standards, ODPC catalogs, data contracts, and product graphs.
+            A practical Python SDK and MCP server that uses local LLMs through Ollama, LM Studio, vLLM, llama.cpp, and LocalAI, or hosted providers such as Claude, OpenAI, OpenRouter, and Groq, to help AI agents generate, validate, search, and traverse data product standards, ODPC catalogs, data contracts, and product graphs.
           </p>
 
 
@@ -762,7 +795,7 @@
           <article class="card">
             <div class="icon orange">4</div>
             <h3>Generate with LLMs</h3>
-            <p>Use local models or service providers such as Claude, OpenAI, and OpenRouter to help generate standards-aware data product artifacts.</p>
+            <p>Use local runtimes or hosted providers to help generate standards-aware data product artifacts.</p>
           </article>
         </div>
       </section>
@@ -788,9 +821,36 @@
             </div>
             <div class="mcp-item">
               <strong>Local and service workflows</strong>
-              <span>Use the SDK with local LLMs or service providers such as Claude, OpenAI, and OpenRouter in coding-agent and product engineering workflows.</span>
+              <span>Use the SDK with local LLM runtimes including Ollama, LM Studio, vLLM, llama.cpp, and LocalAI, or hosted providers such as Claude, OpenAI, OpenRouter, and Groq in coding-agent and product engineering workflows.</span>
             </div>
           </div>
+        </div>
+      </section>
+
+      <section id="llms">
+        <div class="section-title">
+          <h2>Designed for local and provider LLM support</h2>
+          <p>
+            The SDK keeps generation workflows provider-aware while staying grounded in the Open Data Products standards family. Choose a local runtime for private or offline work, or connect a hosted provider when managed model access fits better.
+          </p>
+        </div>
+
+        <div class="llm-grid">
+          <article class="llm-card">
+            <small>Local runtimes</small>
+            <h3>Run models on your machine</h3>
+            <p>Use Ollama, LM Studio, vLLM, llama.cpp server, LocalAI, or another OpenAI-compatible local chat server for local generation workflows.</p>
+          </article>
+          <article class="llm-card">
+            <small>Model families</small>
+            <h3>Bring the local model you trust</h3>
+            <p>Work with model families such as Llama, DeepSeek, Qwen, Mistral, Mixtral, Phi, Gemma, Code Llama, StarCoder, Yi, Command R, Falcon, Granite, Nemotron, Vicuna, and WizardLM when exposed by your runtime.</p>
+          </article>
+          <article class="llm-card">
+            <small>Hosted providers</small>
+            <h3>Use managed LLM APIs</h3>
+            <p>Connect service providers such as Claude, OpenAI, OpenRouter, and Groq through generation configuration, then validate generated ODPS, ODPC, ODPG, ODPV, and data contract artifacts before use.</p>
+          </article>
         </div>
       </section>
 
@@ -941,6 +1001,7 @@ open-data-products validate product.yaml --json</pre>
           <ul>
             <li><a href="https://opendataproducts.org/howto/" target="_blank" rel="noopener">HowTos Knowledge Base</a></li>
             <li><a href="https://opendataproducts.org/sdk/" target="_blank" rel="noopener">Open Data Products SDK</a></li>
+            <li><a href="https://opendataproducts.org/sdk/llms.txt" target="_blank" rel="noopener">SDK llms.txt</a></li>
             <li><a href="https://github.com/Accenture/odps-python" target="_blank" rel="noopener">OPDS Python Library (by Accenture)</a></li>
             <li><a href="https://www.udemy.com/course/master-the-open-data-product-specification-with-gpt-tool" target="_blank" rel="noopener">Udemy MasterClass</a></li>
             <li><a href="https://chatgpt.com/g/g-687a26b92c20819182e92a8641fbd02f-yaml-builder-for-open-data-products" target="_blank" rel="noopener">ODPS OpenAI GPT</a></li>
