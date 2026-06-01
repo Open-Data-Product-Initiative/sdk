@@ -183,6 +183,30 @@
       color: #93c5fd;
     }
 
+    .support-note {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px;
+      margin-top: 16px;
+      color: #cbd5e1;
+      font-size: 0.95rem;
+    }
+
+    .support-note a {
+      color: #dbeafe;
+      font-weight: 800;
+      text-decoration: underline;
+      text-decoration-color: rgba(219, 234, 254, 0.36);
+      text-underline-offset: 4px;
+      transition: color 0.15s ease, text-decoration-color 0.15s ease;
+    }
+
+    .support-note a:hover {
+      color: var(--cyan);
+      text-decoration-color: rgba(34, 211, 238, 0.6);
+    }
+
     .mcp-badge {
       display: inline-flex;
       align-items: center;
@@ -729,7 +753,8 @@
           </div>
         </div>
 
-        <aside class="hero-card" aria-label="SDK command examples">
+        <div>
+          <aside class="hero-card" aria-label="SDK command examples">
           <div class="terminal">
             <div class="terminal-top">
               <span class="dot"></span>
@@ -765,7 +790,14 @@
               <span>MCP tools</span>
             </div>
           </div>
-        </aside>
+          </aside>
+
+          <p class="support-note">
+            Open source and useful?
+            <a href="https://github.com/Open-Data-Product-Initiative/odp-agent-sdk" target="_blank" rel="noopener">Give the SDK a GitHub star</a>
+            to help others find it.
+          </p>
+        </div>
       </section>
 
       <section id="why">
