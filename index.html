@@ -89,6 +89,23 @@
       color: var(--text);
     }
 
+    .brand-logo {
+      display: block;
+      width: clamp(150px, 17vw, 190px);
+      height: auto;
+    }
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
 
     nav {
       display: flex;
@@ -732,7 +749,8 @@
   <div class="page">
     <header>
       <a class="brand" href="#">
-        <span>Open Data Products SDK</span>
+        <img class="brand-logo" src="logo.png" alt="" aria-hidden="true" />
+        <span class="sr-only">Open Data Products SDK</span>
       </a>
       <nav aria-label="Main navigation">
         <a href="#why">Why</a>
