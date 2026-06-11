@@ -3,20 +3,20 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Open Data Products SDK | AI Agent and LLM Tooling</title>
-  <meta name="description" content="Open Data Products SDK is a Python SDK and MCP server for generating, validating, searching, and traversing Open Data Product standards with local LLMs through Ollama, LM Studio, vLLM, llama.cpp, and LocalAI, or hosted providers such as Claude, OpenAI, OpenRouter, and Groq." />
-  <meta name="keywords" content="Open Data Products SDK, open-data-products, ODPS, ODPC, ODPG, ODPV, MCP server, AI agents, LLM generation, local LLMs, Ollama, LM Studio, vLLM, llama.cpp, LocalAI, Llama, DeepSeek, Qwen, Mistral, Mixtral, Phi, Gemma, Claude, OpenAI, OpenRouter, Groq, data products, data contracts" />
+  <title>Open Data Products SDK | Agent-Ready Standards Toolkit</title>
+  <meta name="description" content="Open Data Products SDK is an agent-ready Python SDK and MCP server for loading, validating, explaining, generating, searching, traversing, and publishing Open Data Product artifacts, Data Contracts, graphs, vocabulary, and portfolio workspaces." />
+  <meta name="keywords" content="Open Data Products SDK, open-data-products, ODPS, ODPC, ODPG, ODPV, MCP server, ARWS manifest, AI agents, LLM generation, local LLMs, portfolio builder, Data Contracts, Ollama, LM Studio, vLLM, llama.cpp, LocalAI, Claude, OpenAI, OpenRouter, Groq, data products, data contracts" />
   <meta name="author" content="Dr. Jarkko Moilanen" />
   <link rel="canonical" href="https://opendataproducts.org/sdk/" />
-  <meta property="og:title" content="Open Data Products SDK | AI Agent and LLM Tooling" />
-  <meta property="og:description" content="Generate, validate, search, and traverse Open Data Product standards with a Python SDK, MCP server, local LLM runtimes such as Ollama and LM Studio, and hosted LLM providers." />
+  <meta property="og:title" content="Open Data Products SDK | Agent-Ready Standards Toolkit" />
+  <meta property="og:description" content="Load, validate, explain, generate, search, traverse, and publish Open Data Product artifacts with a Python SDK, MCP server, ARWS manifest, portfolio builder, and local or hosted LLM workflows." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://opendataproducts.org/sdk/" />
   <meta property="og:image" content="https://opendataproducts.org/sdk/social.png" />
   <link rel="alternate" type="text/plain" href="https://opendataproducts.org/sdk/llms.txt" title="LLMs guide for the Open Data Products SDK" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Open Data Products SDK | AI Agent and LLM Tooling" />
-  <meta name="twitter:description" content="Python SDK and MCP server for Open Data Product standards, data contracts, graph traversal, and LLM-assisted generation with local and hosted models." />
+  <meta name="twitter:title" content="Open Data Products SDK | Agent-Ready Standards Toolkit" />
+  <meta name="twitter:description" content="Python SDK and MCP server for Open Data Product standards, Data Contracts, graph reasoning, portfolio workspaces, and LLM-assisted generation." />
   <meta name="twitter:image" content="https://opendataproducts.org/sdk/social.png" />
   <style>
     :root {
@@ -353,10 +353,28 @@
       font-size: 1.08rem;
     }
 
-    .cards {
+    .cards,
+    .capability-grid,
+    .guide-grid,
+    .doc-grid {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
       gap: 18px;
+    }
+
+    .cards {
+      grid-template-columns: repeat(4, 1fr);
+    }
+
+    .capability-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .guide-grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+
+    .doc-grid {
+      grid-template-columns: repeat(3, 1fr);
     }
 
     .mcp-panel {
@@ -437,6 +455,34 @@
     .card p {
       color: var(--muted);
       font-size: 0.98rem;
+    }
+
+    .card ul,
+    .guide-card ul,
+    .doc-card ul {
+      display: grid;
+      gap: 8px;
+      margin-top: 14px;
+      color: var(--muted);
+      list-style: none;
+      font-size: 0.94rem;
+    }
+
+    .card a,
+    .guide-card a,
+    .doc-card a {
+      color: #ffffff;
+      font-weight: 800;
+      text-decoration: underline;
+      text-decoration-color: rgba(255, 216, 77, 0.44);
+      text-underline-offset: 4px;
+    }
+
+    .card a:hover,
+    .guide-card a:hover,
+    .doc-card a:hover {
+      color: var(--gold);
+      text-decoration-color: rgba(255, 216, 77, 0.74);
     }
 
     .standards {
@@ -524,6 +570,53 @@
       border-radius: 32px;
       padding: 28px;
       box-shadow: var(--shadow);
+    }
+
+    .portfolio-panel {
+      display: grid;
+      grid-template-columns: 0.95fr 1.05fr;
+      gap: 22px;
+      align-items: stretch;
+      background: linear-gradient(135deg, rgba(9, 0, 13, 0.84), rgba(75, 20, 103, 0.78));
+      border: 1px solid rgba(215, 182, 232, 0.24);
+      border-radius: 32px;
+      padding: 28px;
+      box-shadow: var(--shadow);
+    }
+
+    .portfolio-panel p {
+      color: var(--muted);
+      font-size: 1.04rem;
+    }
+
+    .guide-card,
+    .doc-card {
+      background: rgba(63, 37, 81, 0.78);
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      padding: 22px;
+      min-height: 220px;
+    }
+
+    .guide-card small,
+    .doc-card small {
+      color: var(--gold);
+      font-weight: 850;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .guide-card h3,
+    .doc-card h3 {
+      margin: 10px 0 10px;
+      letter-spacing: -0.01em;
+      font-size: 1.24rem;
+    }
+
+    .guide-card p,
+    .doc-card p {
+      color: var(--muted);
+      font-size: 0.96rem;
     }
 
     .steps {
@@ -720,14 +813,14 @@
 
     @media (max-width: 920px) {
       nav { display: none; }
-      .hero, .split, .cta, .mcp-panel { grid-template-columns: 1fr; }
-      .cards, .standards, .llm-grid { grid-template-columns: repeat(2, 1fr); }
+      .hero, .split, .cta, .mcp-panel, .portfolio-panel { grid-template-columns: 1fr; }
+      .cards, .standards, .llm-grid, .capability-grid, .guide-grid, .doc-grid { grid-template-columns: repeat(2, 1fr); }
       .steps { grid-template-columns: 1fr 1fr; }
       .footer-grid { grid-template-columns: repeat(2, 1fr); }
     }
 
     @media (max-width: 620px) {
-      .cards, .standards, .llm-grid, .steps, .status-grid { grid-template-columns: 1fr; }
+      .cards, .standards, .llm-grid, .steps, .status-grid, .capability-grid, .guide-grid, .doc-grid { grid-template-columns: 1fr; }
       .hero { padding-top: 40px; }
       .cta { padding: 28px; }
       .footer-grid { grid-template-columns: 1fr; }
@@ -757,6 +850,8 @@
         <a href="#mcp">MCP</a>
         <a href="#llms">LLMs</a>
         <a href="#capabilities">Capabilities</a>
+        <a href="#guides">Guides</a>
+        <a href="#portfolio">Portfolio</a>
         <a href="#standards">Standards</a>
         <a href="#start">Start</a>
       </nav>
@@ -765,16 +860,16 @@
     <main>
       <section class="hero">
         <div>
-          <div class="eyebrow">AI Agent First Data Product Tooling</div>
-          <h1>The SDK for the data product economy</h1>
+          <div class="eyebrow">Agent-Ready Data Product Tooling</div>
+          <h1>The standards toolkit for data product agents</h1>
           <p class="lead">
-            A practical Python SDK and MCP server that uses local LLMs through Ollama, LM Studio, vLLM, llama.cpp, and LocalAI, or hosted providers such as Claude, OpenAI, OpenRouter, and Groq, to help AI agents generate, validate, search, and traverse data product standards, ODPC catalogs, data contracts, and product graphs.
+            A practical Python SDK and MCP server for loading, validating, explaining, generating, searching, traversing, and publishing Open Data Product artifacts across ODPS, ODPC, ODPG, ODPV, Data Contracts, LLM workflows, and portfolio workspaces.
           </p>
 
 
           <div class="actions">
             <a class="btn btn-primary" href="https://github.com/Open-Data-Product-Initiative/odp-agent-sdk">View on GitHub</a>
-            <a class="btn btn-secondary" href="#start">Install and validate</a>
+            <a class="btn btn-secondary" href="#guides">Explore guides</a>
           </div>
 
           <div class="install" aria-label="Installation command">
@@ -791,32 +886,32 @@
               <span class="dot"></span>
             </div>
             <div class="terminal-body">
-              <div><span class="prompt">$</span> open-data-products validate product.yaml --json</div>
-              <div class="ok">✓ ODPS product validated</div>
+              <div><span class="prompt">$</span> open-data-products validate examples/product.yaml</div>
+              <div class="ok">✓ Standards-aware validation</div>
               <br />
-              <div><span class="prompt">$</span> open-data-products explain product.yaml</div>
-              <div class="comment"># Human readable product context</div>
+              <div><span class="prompt">$</span> open-data-products resources --json</div>
+              <div class="comment"># Schemas, prompts, vocabulary, and object guidance</div>
               <br />
-              <div><span class="prompt">$</span> open-data-products graph traverse catalog.yaml</div>
-              <div class="comment"># Products, objectives, KPIs, use cases, and signals</div>
+              <div><span class="prompt">$</span> open-data-products manifest --json</div>
+              <div class="comment"># ARWS agent manifest</div>
               <br />
-              <div><span class="prompt">$</span> open-data-products mcp serve</div>
-              <div class="ok">✓ MCP server ready for AI agents</div>
+              <div><span class="prompt">$</span> open-data-products serve</div>
+              <div class="ok">✓ MCP server over stdio</div>
             </div>
           </div>
 
           <div class="status-grid">
             <div class="status">
-              <strong>6+</strong>
-              <span>standards supported</span>
+              <strong>Validate</strong>
+              <span>ODPS, ODPC, ODPG, ODPV, and Data Contracts</span>
             </div>
             <div class="status">
-              <strong>30+</strong>
-              <span>CLI commands</span>
+              <strong>Generate</strong>
+              <span>LLM-assisted fragments, products, catalogs, and graphs</span>
             </div>
             <div class="status">
-              <strong>25+</strong>
-              <span>MCP tools</span>
+              <strong>Publish</strong>
+              <span>portfolio workspaces for human and agent review</span>
             </div>
           </div>
           </aside>
@@ -833,30 +928,40 @@
         <div class="section-title">
           <h2>Built to give AI agents the context to operate</h2>
           <p>
-            The SDK turns data product standards into executable context. Teams get validation. Developers get Python functions. AI agents get product context, ODPC catalogs, data contract support, graph relationships, vocabulary, LLM-assisted generation, and safe tools for real workflows.
+            The SDK turns data product standards into executable context. Teams get validation. Developers get Python functions. AI agents get structured outputs, lightweight summaries, bundled retrieval resources, graph reasoning, Data Contract reports, and safe tools for real workflows.
           </p>
         </div>
 
-        <div class="cards">
+        <div class="capability-grid">
           <article class="card">
             <div class="icon blue">1</div>
-            <h3>Validate product specs</h3>
-            <p>Check ODPS, ODPC catalogs, ODPG graphs, ODPV vocabulary, and data contract files before they move into production workflows.</p>
+            <h3>Validate</h3>
+            <p>Detect and validate ODPS products, ODPC catalogs, ODPG graphs, ODPV vocabulary, and Data Contract references before they move into production workflows.</p>
           </article>
           <article class="card">
             <div class="icon cyan">2</div>
-            <h3>Create agent context</h3>
-            <p>Convert YAML and JSON into structured context that AI agents, product owners, stewards, and engineers can use.</p>
+            <h3>Explain and summarize</h3>
+            <p>Turn YAML and JSON into readable explanations, structured validation results, references, and small summaries that avoid flooding an agent context window.</p>
           </article>
           <article class="card">
             <div class="icon green">3</div>
-            <h3>Build product graphs</h3>
-            <p>Create graph-ready relationships between products, use cases, objectives, KPIs, signals, and ODPG edges.</p>
+            <h3>Generate</h3>
+            <p>Use local runtimes or hosted providers to create standards-aware ODPS, ODPC, and ODPG artifacts from business source material.</p>
           </article>
           <article class="card">
             <div class="icon orange">4</div>
-            <h3>Generate with LLMs</h3>
-            <p>Use local runtimes or hosted providers to help generate standards-aware data product artifacts.</p>
+            <h3>Discover resources</h3>
+            <p>Expose bundled schemas, prompt templates, vocabulary records, catalog object records, and graph object records through Python, CLI, and MCP surfaces.</p>
+          </article>
+          <article class="card">
+            <div class="icon purple">5</div>
+            <h3>Reason over graphs</h3>
+            <p>Summarize, traverse, analyze, and extract trusted focus-node context from ODPG relationships, ODPC objects, and ODPV terms.</p>
+          </article>
+          <article class="card">
+            <div class="icon blue">6</div>
+            <h3>Build portfolios</h3>
+            <p>Build, refresh, sync, render, localize, and explain connected ODPC, ODPS, and ODPG portfolio workspaces from real source lanes.</p>
           </article>
         </div>
       </section>
@@ -874,11 +979,11 @@
           <div class="mcp-list">
             <div class="mcp-item">
               <strong>Agent-ready tools</strong>
-              <span>Expose validation, explanation, search, traversal, and product context actions through MCP.</span>
+              <span>Expose validation, explanation, reference discovery, summaries, search, traversal, graph reasoning, and product context actions through MCP.</span>
             </div>
             <div class="mcp-item">
-              <strong>Operational context</strong>
-              <span>Help AI agents understand ODPS, ODPC, ODPG, ODPV, data contracts, graph relationships, and related artifacts without guessing.</span>
+              <strong>ARWS manifest</strong>
+              <span>Generate an agent manifest with <code>open-data-products manifest --json</code> for hosts that understand ARWS-style tool discovery.</span>
             </div>
             <div class="mcp-item">
               <strong>Local and service workflows</strong>
@@ -917,9 +1022,9 @@
 
       <section id="capabilities">
         <div class="section-title">
-          <h2>One SDK. Many execution paths</h2>
+          <h2>One SDK. Three execution paths.</h2>
           <p>
-            Use it from the terminal, from Python, or as an MCP server for AI agent workflows.
+            Use the same standards-aware capabilities from Python, from the terminal, or through an agent host.
           </p>
         </div>
 
@@ -927,29 +1032,112 @@
           <div class="steps">
             <div class="step">
               <div class="step-number">1</div>
-              <h3>Validate</h3>
-              <p>Check schemas and required structures.</p>
+              <h3>Python API</h3>
+              <p>Call top-level helpers such as load, validate, explain, summarize, resolve references, and list resources.</p>
             </div>
             <div class="step">
               <div class="step-number">2</div>
-              <h3>Explain</h3>
-              <p>Turn files into readable context.</p>
+              <h3>Unified CLI</h3>
+              <p>Run human-readable commands by default and add <code>--json</code> for scripts, agents, and CI jobs.</p>
             </div>
             <div class="step">
               <div class="step-number">3</div>
-              <h3>Search</h3>
-              <p>Find terms, products, ODPC catalog objects, data contracts, references, and graph items.</p>
+              <h3>MCP server</h3>
+              <p>Launch <code>open-data-products serve</code> so compatible agent hosts can call safe SDK tools over stdio.</p>
             </div>
             <div class="step">
               <div class="step-number">4</div>
-              <h3>Traverse</h3>
-              <p>Follow links across products and objectives.</p>
+              <h3>ARWS manifest</h3>
+              <p>Render <code>open-data-products manifest --json</code> for agent systems that need a compact tool manifest.</p>
             </div>
             <div class="step">
               <div class="step-number">5</div>
-              <h3>MCP</h3>
-              <p>Expose SDK capabilities to AI agents through safe tools.</p>
+              <h3>Guide paths</h3>
+              <p>Move from install and validation into LLM generation, graph reasoning, catalogs, and portfolio workspaces.</p>
             </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="guides">
+        <div class="section-title">
+          <h2>Guided paths into the SDK</h2>
+          <p>
+            The GitHub repository includes course-style guides. The website highlights the most useful entry routes instead of listing every lesson at once.
+          </p>
+        </div>
+
+        <div class="guide-grid">
+          <article class="guide-card">
+            <small>Start</small>
+            <h3>Install, validate, explain</h3>
+            <p>Begin with Python setup, install the package, and validate your first standards file.</p>
+            <ul>
+              <li><a href="https://github.com/Open-Data-Product-Initiative/odp-agent-sdk/tree/main/examples/guides/00-setup-python">Set up Python and the SDK</a></li>
+              <li><a href="https://github.com/Open-Data-Product-Initiative/odp-agent-sdk/tree/main/examples/guides/07-installing-and-running-sdk">Install and run the SDK</a></li>
+              <li><a href="https://github.com/Open-Data-Product-Initiative/odp-agent-sdk/tree/main/examples/guides/08-validating-and-explaining-standards-files">Validate and explain files</a></li>
+            </ul>
+          </article>
+
+          <article class="guide-card">
+            <small>Generate</small>
+            <h3>Use local or hosted LLMs</h3>
+            <p>Configure generation, keep prompts project-owned, and create reviewable fragments from business notes.</p>
+            <ul>
+              <li><a href="https://github.com/Open-Data-Product-Initiative/odp-agent-sdk/tree/main/examples/guides/10-working-with-local-llms">Work with local LLMs</a></li>
+              <li><a href="https://github.com/Open-Data-Product-Initiative/odp-agent-sdk/tree/main/examples/guides/11-working-with-online-llm-providers">Use online providers</a></li>
+              <li><a href="https://github.com/Open-Data-Product-Initiative/odp-agent-sdk/tree/main/examples/guides/13-working-with-generation-and-fragments">Generate fragments</a></li>
+            </ul>
+          </article>
+
+          <article class="guide-card">
+            <small>Reason</small>
+            <h3>Connect vocabulary, graphs, and catalogs</h3>
+            <p>Search shared terms, build graph context, and assemble ODPC catalogs that humans and agents can review.</p>
+            <ul>
+              <li><a href="https://github.com/Open-Data-Product-Initiative/odp-agent-sdk/tree/main/examples/guides/09-use-odpv-vocabulary-helpers">Use ODPV helpers</a></li>
+              <li><a href="https://github.com/Open-Data-Product-Initiative/odp-agent-sdk/tree/main/examples/guides/14-working-with-odpg-graphs">Work with ODPG graphs</a></li>
+              <li><a href="https://github.com/Open-Data-Product-Initiative/odp-agent-sdk/tree/main/examples/guides/15-working-with-odpc-catalogs">Work with ODPC catalogs</a></li>
+            </ul>
+          </article>
+
+          <article class="guide-card">
+            <small>Portfolio</small>
+            <h3>Build the complete workspace</h3>
+            <p>Move from separate commands into a connected portfolio with HTML review pages and agent-ready YAML.</p>
+            <ul>
+              <li><a href="https://github.com/Open-Data-Product-Initiative/odp-agent-sdk/tree/main/examples/guides/16-from-commands-to-portfolio-builder">From commands to portfolio builder</a></li>
+              <li><a href="https://github.com/Open-Data-Product-Initiative/odp-agent-sdk/tree/main/examples/guides/18-build-first-portfolio-in-colab">Build the first portfolio</a></li>
+              <li><a href="https://github.com/Open-Data-Product-Initiative/odp-agent-sdk/tree/main/examples/guides/20-final-review-human-view-and-agent-ready-yaml">Review HTML and YAML</a></li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
+      <section id="portfolio">
+        <div class="portfolio-panel">
+          <div>
+            <div class="eyebrow">Portfolio Builder</div>
+            <h2>Turn source lanes into a connected data product portfolio</h2>
+            <p>
+              The portfolio workflow packages generation, ODPC catalogs, ODPS products, ODPG graphs, review pages, localization, and version history into one practical path for business-facing work.
+            </p>
+          </div>
+
+          <div class="code-panel">
+<pre><span class="comment"># Build from business source lanes</span>
+open-data-products portfolio build \
+  --objectives source_docs/objectives/ \
+  --use-cases source_docs/use-cases/ \
+  --signals source_docs/signals/ \
+  --products source_docs/products/ \
+  --output generated/portfolio/
+
+<span class="comment"># Refresh, sync, localize, and explain</span>
+open-data-products portfolio refresh generated/portfolio/
+open-data-products portfolio sync generated/portfolio/
+open-data-products portfolio localize generated/portfolio/ --languages "fi,sv,ar,vi"
+open-data-products portfolio explain generated/portfolio/</pre>
           </div>
         </div>
       </section>
@@ -994,9 +1182,9 @@
       <section id="start">
         <div class="split">
           <div class="section-title">
-            <h2>Start with a virtual environment</h2>
+            <h2>Start with a clean environment</h2>
             <p>
-              Create a clean Python environment, install the SDK, then validate your first data product specification.
+              Install the SDK, check the CLI, then run a human-readable validation command. Add <code>--json</code> when an agent, script, or CI job needs stable machine-readable output.
             </p>
           </div>
 
@@ -1012,9 +1200,51 @@ source .venv-sdk/bin/activate
 <span class="comment"># Install the SDK</span>
 pip install open-data-products
 
-<span class="comment"># Validate a product spec</span>
-open-data-products validate product.yaml --json</pre>
+<span class="comment"># Check the command and validate a file</span>
+open-data-products --help
+open-data-products validate examples/product.yaml
+open-data-products explain examples/product.yaml
+open-data-products summary examples/product.yaml</pre>
           </div>
+        </div>
+      </section>
+
+      <section id="docs">
+        <div class="section-title">
+          <h2>Reference docs for deeper work</h2>
+          <p>
+            Use the landing page and guides for orientation, then jump into the focused references when you need exact command behavior, API details, or agent-host setup.
+          </p>
+        </div>
+
+        <div class="doc-grid">
+          <article class="doc-card">
+            <small>Build</small>
+            <h3>API and commands</h3>
+            <p>Use the Python API and CLI references when integrating the SDK into automation, products, or validation pipelines.</p>
+            <ul>
+              <li><a href="https://github.com/Open-Data-Product-Initiative/odp-agent-sdk/blob/main/docs/API.md">API reference</a></li>
+              <li><a href="https://github.com/Open-Data-Product-Initiative/odp-agent-sdk/blob/main/docs/commands.md">Command guide</a></li>
+            </ul>
+          </article>
+          <article class="doc-card">
+            <small>Generate</small>
+            <h3>LLM and Data Contract workflows</h3>
+            <p>Configure generation providers, copy prompt templates, validate contracts, and produce product-level reports.</p>
+            <ul>
+              <li><a href="https://github.com/Open-Data-Product-Initiative/odp-agent-sdk/blob/main/docs/generation.md">LLM generation</a></li>
+              <li><a href="https://github.com/Open-Data-Product-Initiative/odp-agent-sdk/blob/main/docs/data-contracts.md">Data Contract workflows</a></li>
+            </ul>
+          </article>
+          <article class="doc-card">
+            <small>Agents</small>
+            <h3>MCP, ARWS, and handoff</h3>
+            <p>Connect the SDK to agent hosts, inspect safe tools, and give agents a compact routing file.</p>
+            <ul>
+              <li><a href="https://github.com/Open-Data-Product-Initiative/odp-agent-sdk/blob/main/docs/agent-surface.md">Agent surface</a></li>
+              <li><a href="https://github.com/Open-Data-Product-Initiative/odp-agent-sdk/blob/main/llms.txt">Repository llms.txt</a></li>
+            </ul>
+          </article>
         </div>
       </section>
 
@@ -1063,6 +1293,11 @@ open-data-products validate product.yaml --json</pre>
             <li><a href="https://opendataproducts.org/howto/" target="_blank" rel="noopener">HowTos Knowledge Base</a></li>
             <li><a href="https://opendataproducts.org/sdk/" target="_blank" rel="noopener">Open Data Products SDK</a></li>
             <li><a href="https://opendataproducts.org/sdk/llms.txt" target="_blank" rel="noopener">SDK llms.txt</a></li>
+            <li><a href="https://github.com/Open-Data-Product-Initiative/odp-agent-sdk/blob/main/docs/API.md" target="_blank" rel="noopener">SDK API reference</a></li>
+            <li><a href="https://github.com/Open-Data-Product-Initiative/odp-agent-sdk/blob/main/docs/commands.md" target="_blank" rel="noopener">SDK command guide</a></li>
+            <li><a href="https://github.com/Open-Data-Product-Initiative/odp-agent-sdk/blob/main/docs/generation.md" target="_blank" rel="noopener">SDK LLM generation</a></li>
+            <li><a href="https://github.com/Open-Data-Product-Initiative/odp-agent-sdk/blob/main/docs/agent-surface.md" target="_blank" rel="noopener">SDK agent surface</a></li>
+            <li><a href="https://github.com/Open-Data-Product-Initiative/odp-agent-sdk/tree/main/examples/guides" target="_blank" rel="noopener">SDK course-style guides</a></li>
             <li><a href="https://github.com/Accenture/odps-python" target="_blank" rel="noopener">OPDS Python Library (by Accenture)</a></li>
             <li><a href="https://www.udemy.com/course/master-the-open-data-product-specification-with-gpt-tool" target="_blank" rel="noopener">Udemy MasterClass</a></li>
             <li><a href="https://chatgpt.com/g/g-687a26b92c20819182e92a8641fbd02f-yaml-builder-for-open-data-products" target="_blank" rel="noopener">ODPS OpenAI GPT</a></li>

@@ -2,21 +2,40 @@
 
 > Agent-facing guide for the Open Data Products SDK landing page at https://opendataproducts.org/sdk/.
 
-The Open Data Products SDK is the primary implementation toolkit for the Open Data Products standards family. It is a Python SDK and MCP server for generating, validating, explaining, searching, and traversing Open Data Product artifacts.
+The Open Data Products SDK is the primary implementation toolkit for the Open Data Products standards family. It is an agent-ready Python SDK and MCP server for loading, detecting, validating, explaining, summarizing, generating, searching, traversing, and publishing Open Data Product artifacts.
+
+Use it across:
+
+- ODPS: Open Data Product Specification v4.1 and compatible v4.0 product documents.
+- ODPC: Open Data Product Catalog fragments, catalogs, object guidance, and generated catalog artifacts.
+- ODPG: Open Data Product Graph validation, summaries, traversal, strategic analysis, and graph explorer output.
+- ODPV: Open Data Product Vocabulary search, validation, term resolution, relationship checks, and agent context packets.
+- Data Contracts: ODPS contract references, optional external `datacontract-cli` validation, schema extraction, alignment checks, and product-level reports.
+- Portfolio workspaces: build, refresh, sync, render, localize, and explain connected ODPC, ODPS, and ODPG portfolio outputs from source lanes.
 
 ## Use This For
 
-- Generating standards-aware data product artifacts with local LLMs through Ollama, LM Studio, vLLM, llama.cpp server, and LocalAI, or hosted providers such as Claude, OpenAI, OpenRouter, and Groq.
-- Validating ODPS product specifications, ODPC catalogs, ODPG graphs, ODPV vocabulary, and data contract references.
+- Validating ODPS product specifications, ODPC catalogs, ODPG graphs, ODPV vocabulary, and Data Contract references.
 - Creating structured context for AI agents, product owners, stewards, and engineers.
-- Searching terms, products, ODPC catalog objects, data contracts, references, and graph items.
+- Loading lightweight summaries with size, hash, spec, kind, and id without returning full document bodies.
+- Discovering bundled resources such as schemas, prompt templates, vocabulary records, catalog object records, and graph object records.
+- Generating standards-aware artifacts with local LLMs through Ollama, LM Studio, vLLM, llama.cpp server, LocalAI, or hosted providers such as Claude, OpenAI, OpenRouter, and Groq.
+- Searching ODPV terms, ODPC catalog guidance, graph objects, Data Contract context, and product references.
 - Traversing product, objective, KPI, use-case, signal, and graph relationships.
-- Exposing SDK operations to AI agents through the Model Context Protocol.
+- Exposing safe SDK operations to AI agents through Model Context Protocol.
+- Rendering an ARWS-compatible agent manifest.
+- Building end-to-end portfolio workspaces from objectives, use cases, signals, and product source material.
 
 ## Project Links
 
 - SDK page: https://opendataproducts.org/sdk/
 - GitHub repository: https://github.com/Open-Data-Product-Initiative/odp-agent-sdk
+- Repository guides: https://github.com/Open-Data-Product-Initiative/odp-agent-sdk/tree/main/examples/guides
+- API reference: https://github.com/Open-Data-Product-Initiative/odp-agent-sdk/blob/main/docs/API.md
+- Command guide: https://github.com/Open-Data-Product-Initiative/odp-agent-sdk/blob/main/docs/commands.md
+- LLM generation guide: https://github.com/Open-Data-Product-Initiative/odp-agent-sdk/blob/main/docs/generation.md
+- Agent surface guide: https://github.com/Open-Data-Product-Initiative/odp-agent-sdk/blob/main/docs/agent-surface.md
+- Data Contract workflows: https://github.com/Open-Data-Product-Initiative/odp-agent-sdk/blob/main/docs/data-contracts.md
 - Open Data Product Initiative: https://opendataproducts.org/
 - Standards family:
   - ODPS: https://opendataproducts.org/v4.1/
@@ -30,6 +49,12 @@ The Open Data Products SDK is the primary implementation toolkit for the Open Da
 pip install open-data-products
 ```
 
+Optional Data Contract adapter:
+
+```bash
+pip install "open-data-products[contracts]"
+```
+
 ## CLI Entry Point
 
 Use the unified command:
@@ -38,29 +63,53 @@ Use the unified command:
 open-data-products
 ```
 
-Common workflows shown on the SDK page:
+Common workflows:
 
 ```bash
-open-data-products validate product.yaml --json
-open-data-products explain product.yaml
-open-data-products graph traverse catalog.yaml
-open-data-products mcp serve
+# Cross-spec validation and explanation
+open-data-products validate examples/product.yaml
+open-data-products explain examples/product.yaml
+open-data-products summary examples/product.yaml
+open-data-products refs open_data_products/odpg/data/graph/graph.yaml --json
+
+# Bundled resources for agents
+open-data-products resources --json
+open-data-products resources --id odpv.terms --json
+open-data-products resources --id odpc.objects --json
+open-data-products resources --id odpg.objects --json
+
+# Agent surfaces
+open-data-products serve
+open-data-products manifest --json
+
+# LLM-backed generation
+open-data-products generate \
+  --input source_docs/products/ \
+  --kind product-reference \
+  --output generated/
+
+# Portfolio workspace orchestration
+open-data-products portfolio build \
+  --objectives source_docs/objectives/ \
+  --use-cases source_docs/use-cases/ \
+  --signals source_docs/signals/ \
+  --products source_docs/products/ \
+  --output generated/portfolio/
+open-data-products portfolio refresh generated/portfolio/
+open-data-products portfolio sync generated/portfolio/
+open-data-products portfolio localize generated/portfolio/ --languages "fi,sv,ar,vi"
+open-data-products portfolio explain generated/portfolio/
 ```
+
+Most commands print human-readable output by default. Add `--json` when agents, CI jobs, or scripts need stable machine-readable output.
 
 ## LLM Usage
 
-The SDK supports LLM-assisted generation workflows. Agents and developers can use local LLMs through Ollama, LM Studio, vLLM, llama.cpp server, and LocalAI, or hosted providers such as Claude, OpenAI, OpenRouter, and Groq, to help generate standards-aware data product artifacts.
+The SDK supports LLM-assisted generation workflows. Agents and developers can use local LLMs through Ollama, LM Studio, vLLM, llama.cpp server, and LocalAI, or hosted providers such as Claude, OpenAI, OpenRouter, and Groq, to help generate standards-aware ODPS, ODPC, and ODPG artifacts.
 
 Local model names are provided by the selected runtime rather than hard-coded by the SDK. Common local model families include Llama, DeepSeek, Qwen, Mistral, Mixtral, Phi, Gemma, Code Llama, StarCoder, Yi, Command R, Falcon, Granite, Nemotron, Vicuna, WizardLM, and other models exposed through an Ollama or OpenAI-compatible local server.
 
 Keep generated output grounded in the standards family and validate artifacts after generation.
-
-## Local And Provider LLM Support
-
-- Local runtimes: Ollama, LM Studio, vLLM, llama.cpp server, LocalAI, and other OpenAI-compatible local chat servers.
-- Local model families: Llama, DeepSeek, Qwen, Mistral, Mixtral, Phi, Gemma, Code Llama, StarCoder, Yi, Command R, Falcon, Granite, Nemotron, Vicuna, WizardLM, and other models exposed by the selected runtime.
-- Hosted providers: Claude, OpenAI, OpenRouter, and Groq through generation configuration.
-- Validation rule: generated ODPS, ODPC, ODPG, ODPV, and data contract artifacts should be validated before use.
 
 Recommended generation loop:
 
@@ -68,27 +117,50 @@ Recommended generation loop:
 2. Generate or update the artifact with a local LLM or provider.
 3. Validate the resulting YAML or JSON with `open-data-products validate`.
 4. Explain or inspect the artifact with `open-data-products explain`.
-5. Use graph traversal or search commands when relationships matter.
+5. Build catalogs, graphs, or portfolio outputs only after review.
 
-## MCP Usage
+## MCP And ARWS Usage
 
 The SDK includes Model Context Protocol support for agent hosts.
 
-Run:
+Run the MCP server over stdio:
 
 ```bash
-open-data-products mcp serve
+open-data-products serve
 ```
 
-Use MCP when an agent needs structured resources, safe tools, validation, explanation, search, traversal, product context, standards-aware graph relationships, or LLM-assisted generation workflows.
+Render the ARWS agent manifest:
 
-## Standards Scope
+```bash
+open-data-products manifest --json
+```
 
-- ODPS: data product description, access, quality, SLA, pricing, support, license, and strategy.
-- ODPC: portfolio-level catalogs for products, objectives, use cases, KPIs, and demand signals.
-- ODPG: graph relationships connecting products to business value.
-- ODPV: shared vocabulary for humans, platforms, and AI agents.
-- Data contracts: contract-aware workflows for structure, expectations, quality, access, and product handover.
+Use MCP when an agent needs structured resources, safe tools, validation, explanation, summaries, reference discovery, search, traversal, product context, standards-aware graph relationships, or LLM-assisted generation workflows.
+
+## Selected Guide Tracks
+
+Use the full guide index when you need the course-aligned sequence:
+
+https://github.com/Open-Data-Product-Initiative/odp-agent-sdk/tree/main/examples/guides
+
+Recommended website tracks:
+
+- Start:
+  - Set up Python, pip, PyPI, and the SDK: https://github.com/Open-Data-Product-Initiative/odp-agent-sdk/tree/main/examples/guides/00-setup-python
+  - Installing and running the SDK: https://github.com/Open-Data-Product-Initiative/odp-agent-sdk/tree/main/examples/guides/07-installing-and-running-sdk
+  - Validating and explaining standards files: https://github.com/Open-Data-Product-Initiative/odp-agent-sdk/tree/main/examples/guides/08-validating-and-explaining-standards-files
+- Generate:
+  - Working with local LLMs: https://github.com/Open-Data-Product-Initiative/odp-agent-sdk/tree/main/examples/guides/10-working-with-local-llms
+  - Working with online LLM providers: https://github.com/Open-Data-Product-Initiative/odp-agent-sdk/tree/main/examples/guides/11-working-with-online-llm-providers
+  - Working with generation and fragments: https://github.com/Open-Data-Product-Initiative/odp-agent-sdk/tree/main/examples/guides/13-working-with-generation-and-fragments
+- Reason:
+  - Use ODPV vocabulary helpers: https://github.com/Open-Data-Product-Initiative/odp-agent-sdk/tree/main/examples/guides/09-use-odpv-vocabulary-helpers
+  - Working with ODPG graphs: https://github.com/Open-Data-Product-Initiative/odp-agent-sdk/tree/main/examples/guides/14-working-with-odpg-graphs
+  - Working with ODPC catalogs: https://github.com/Open-Data-Product-Initiative/odp-agent-sdk/tree/main/examples/guides/15-working-with-odpc-catalogs
+- Portfolio:
+  - From commands to portfolio builder: https://github.com/Open-Data-Product-Initiative/odp-agent-sdk/tree/main/examples/guides/16-from-commands-to-portfolio-builder
+  - Build the first portfolio in Colab: https://github.com/Open-Data-Product-Initiative/odp-agent-sdk/tree/main/examples/guides/18-build-first-portfolio-in-colab
+  - Final review, human view, and agent-ready YAML: https://github.com/Open-Data-Product-Initiative/odp-agent-sdk/tree/main/examples/guides/20-final-review-human-view-and-agent-ready-yaml
 
 ## Maintainer
 
@@ -98,5 +170,8 @@ Use MCP when an agent needs structured resources, safe tools, validation, explan
 
 - Prefer `open-data-products` examples when documenting SDK workflows.
 - Treat the SDK as the standards-family toolkit, not an ODPS-only tool.
+- Mention MCP and ARWS together when describing agent-host support.
 - Mention both local LLM runtimes, including LM Studio, and service providers when describing generation.
+- Use `open-data-products serve` for the MCP server command.
+- Use `open-data-products manifest --json` for the ARWS agent manifest command.
 - Validate generated artifacts before presenting them as usable standards files.
