@@ -73,7 +73,7 @@
     }
 
     header {
-      padding: 28px 0;
+      padding: 34px 0;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -121,10 +121,10 @@
     }
 
     .hero {
-      padding: 70px 0 50px;
+      padding: 88px 0 74px;
       display: grid;
       grid-template-columns: 1.04fr 0.96fr;
-      gap: 44px;
+      gap: 64px;
       align-items: center;
     }
 
@@ -146,21 +146,21 @@
       font-size: clamp(2.8rem, 5vw, 5.1rem);
       line-height: 0.95;
       letter-spacing: -0.01em;
-      margin-bottom: 24px;
+      margin-bottom: 28px;
     }
 
     .lead {
       max-width: 680px;
       color: #f1e9f7;
       font-size: 1.22rem;
-      margin-bottom: 32px;
+      margin-bottom: 38px;
     }
 
     .actions {
       display: flex;
       flex-wrap: wrap;
       gap: 14px;
-      margin-bottom: 30px;
+      margin-bottom: 34px;
     }
 
     .btn {
@@ -266,7 +266,7 @@
       backdrop-filter: blur(16px);
       border: 1px solid rgba(236, 222, 246, 0.22);
       border-radius: 34px;
-      padding: 26px;
+      padding: 30px;
       box-shadow: var(--shadow);
     }
 
@@ -309,14 +309,14 @@
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 12px;
-      margin-top: 16px;
+      margin-top: 22px;
     }
 
     .status {
       background: rgba(255,255,255,0.08);
       border: 1px solid var(--line);
       border-radius: 18px;
-      padding: 16px;
+      padding: 18px;
     }
 
     .status strong {
@@ -332,20 +332,169 @@
       font-weight: 650;
     }
 
+    .sdk-hero-visual {
+      display: grid;
+      gap: 22px;
+      min-height: 420px;
+      align-content: center;
+      border-radius: 26px;
+      background:
+        radial-gradient(circle at 50% 30%, rgba(255, 216, 77, 0.12), transparent 28%),
+        radial-gradient(circle at 50% 72%, rgba(123, 44, 191, 0.20), transparent 34%),
+        rgba(9, 0, 13, 0.40);
+      border: 1px solid rgba(236, 222, 246, 0.16);
+      padding: 30px;
+    }
+
+    .visual-label {
+      color: var(--gold);
+      font-size: 0.72rem;
+      font-weight: 850;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+
+    .outcome-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+
+    .outcome-chip {
+      display: grid;
+      gap: 2px;
+      border-radius: 14px;
+      background: rgba(255, 255, 255, 0.07);
+      border: 1px solid rgba(236, 222, 246, 0.14);
+    }
+
+    .outcome-chip {
+      min-height: 96px;
+      padding: 18px;
+      align-content: center;
+      text-align: center;
+    }
+
+    .outcome-chip strong {
+      font-size: 0.92rem;
+      line-height: 1.2;
+    }
+
+    .outcome-chip span {
+      color: var(--muted);
+      font-size: 0.78rem;
+      line-height: 1.3;
+    }
+
+    .core-command {
+      justify-self: center;
+      width: min(100%, 390px);
+      padding: 24px;
+      border-radius: 18px;
+      background: #09000d;
+      border: 1px solid rgba(255, 255, 255, 0.10);
+      font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+      font-size: 1.02rem;
+      color: #f6ecfb;
+      text-align: center;
+      box-shadow: 0 22px 56px rgba(0, 0, 0, 0.28);
+    }
+
+    .core-command span {
+      color: var(--gold);
+    }
+
+    .core-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .core-actions span,
+    .lane-chip {
+      display: inline-flex;
+      align-items: center;
+      width: fit-content;
+      border: 1px solid rgba(236, 222, 246, 0.16);
+      background: rgba(255, 255, 255, 0.08);
+      color: #f7edff;
+      font-size: 0.8rem;
+      font-weight: 760;
+    }
+
+    .core-actions span {
+      padding: 8px 10px;
+      border-radius: 999px;
+    }
+
+    .portfolio-flow {
+      display: grid;
+      gap: 18px;
+      min-height: 100%;
+    }
+
+    .portfolio-lanes {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      gap: 18px;
+      align-items: center;
+      padding: 22px;
+      border-radius: 24px;
+      background:
+        radial-gradient(circle at 50% 50%, rgba(255, 216, 77, 0.12), transparent 46%),
+        rgba(9, 0, 13, 0.46);
+      border: 1px solid rgba(236, 222, 246, 0.16);
+    }
+
+    .lane-stack {
+      display: grid;
+      gap: 10px;
+    }
+
+    .lane-chip {
+      justify-content: space-between;
+      width: 100%;
+      min-height: 46px;
+      padding: 10px 12px;
+      border-radius: 14px;
+    }
+
+    .lane-chip span {
+      color: var(--muted);
+      font-size: 0.74rem;
+      font-weight: 700;
+    }
+
+    .builder-node {
+      display: grid;
+      place-items: center;
+      width: 118px;
+      min-height: 118px;
+      padding: 16px;
+      border-radius: 28px;
+      color: #190022;
+      background: var(--gold);
+      text-align: center;
+      font-weight: 900;
+      line-height: 1.12;
+      box-shadow: 0 0 34px rgba(255, 216, 77, 0.22);
+    }
+
     section {
-      padding: 58px 0;
+      padding: 82px 0;
     }
 
     .section-title {
       max-width: 760px;
-      margin-bottom: 28px;
+      margin-bottom: 40px;
     }
 
     h2 {
       font-size: clamp(2rem, 3.2vw, 3rem);
       line-height: 1.05;
       letter-spacing: -0.02em;
-      margin-bottom: 14px;
+      margin-bottom: 18px;
     }
 
     .section-title p {
@@ -358,7 +507,7 @@
     .guide-grid,
     .doc-grid {
       display: grid;
-      gap: 18px;
+      gap: 24px;
     }
 
     .cards {
@@ -367,6 +516,11 @@
 
     .capability-grid {
       grid-template-columns: repeat(3, 1fr);
+      padding: 24px;
+      border: 1px solid rgba(236, 222, 246, 0.16);
+      border-radius: 28px;
+      background: rgba(9, 0, 13, 0.24);
+      box-shadow: var(--shadow);
     }
 
     .guide-grid {
@@ -380,12 +534,12 @@
     .mcp-panel {
       display: grid;
       grid-template-columns: 0.95fr 1.05fr;
-      gap: 22px;
+      gap: 34px;
       align-items: stretch;
       background: linear-gradient(135deg, rgba(123, 44, 191, 0.30), rgba(63, 37, 81, 0.70));
       border: 1px solid rgba(215, 182, 232, 0.24);
       border-radius: 32px;
-      padding: 28px;
+      padding: 36px;
       box-shadow: var(--shadow);
     }
 
@@ -400,14 +554,14 @@
 
     .mcp-list {
       display: grid;
-      gap: 12px;
+      gap: 16px;
     }
 
     .mcp-item {
       background: rgba(255, 255, 255, 0.08);
       border: 1px solid rgba(236, 222, 246, 0.18);
       border-radius: 20px;
-      padding: 18px;
+      padding: 20px;
     }
 
     .mcp-item strong {
@@ -425,7 +579,7 @@
       background: rgba(63, 37, 81, 0.78);
       border: 1px solid var(--line);
       border-radius: var(--radius);
-      padding: 24px;
+      padding: 28px;
       box-shadow: 0 16px 42px rgba(0, 0, 0, 0.22);
     }
 
@@ -455,6 +609,53 @@
     .card p {
       color: var(--muted);
       font-size: 0.98rem;
+    }
+
+    .capability-block {
+      position: relative;
+      min-height: 210px;
+      padding: 26px;
+      border-radius: 18px;
+      background: rgba(63, 37, 81, 0.58);
+      border: 1px solid rgba(236, 222, 246, 0.16);
+      overflow: hidden;
+    }
+
+    .capability-block::before {
+      content: "";
+      position: absolute;
+      inset: 0 0 auto;
+      height: 4px;
+      background: var(--gold);
+      opacity: 0.82;
+    }
+
+    .capability-block:nth-child(2)::before { background: var(--rose); }
+    .capability-block:nth-child(3)::before { background: #9a5fc0; }
+    .capability-block:nth-child(4)::before { background: #ffffff; }
+    .capability-block:nth-child(5)::before { background: var(--violet); }
+    .capability-block:nth-child(6)::before { background: #cda6df; }
+
+    .capability-block small {
+      display: block;
+      margin-bottom: 14px;
+      color: var(--gold);
+      font-size: 0.76rem;
+      font-weight: 850;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .capability-block h3 {
+      margin-bottom: 9px;
+      font-size: 1.28rem;
+      line-height: 1.18;
+      letter-spacing: -0.01em;
+    }
+
+    .capability-block p {
+      color: var(--muted);
+      font-size: 0.95rem;
     }
 
     .card ul,
@@ -488,20 +689,20 @@
     .standards {
       display: grid;
       grid-template-columns: repeat(5, 1fr);
-      gap: 16px;
+      gap: 24px;
     }
 
     .llm-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 16px;
+      gap: 24px;
     }
 
     .llm-card {
       background: rgba(63, 37, 81, 0.78);
       border: 1px solid var(--line);
       border-radius: 22px;
-      padding: 22px;
+      padding: 26px;
       min-height: 210px;
     }
 
@@ -527,7 +728,7 @@
       background: rgba(63, 37, 81, 0.78);
       border: 1px solid var(--line);
       border-radius: 22px;
-      padding: 20px;
+      padding: 24px;
       min-height: 170px;
       position: relative;
       overflow: hidden;
@@ -568,19 +769,19 @@
       background: rgba(63, 37, 81, 0.78);
       border: 1px solid var(--line);
       border-radius: 32px;
-      padding: 28px;
+      padding: 36px;
       box-shadow: var(--shadow);
     }
 
     .portfolio-panel {
       display: grid;
       grid-template-columns: 0.95fr 1.05fr;
-      gap: 22px;
+      gap: 34px;
       align-items: stretch;
       background: linear-gradient(135deg, rgba(9, 0, 13, 0.84), rgba(75, 20, 103, 0.78));
       border: 1px solid rgba(215, 182, 232, 0.24);
       border-radius: 32px;
-      padding: 28px;
+      padding: 36px;
       box-shadow: var(--shadow);
     }
 
@@ -594,7 +795,7 @@
       background: rgba(63, 37, 81, 0.78);
       border: 1px solid var(--line);
       border-radius: 22px;
-      padding: 22px;
+      padding: 26px;
       min-height: 220px;
     }
 
@@ -622,11 +823,11 @@
     .steps {
       display: grid;
       grid-template-columns: repeat(5, 1fr);
-      gap: 12px;
+      gap: 18px;
     }
 
     .step {
-      padding: 18px;
+      padding: 22px;
       border-radius: 20px;
       background: rgba(9, 0, 13, 0.44);
       border: 1px solid rgba(236, 222, 246, 0.16);
@@ -659,7 +860,7 @@
     .split {
       display: grid;
       grid-template-columns: 0.9fr 1.1fr;
-      gap: 22px;
+      gap: 36px;
       align-items: stretch;
     }
 
@@ -667,7 +868,7 @@
       background: #09000d;
       color: #f6ecfb;
       border-radius: 26px;
-      padding: 24px;
+      padding: 28px;
       font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
       font-size: 0.92rem;
       overflow-x: auto;
@@ -678,9 +879,70 @@
       white-space: pre-wrap;
     }
 
+    .faq-layout {
+      display: grid;
+      grid-template-columns: 0.34fr 1fr;
+      gap: 64px;
+      align-items: start;
+    }
+
+    .faq-heading h2 {
+      margin: 0;
+      font-size: clamp(2.8rem, 5vw, 4.8rem);
+      line-height: 0.95;
+      letter-spacing: -0.02em;
+    }
+
+    .faq-list {
+      border-top: 1px solid rgba(236, 222, 246, 0.24);
+    }
+
+    .faq-item {
+      border-bottom: 1px solid rgba(236, 222, 246, 0.24);
+    }
+
+    .faq-item summary {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      padding: 30px 0;
+      color: #ffffff;
+      cursor: pointer;
+      list-style: none;
+      font-size: clamp(1.25rem, 2vw, 1.8rem);
+      line-height: 1.25;
+      font-weight: 650;
+      letter-spacing: -0.01em;
+    }
+
+    .faq-item summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .faq-item summary::after {
+      content: "⌄";
+      color: #b8a8c6;
+      font-size: 1.5rem;
+      line-height: 1;
+      transition: transform 0.15s ease, color 0.15s ease;
+    }
+
+    .faq-item[open] summary::after {
+      transform: rotate(180deg);
+      color: var(--gold);
+    }
+
+    .faq-item p {
+      max-width: 820px;
+      padding: 0 56px 30px 0;
+      color: var(--muted);
+      font-size: 1.02rem;
+    }
+
     .cta {
-      margin: 48px 0 72px;
-      padding: 42px;
+      margin: 72px 0 92px;
+      padding: 50px;
       border-radius: 34px;
       background: linear-gradient(135deg, #09000d, #4b1467);
       color: #fff;
@@ -814,15 +1076,27 @@
     @media (max-width: 920px) {
       nav { display: none; }
       .hero, .split, .cta, .mcp-panel, .portfolio-panel { grid-template-columns: 1fr; }
+      .faq-layout { grid-template-columns: 1fr; gap: 28px; }
       .cards, .standards, .llm-grid, .capability-grid, .guide-grid, .doc-grid { grid-template-columns: repeat(2, 1fr); }
+      .outcome-grid, .portfolio-lanes { grid-template-columns: 1fr; }
       .steps { grid-template-columns: 1fr 1fr; }
       .footer-grid { grid-template-columns: repeat(2, 1fr); }
+      section { padding: 68px 0; }
+      .hero { gap: 44px; padding: 62px 0 58px; }
     }
 
     @media (max-width: 620px) {
       .cards, .standards, .llm-grid, .steps, .status-grid, .capability-grid, .guide-grid, .doc-grid { grid-template-columns: 1fr; }
-      .hero { padding-top: 40px; }
-      .cta { padding: 28px; }
+      section { padding: 54px 0; }
+      .section-title { margin-bottom: 28px; }
+      .hero { padding-top: 40px; gap: 34px; }
+      .hero-card, .mcp-panel, .portfolio-panel, .workflow { padding: 26px; }
+      .sdk-hero-visual { min-height: auto; padding: 22px; }
+      .builder-node { width: 100%; min-height: 86px; }
+      .faq-item summary { padding: 24px 0; }
+      .faq-item p { padding-right: 0; }
+      .capability-grid { padding: 18px; }
+      .cta { padding: 30px; }
       .footer-grid { grid-template-columns: 1fr; }
       .footer-legal { justify-items: start; text-align: left; }
       .footer-legal nav { justify-content: flex-start; }
@@ -863,7 +1137,7 @@
           <div class="eyebrow">Agent-Ready Data Product Tooling</div>
           <h1>The standards toolkit for data product agents</h1>
           <p class="lead">
-            A practical Python SDK and MCP server for loading, validating, explaining, generating, searching, traversing, and publishing Open Data Product artifacts across ODPS, ODPC, ODPG, ODPV, Data Contracts, LLM workflows, and portfolio workspaces.
+            A practical Python SDK and MCP server for loading, validating, explaining, generating, searching, traversing, and publishing Open Data Product standards, Data Contracts, LLM workflows, and portfolio workspaces.
           </p>
 
 
@@ -878,40 +1152,29 @@
         </div>
 
         <div>
-          <aside class="hero-card" aria-label="SDK command examples">
-          <div class="terminal">
-            <div class="terminal-top">
-              <span class="dot"></span>
-              <span class="dot"></span>
-              <span class="dot"></span>
+          <aside class="hero-card" aria-label="SDK workflow visual">
+          <div class="sdk-hero-visual">
+            <div class="visual-label">Open Data Products SDK</div>
+            <div class="core-command"><span>$</span> open-data-products</div>
+            <div class="core-actions" aria-label="SDK actions">
+              <span>validate</span>
+              <span>generate</span>
+              <span>serve</span>
             </div>
-            <div class="terminal-body">
-              <div><span class="prompt">$</span> open-data-products validate examples/product.yaml</div>
-              <div class="ok">✓ Standards-aware validation</div>
-              <br />
-              <div><span class="prompt">$</span> open-data-products resources --json</div>
-              <div class="comment"># Schemas, prompts, vocabulary, and object guidance</div>
-              <br />
-              <div><span class="prompt">$</span> open-data-products manifest --json</div>
-              <div class="comment"># ARWS agent manifest</div>
-              <br />
-              <div><span class="prompt">$</span> open-data-products serve</div>
-              <div class="ok">✓ MCP server over stdio</div>
-            </div>
-          </div>
 
-          <div class="status-grid">
-            <div class="status">
-              <strong>Validate</strong>
-              <span>ODPS, ODPC, ODPG, ODPV, and Data Contracts</span>
-            </div>
-            <div class="status">
-              <strong>Generate</strong>
-              <span>LLM-assisted fragments, products, catalogs, and graphs</span>
-            </div>
-            <div class="status">
-              <strong>Publish</strong>
-              <span>portfolio workspaces for human and agent review</span>
+            <div class="outcome-grid" aria-label="SDK outcomes">
+              <div class="outcome-chip">
+                <strong>Standards + Contracts</strong>
+                <span>ODPS, ODPC, ODPG, ODPV</span>
+              </div>
+              <div class="outcome-chip">
+                <strong>Agents</strong>
+                <span>MCP, ARWS, llms.txt</span>
+              </div>
+              <div class="outcome-chip">
+                <strong>Portfolio</strong>
+                <span>reviewable HTML and YAML</span>
+              </div>
             </div>
           </div>
           </aside>
@@ -933,33 +1196,33 @@
         </div>
 
         <div class="capability-grid">
-          <article class="card">
-            <div class="icon blue">1</div>
+          <article class="capability-block">
+            <small>Quality gate</small>
             <h3>Validate</h3>
             <p>Detect and validate ODPS products, ODPC catalogs, ODPG graphs, ODPV vocabulary, and Data Contract references before they move into production workflows.</p>
           </article>
-          <article class="card">
-            <div class="icon cyan">2</div>
+          <article class="capability-block">
+            <small>Readable context</small>
             <h3>Explain and summarize</h3>
             <p>Turn YAML and JSON into readable explanations, structured validation results, references, and small summaries that avoid flooding an agent context window.</p>
           </article>
-          <article class="card">
-            <div class="icon green">3</div>
+          <article class="capability-block">
+            <small>Source to artifact</small>
             <h3>Generate</h3>
             <p>Use local runtimes or hosted providers to create standards-aware ODPS, ODPC, and ODPG artifacts from business source material.</p>
           </article>
-          <article class="card">
-            <div class="icon orange">4</div>
+          <article class="capability-block">
+            <small>Bundled knowledge</small>
             <h3>Discover resources</h3>
             <p>Expose bundled schemas, prompt templates, vocabulary records, catalog object records, and graph object records through Python, CLI, and MCP surfaces.</p>
           </article>
-          <article class="card">
-            <div class="icon purple">5</div>
+          <article class="capability-block">
+            <small>Relationship layer</small>
             <h3>Reason over graphs</h3>
             <p>Summarize, traverse, analyze, and extract trusted focus-node context from ODPG relationships, ODPC objects, and ODPV terms.</p>
           </article>
-          <article class="card">
-            <div class="icon blue">6</div>
+          <article class="capability-block">
+            <small>Portfolio workflow</small>
             <h3>Build portfolios</h3>
             <p>Build, refresh, sync, render, localize, and explain connected ODPC, ODPS, and ODPG portfolio workspaces from real source lanes.</p>
           </article>
@@ -1124,20 +1387,33 @@
             </p>
           </div>
 
-          <div class="code-panel">
-<pre><span class="comment"># Build from business source lanes</span>
-open-data-products portfolio build \
-  --objectives source_docs/objectives/ \
-  --use-cases source_docs/use-cases/ \
-  --signals source_docs/signals/ \
-  --products source_docs/products/ \
-  --output generated/portfolio/
+          <div class="portfolio-flow" aria-label="Portfolio builder workflow visual">
+            <div class="portfolio-lanes">
+              <div class="lane-stack">
+                <div class="visual-label">Inputs</div>
+                <div class="lane-chip">Objectives <span>source lane</span></div>
+                <div class="lane-chip">Use cases <span>source lane</span></div>
+                <div class="lane-chip">Signals <span>source lane</span></div>
+                <div class="lane-chip">Products <span>source lane</span></div>
+              </div>
 
-<span class="comment"># Refresh, sync, localize, and explain</span>
-open-data-products portfolio refresh generated/portfolio/
-open-data-products portfolio sync generated/portfolio/
-open-data-products portfolio localize generated/portfolio/ --languages "fi,sv,ar,vi"
+              <div class="builder-node">Portfolio Builder</div>
+
+              <div class="lane-stack">
+                <div class="visual-label">Outputs</div>
+                <div class="lane-chip">ODPC catalog <span>YAML</span></div>
+                <div class="lane-chip">ODPG graph <span>YAML</span></div>
+                <div class="lane-chip">Review pages <span>HTML</span></div>
+                <div class="lane-chip">Version history <span>snapshots</span></div>
+              </div>
+            </div>
+
+            <div class="code-panel">
+<pre><span class="comment"># Build and review the workspace</span>
+open-data-products portfolio build --output generated/portfolio/
+open-data-products portfolio localize generated/portfolio/
 open-data-products portfolio explain generated/portfolio/</pre>
+            </div>
           </div>
         </div>
       </section>
@@ -1245,6 +1521,51 @@ open-data-products summary examples/product.yaml</pre>
               <li><a href="https://github.com/Open-Data-Product-Initiative/odp-agent-sdk/blob/main/llms.txt">Repository llms.txt</a></li>
             </ul>
           </article>
+        </div>
+      </section>
+
+      <section id="faq">
+        <div class="faq-layout">
+          <div class="faq-heading">
+            <h2>FAQs</h2>
+          </div>
+
+          <div class="faq-list">
+            <details class="faq-item">
+              <summary>What is the Open Data Products SDK?</summary>
+              <p>
+                It is the Python SDK, CLI, and MCP server for working with the Open Data Products standards family. It helps teams and AI agents validate, explain, generate, search, traverse, and publish ODPS, ODPC, ODPG, ODPV, Data Contract, and portfolio artifacts.
+              </p>
+            </details>
+
+            <details class="faq-item">
+              <summary>Why do Data Contracts matter here?</summary>
+              <p>
+                Many industries treat contracts as the operational boundary between data producers and consumers. The SDK supports contract-aware workflows so product descriptions, schemas, expectations, quality rules, access details, and governance context can be reviewed together.
+              </p>
+            </details>
+
+            <details class="faq-item">
+              <summary>Is this only for AI agents?</summary>
+              <p>
+                No. Developers can use the Python API and CLI directly, while AI agents can use the same capabilities through MCP, ARWS manifest metadata, and agent-facing context files. The goal is one standards-aware toolkit across human and agent workflows.
+              </p>
+            </details>
+
+            <details class="faq-item">
+              <summary>Can it work with local and hosted LLMs?</summary>
+              <p>
+                Yes. Generation workflows can use local runtimes such as Ollama, LM Studio, vLLM, llama.cpp, and LocalAI, or hosted providers such as Claude, OpenAI, OpenRouter, and Groq. Generated artifacts should still be validated before use.
+              </p>
+            </details>
+
+            <details class="faq-item">
+              <summary>What does the portfolio builder create?</summary>
+              <p>
+                It turns source lanes such as objectives, use cases, signals, and product notes into connected portfolio outputs: ODPC catalog YAML, ODPS product files, ODPG graph context, reviewable HTML pages, localized pages, and version history.
+              </p>
+            </details>
+          </div>
         </div>
       </section>
 
