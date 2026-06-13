@@ -698,6 +698,10 @@
       gap: 24px;
     }
 
+    .context-grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+
     .llm-selection-table {
       overflow-x: auto;
       margin: 16px 0 0;
@@ -1140,7 +1144,7 @@
       nav { display: none; }
       .hero, .split, .cta, .mcp-panel, .portfolio-panel { grid-template-columns: 1fr; }
       .faq-layout { grid-template-columns: 1fr; gap: 28px; }
-      .cards, .standards, .llm-grid, .capability-grid, .guide-grid, .doc-grid { grid-template-columns: repeat(2, 1fr); }
+      .cards, .standards, .llm-grid, .context-grid, .capability-grid, .guide-grid, .doc-grid { grid-template-columns: repeat(2, 1fr); }
       .outcome-grid, .portfolio-lanes { grid-template-columns: 1fr; }
       .steps { grid-template-columns: 1fr 1fr; }
       .footer-grid { grid-template-columns: repeat(2, 1fr); }
@@ -1149,7 +1153,7 @@
     }
 
     @media (max-width: 620px) {
-      .cards, .standards, .llm-grid, .steps, .status-grid, .capability-grid, .guide-grid, .doc-grid { grid-template-columns: 1fr; }
+      .cards, .standards, .llm-grid, .context-grid, .steps, .status-grid, .capability-grid, .guide-grid, .doc-grid { grid-template-columns: 1fr; }
       section { padding: 54px 0; }
       .section-title { margin-bottom: 28px; }
       .hero { padding-top: 40px; gap: 34px; }
@@ -1412,11 +1416,11 @@
         <div class="section-title">
           <h2>Compact context for agent workflows</h2>
           <p>
-            TOON and GCF support give agents smaller sidecar files for repeated catalog rows and graph relationships. The SDK still validates, publishes, and exchanges the canonical YAML documents, then uses compact sidecars when prompt context or review automation benefits from a smaller shape.
+            TOON and GCF support give agents smaller sidecar files for repeated catalog rows and graph relationships. ODPR recipes can make those compact-context choices part of a workflow contract, so each repeatable agent run knows which sidecars, validation checks, providers, and review steps to use while YAML remains canonical.
           </p>
         </div>
 
-        <div class="llm-grid">
+        <div class="llm-grid context-grid">
           <article class="llm-card">
             <small>TOON sidecars</small>
             <h3>Compact repeated objects</h3>
@@ -1426,6 +1430,11 @@
             <small>GCF sidecars</small>
             <h3>Experimental graph context</h3>
             <p>Emit GCF files for ODPC and ODPG workflows, including graph nodes and edges that are packed for agent prompts and review automation.</p>
+          </article>
+          <article class="llm-card">
+            <small>ODPR recipes</small>
+            <h3>Make context repeatable</h3>
+            <p>Use workflow contracts to decide when agents should use TOON, GCF, canonical YAML, provider profiles, and validation gates for each repeatable run.</p>
           </article>
           <article class="llm-card">
             <small>Canonical YAML</small>

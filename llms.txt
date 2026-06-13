@@ -128,6 +128,7 @@ The SDK can emit compact context sidecars for ODPC catalogs and ODPG graphs:
 
 - TOON sidecars pack repeated object structures into a smaller text shape for model context.
 - GCF sidecars are experimental agent-facing context exports for repeated catalog rows and graph nodes or edges.
+- ODPR workflow recipes can make compact-context choices explicit, including which sidecars, providers, validation gates, and review steps a repeatable agent run should use.
 - YAML remains the canonical standards artifact. Treat `.toon` and `.gcf` files as generated sidecars for prompts, summaries, review automation, and agent workflows.
 
 Common commands:
