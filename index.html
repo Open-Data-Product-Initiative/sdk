@@ -4,19 +4,19 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Open Data Products SDK | Agent-Ready Standards Toolkit</title>
-  <meta name="description" content="Open Data Products SDK is an agent-ready Python SDK and MCP server for loading, validating, explaining, generating, searching, traversing, and publishing Open Data Product artifacts, Data Contracts, graphs, vocabulary, and portfolio workspaces." />
-  <meta name="keywords" content="Open Data Products SDK, open-data-products, ODPS, ODPC, ODPG, ODPV, MCP server, ARWS manifest, AI agents, LLM generation, local LLMs, portfolio builder, Data Contracts, Ollama, LM Studio, vLLM, llama.cpp, LocalAI, Claude, OpenAI, OpenRouter, Groq, data products, data contracts" />
+  <meta name="description" content="Open Data Products SDK is an agent-ready Python SDK and MCP server for loading, validating, explaining, generating, searching, traversing, compacting, and publishing Open Data Product artifacts, Data Contracts, graphs, vocabulary, and portfolio workspaces." />
+  <meta name="keywords" content="Open Data Products SDK, open-data-products, ODPS, ODPC, ODPG, ODPV, MCP server, ARWS manifest, AI agents, LLM generation, local LLMs, TOON, GCF, compact context, portfolio builder, Data Contracts, Ollama, LM Studio, vLLM, llama.cpp, LocalAI, Claude, OpenAI, OpenRouter, Groq, data products, data contracts" />
   <meta name="author" content="Dr. Jarkko Moilanen" />
   <link rel="canonical" href="https://opendataproducts.org/sdk/" />
   <meta property="og:title" content="Open Data Products SDK | Agent-Ready Standards Toolkit" />
-  <meta property="og:description" content="Load, validate, explain, generate, search, traverse, and publish Open Data Product artifacts with a Python SDK, MCP server, ARWS manifest, portfolio builder, and local or hosted LLM workflows." />
+  <meta property="og:description" content="Load, validate, explain, generate, compact, search, traverse, and publish Open Data Product artifacts with a Python SDK, MCP server, ARWS manifest, TOON and GCF sidecars, portfolio builder, and local or hosted LLM workflows." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://opendataproducts.org/sdk/" />
   <meta property="og:image" content="https://opendataproducts.org/sdk/social.png" />
   <link rel="alternate" type="text/plain" href="https://opendataproducts.org/sdk/llms.txt" title="LLMs guide for the Open Data Products SDK" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Open Data Products SDK | Agent-Ready Standards Toolkit" />
-  <meta name="twitter:description" content="Python SDK and MCP server for Open Data Product standards, Data Contracts, graph reasoning, portfolio workspaces, and LLM-assisted generation." />
+  <meta name="twitter:description" content="Python SDK and MCP server for Open Data Product standards, Data Contracts, graph reasoning, TOON and GCF context sidecars, portfolio workspaces, and LLM-assisted generation." />
   <meta name="twitter:image" content="https://opendataproducts.org/sdk/social.png" />
   <style>
     :root {
@@ -1123,6 +1123,7 @@
         <a href="#why">Why</a>
         <a href="#mcp">MCP</a>
         <a href="#llms">LLMs</a>
+        <a href="#context">Context</a>
         <a href="#capabilities">Capabilities</a>
         <a href="#guides">Guides</a>
         <a href="#portfolio">Portfolio</a>
@@ -1169,7 +1170,7 @@
               </div>
               <div class="outcome-chip">
                 <strong>Agents</strong>
-                <span>MCP, ARWS, llms.txt</span>
+                <span>MCP, ARWS, llms.txt, TOON, GCF</span>
               </div>
               <div class="outcome-chip">
                 <strong>Portfolio</strong>
@@ -1191,7 +1192,7 @@
         <div class="section-title">
           <h2>Built to give AI agents the context to operate</h2>
           <p>
-            The SDK turns data product standards into executable context. Teams get validation. Developers get Python functions. AI agents get structured outputs, lightweight summaries, bundled retrieval resources, graph reasoning, Data Contract reports, and safe tools for real workflows.
+            The SDK turns data product standards into executable context. Teams get validation. Developers get Python functions. AI agents get structured outputs, lightweight summaries, compact TOON and GCF sidecars, bundled retrieval resources, graph reasoning, Data Contract reports, and safe tools for real workflows.
           </p>
         </div>
 
@@ -1204,7 +1205,7 @@
           <article class="capability-block">
             <small>Readable context</small>
             <h3>Explain and summarize</h3>
-            <p>Turn YAML and JSON into readable explanations, structured validation results, references, and small summaries that avoid flooding an agent context window.</p>
+            <p>Turn YAML and JSON into readable explanations, structured validation results, references, small summaries, and compact context hints that avoid flooding an agent context window.</p>
           </article>
           <article class="capability-block">
             <small>Source to artifact</small>
@@ -1220,6 +1221,11 @@
             <small>Relationship layer</small>
             <h3>Reason over graphs</h3>
             <p>Summarize, traverse, analyze, and extract trusted focus-node context from ODPG relationships, ODPC objects, and ODPV terms.</p>
+          </article>
+          <article class="capability-block">
+            <small>Context sidecars</small>
+            <h3>Pack TOON and GCF</h3>
+            <p>Emit compact TOON and experimental GCF sidecars for ODPC catalogs and ODPG graphs while YAML remains the canonical source of truth.</p>
           </article>
           <article class="capability-block">
             <small>Portfolio workflow</small>
@@ -1242,7 +1248,7 @@
           <div class="mcp-list">
             <div class="mcp-item">
               <strong>Agent-ready tools</strong>
-              <span>Expose validation, explanation, reference discovery, summaries, search, traversal, graph reasoning, and product context actions through MCP.</span>
+              <span>Expose validation, explanation, reference discovery, summaries, compact context artifact discovery, search, traversal, graph reasoning, and product context actions through MCP.</span>
             </div>
             <div class="mcp-item">
               <strong>ARWS manifest</strong>
@@ -1279,6 +1285,33 @@
             <small>Hosted providers</small>
             <h3>Use managed LLM APIs</h3>
             <p>Connect service providers such as Claude, OpenAI, OpenRouter, and Groq through generation configuration, then validate generated ODPS, ODPC, ODPG, ODPV, and data contract artifacts before use.</p>
+          </article>
+        </div>
+      </section>
+
+      <section id="context">
+        <div class="section-title">
+          <h2>Compact context for agent workflows</h2>
+          <p>
+            TOON and GCF support give agents smaller sidecar files for repeated catalog rows and graph relationships. The SDK still validates, publishes, and exchanges the canonical YAML documents, then uses compact sidecars when prompt context or review automation benefits from a smaller shape.
+          </p>
+        </div>
+
+        <div class="llm-grid">
+          <article class="llm-card">
+            <small>TOON sidecars</small>
+            <h3>Compact repeated objects</h3>
+            <p>Generate TOON views for ODPC catalogs and ODPG graphs when repeated structures need to fit more cleanly into model context windows.</p>
+          </article>
+          <article class="llm-card">
+            <small>GCF sidecars</small>
+            <h3>Experimental graph context</h3>
+            <p>Emit GCF files for ODPC and ODPG workflows, including graph nodes and edges that are packed for agent prompts and review automation.</p>
+          </article>
+          <article class="llm-card">
+            <small>Canonical YAML</small>
+            <h3>Keep source files authoritative</h3>
+            <p>Use <code>--toon</code> and <code>--gcf</code> as optional build outputs; keep YAML as the reviewed, validated, and exchanged standards artifact.</p>
           </article>
         </div>
       </section>
@@ -1403,6 +1436,7 @@
                 <div class="visual-label">Outputs</div>
                 <div class="lane-chip">ODPC catalog <span>YAML</span></div>
                 <div class="lane-chip">ODPG graph <span>YAML</span></div>
+                <div class="lane-chip">Context sidecars <span>TOON + GCF</span></div>
                 <div class="lane-chip">Review pages <span>HTML</span></div>
                 <div class="lane-chip">Version history <span>snapshots</span></div>
               </div>
@@ -1515,9 +1549,11 @@ open-data-products summary examples/product.yaml</pre>
           <article class="doc-card">
             <small>Agents</small>
             <h3>MCP, ARWS, and handoff</h3>
-            <p>Connect the SDK to agent hosts, inspect safe tools, and give agents a compact routing file.</p>
+            <p>Connect the SDK to agent hosts, inspect safe tools, give agents a compact routing file, and use compact context sidecars when available.</p>
             <ul>
               <li><a href="https://github.com/Open-Data-Product-Initiative/odp-agent-sdk/blob/main/docs/agent-surface.md">Agent surface</a></li>
+              <li><a href="https://github.com/Open-Data-Product-Initiative/odp-agent-sdk/blob/main/docs/toon-development.md">TOON development notes</a></li>
+              <li><a href="https://github.com/Open-Data-Product-Initiative/odp-agent-sdk/blob/main/docs/gcf-development.md">GCF development notes</a></li>
               <li><a href="https://github.com/Open-Data-Product-Initiative/odp-agent-sdk/blob/main/llms.txt">Repository llms.txt</a></li>
             </ul>
           </article>
@@ -1553,6 +1589,13 @@ open-data-products summary examples/product.yaml</pre>
             </details>
 
             <details class="faq-item">
+              <summary>What are TOON and GCF used for?</summary>
+              <p>
+                They are optional compact context sidecars for ODPC catalogs and ODPG graphs. TOON and experimental GCF help pack repeated rows and graph relationships for prompts, summaries, and review automation while YAML remains the canonical standards file.
+              </p>
+            </details>
+
+            <details class="faq-item">
               <summary>Can it work with local and hosted LLMs?</summary>
               <p>
                 Yes. Generation workflows can use local runtimes such as Ollama, LM Studio, vLLM, llama.cpp, and LocalAI, or hosted providers such as Claude, OpenAI, OpenRouter, and Groq. Generated artifacts should still be validated before use.
@@ -1573,7 +1616,7 @@ open-data-products summary examples/product.yaml</pre>
         <div>
           <h2>Build data product workflows that AI agents understand</h2>
           <p>
-            Use the SDK as the context and execution layer for AI agents working with data product standards, ODPC catalogs, data contracts, validation, graph traversal, vocabulary helpers, and agent-ready workflows.
+            Use the SDK as the context and execution layer for AI agents working with data product standards, ODPC catalogs, data contracts, validation, graph traversal, vocabulary helpers, compact sidecars, and agent-ready workflows.
           </p>
         </div>
         <a class="btn" href="https://github.com/Open-Data-Product-Initiative/odp-agent-sdk">Open GitHub repo</a>
@@ -1618,6 +1661,8 @@ open-data-products summary examples/product.yaml</pre>
             <li><a href="https://github.com/Open-Data-Product-Initiative/odp-agent-sdk/blob/main/docs/commands.md" target="_blank" rel="noopener">SDK command guide</a></li>
             <li><a href="https://github.com/Open-Data-Product-Initiative/odp-agent-sdk/blob/main/docs/generation.md" target="_blank" rel="noopener">SDK LLM generation</a></li>
             <li><a href="https://github.com/Open-Data-Product-Initiative/odp-agent-sdk/blob/main/docs/agent-surface.md" target="_blank" rel="noopener">SDK agent surface</a></li>
+            <li><a href="https://github.com/Open-Data-Product-Initiative/odp-agent-sdk/blob/main/docs/toon-development.md" target="_blank" rel="noopener">SDK TOON sidecars</a></li>
+            <li><a href="https://github.com/Open-Data-Product-Initiative/odp-agent-sdk/blob/main/docs/gcf-development.md" target="_blank" rel="noopener">SDK GCF sidecars</a></li>
             <li><a href="https://github.com/Open-Data-Product-Initiative/odp-agent-sdk/tree/main/examples/guides" target="_blank" rel="noopener">SDK course-style guides</a></li>
             <li><a href="https://github.com/Accenture/odps-python" target="_blank" rel="noopener">OPDS Python Library (by Accenture)</a></li>
             <li><a href="https://www.udemy.com/course/master-the-open-data-product-specification-with-gpt-tool" target="_blank" rel="noopener">Udemy MasterClass</a></li>

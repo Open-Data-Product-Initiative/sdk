@@ -2,13 +2,13 @@
 
 > Agent-facing guide for the Open Data Products SDK landing page at https://opendataproducts.org/sdk/.
 
-The Open Data Products SDK is the primary implementation toolkit for the Open Data Products standards family. It is an agent-ready Python SDK and MCP server for loading, detecting, validating, explaining, summarizing, generating, searching, traversing, and publishing Open Data Product artifacts.
+The Open Data Products SDK is the primary implementation toolkit for the Open Data Products standards family. It is an agent-ready Python SDK and MCP server for loading, detecting, validating, explaining, summarizing, generating, compacting, searching, traversing, and publishing Open Data Product artifacts.
 
 Use it across:
 
 - ODPS: Open Data Product Specification v4.1 and compatible v4.0 product documents.
-- ODPC: Open Data Product Catalog fragments, catalogs, object guidance, and generated catalog artifacts.
-- ODPG: Open Data Product Graph validation, summaries, traversal, strategic analysis, and graph explorer output.
+- ODPC: Open Data Product Catalog fragments, catalogs, object guidance, generated catalog artifacts, and optional TOON or GCF context sidecars.
+- ODPG: Open Data Product Graph validation, summaries, traversal, strategic analysis, graph explorer output, and optional TOON or GCF context sidecars.
 - ODPV: Open Data Product Vocabulary search, validation, term resolution, relationship checks, and agent context packets.
 - Data Contracts: ODPS contract references, optional external `datacontract-cli` validation, schema extraction, alignment checks, and product-level reports.
 - Portfolio workspaces: build, refresh, sync, render, localize, and explain connected ODPC, ODPS, and ODPG portfolio outputs from source lanes.
@@ -18,6 +18,7 @@ Use it across:
 - Validating ODPS product specifications, ODPC catalogs, ODPG graphs, ODPV vocabulary, and Data Contract references.
 - Creating structured context for AI agents, product owners, stewards, and engineers.
 - Loading lightweight summaries with size, hash, spec, kind, and id without returning full document bodies.
+- Emitting compact TOON and experimental GCF sidecars for ODPC catalogs and ODPG graphs while YAML remains the canonical source.
 - Discovering bundled resources such as schemas, prompt templates, vocabulary records, catalog object records, and graph object records.
 - Generating standards-aware artifacts with local LLMs through Ollama, LM Studio, vLLM, llama.cpp server, LocalAI, or hosted providers such as Claude, OpenAI, OpenRouter, and Groq.
 - Searching ODPV terms, ODPC catalog guidance, graph objects, Data Contract context, and product references.
@@ -78,6 +79,10 @@ open-data-products resources --id odpv.terms --json
 open-data-products resources --id odpc.objects --json
 open-data-products resources --id odpg.objects --json
 
+# Compact context sidecars
+open-data-products odpc-build fragments/ --output catalog.yaml --toon catalog.toon --gcf catalog.gcf
+open-data-products odpg-build fragments/ --output graph.yaml --toon graph.toon --gcf graph.gcf
+
 # Agent surfaces
 open-data-products serve
 open-data-products manifest --json
@@ -111,13 +116,37 @@ Local model names are provided by the selected runtime rather than hard-coded by
 
 Keep generated output grounded in the standards family and validate artifacts after generation.
 
+## Compact Context Sidecars
+
+The SDK can emit compact context sidecars for ODPC catalogs and ODPG graphs:
+
+- TOON sidecars pack repeated object structures into a smaller text shape for model context.
+- GCF sidecars are experimental agent-facing context exports for repeated catalog rows and graph nodes or edges.
+- YAML remains the canonical standards artifact. Treat `.toon` and `.gcf` files as generated sidecars for prompts, summaries, review automation, and agent workflows.
+
+Common commands:
+
+```bash
+open-data-products odpc-build fragments/ \
+  --output catalog.yaml \
+  --toon catalog.toon \
+  --gcf catalog.gcf
+
+open-data-products odpg-build fragments/ \
+  --output graph.yaml \
+  --toon graph.toon \
+  --gcf graph.gcf
+```
+
+When compact sidecars sit beside a canonical YAML file, SDK summaries can expose them as context artifacts so agents can discover the smaller representation before reading full document bodies.
+
 Recommended generation loop:
 
 1. Load or create source context.
 2. Generate or update the artifact with a local LLM or provider.
 3. Validate the resulting YAML or JSON with `open-data-products validate`.
 4. Explain or inspect the artifact with `open-data-products explain`.
-5. Build catalogs, graphs, or portfolio outputs only after review.
+5. Build catalogs, graphs, compact sidecars, or portfolio outputs only after review.
 
 ## MCP And ARWS Usage
 
@@ -135,7 +164,7 @@ Render the ARWS agent manifest:
 open-data-products manifest --json
 ```
 
-Use MCP when an agent needs structured resources, safe tools, validation, explanation, summaries, reference discovery, search, traversal, product context, standards-aware graph relationships, or LLM-assisted generation workflows.
+Use MCP when an agent needs structured resources, safe tools, validation, explanation, summaries, compact context artifact discovery, reference discovery, search, traversal, product context, standards-aware graph relationships, or LLM-assisted generation workflows.
 
 ## Selected Guide Tracks
 
@@ -172,6 +201,7 @@ Recommended website tracks:
 - Treat the SDK as the standards-family toolkit, not an ODPS-only tool.
 - Mention MCP and ARWS together when describing agent-host support.
 - Mention both local LLM runtimes, including LM Studio, and service providers when describing generation.
+- Mention TOON and GCF as optional compact sidecars, not replacements for YAML.
 - Use `open-data-products serve` for the MCP server command.
 - Use `open-data-products manifest --json` for the ARWS agent manifest command.
 - Validate generated artifacts before presenting them as usable standards files.
