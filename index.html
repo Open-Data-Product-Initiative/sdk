@@ -4,19 +4,19 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Open Data Products SDK | Agent-Ready Standards Toolkit</title>
-  <meta name="description" content="Open Data Products SDK is an agent-ready Python SDK and MCP server for loading, validating, explaining, generating, searching, traversing, compacting, and publishing Open Data Product artifacts, Data Contracts, graphs, vocabulary, and portfolio workspaces." />
-  <meta name="keywords" content="Open Data Products SDK, open-data-products, ODPS, ODPC, ODPG, ODPV, MCP server, ARWS manifest, AI agents, LLM generation, local LLMs, TOON, GCF, compact context, portfolio builder, Data Contracts, Ollama, LM Studio, vLLM, llama.cpp, LocalAI, Claude, OpenAI, OpenRouter, Groq, data products, data contracts" />
+  <meta name="description" content="Open Data Products SDK is an agent-ready Python SDK and MCP server for loading, validating, explaining, generating, searching, traversing, compacting, and publishing Open Data Product artifacts, Data Contracts, ODPR workflow recipes, graphs, vocabulary, and portfolio workspaces." />
+  <meta name="keywords" content="Open Data Products SDK, open-data-products, ODPS, ODPC, ODPG, ODPV, ODPR, workflow recipes, workflow contracts, MCP server, ARWS manifest, AI agents, LLM generation, local LLMs, TOON, GCF, compact context, portfolio builder, Data Contracts, Ollama, LM Studio, vLLM, llama.cpp, LocalAI, Claude, OpenAI, OpenRouter, Groq, data products, data contracts" />
   <meta name="author" content="Dr. Jarkko Moilanen" />
   <link rel="canonical" href="https://opendataproducts.org/sdk/" />
   <meta property="og:title" content="Open Data Products SDK | Agent-Ready Standards Toolkit" />
-  <meta property="og:description" content="Load, validate, explain, generate, compact, search, traverse, and publish Open Data Product artifacts with a Python SDK, MCP server, ARWS manifest, TOON and GCF sidecars, portfolio builder, and local or hosted LLM workflows." />
+  <meta property="og:description" content="Load, validate, explain, generate, compact, search, traverse, and publish Open Data Product artifacts with a Python SDK, MCP server, ARWS manifest, TOON and GCF sidecars, ODPR workflow recipes, portfolio builder, and local or hosted LLM workflows." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://opendataproducts.org/sdk/" />
   <meta property="og:image" content="https://opendataproducts.org/sdk/social.png" />
   <link rel="alternate" type="text/plain" href="https://opendataproducts.org/sdk/llms.txt" title="LLMs guide for the Open Data Products SDK" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Open Data Products SDK | Agent-Ready Standards Toolkit" />
-  <meta name="twitter:description" content="Python SDK and MCP server for Open Data Product standards, Data Contracts, graph reasoning, TOON and GCF context sidecars, portfolio workspaces, and LLM-assisted generation." />
+  <meta name="twitter:description" content="Python SDK and MCP server for Open Data Product standards, Data Contracts, ODPR workflow recipes, graph reasoning, TOON and GCF context sidecars, portfolio workspaces, and LLM-assisted generation." />
   <meta name="twitter:image" content="https://opendataproducts.org/sdk/social.png" />
   <style>
     :root {
@@ -688,7 +688,7 @@
 
     .standards {
       display: grid;
-      grid-template-columns: repeat(5, 1fr);
+      grid-template-columns: repeat(6, 1fr);
       gap: 24px;
     }
 
@@ -1201,7 +1201,7 @@
           <div class="eyebrow">Agent-Ready Data Product Tooling</div>
           <h1>The standards toolkit for data product agents</h1>
           <p class="lead">
-            A practical Python SDK and MCP server for loading, validating, explaining, generating, searching, traversing, and publishing Open Data Product standards, Data Contracts, LLM workflows, and portfolio workspaces.
+            A practical Python SDK and MCP server for loading, validating, explaining, generating, searching, traversing, and publishing Open Data Product standards, Data Contracts, ODPR workflow recipes, LLM workflows, and portfolio workspaces.
           </p>
 
 
@@ -1229,15 +1229,15 @@
             <div class="outcome-grid" aria-label="SDK outcomes">
               <div class="outcome-chip">
                 <strong>Standards + Contracts</strong>
-                <span>ODPS, ODPC, ODPG, ODPV</span>
+                <span>ODPS, ODPC, ODPG, ODPV, ODPR</span>
               </div>
               <div class="outcome-chip">
                 <strong>Agents</strong>
                 <span>MCP, ARWS, llms.txt, TOON, GCF</span>
               </div>
               <div class="outcome-chip">
-                <strong>Portfolio</strong>
-                <span>reviewable HTML and YAML</span>
+                <strong>Workflow Contracts</strong>
+                <span>ODPR recipes, portfolios, review outputs</span>
               </div>
             </div>
           </div>
@@ -1255,7 +1255,7 @@
         <div class="section-title">
           <h2>Built to give AI agents the context to operate</h2>
           <p>
-            The SDK turns data product standards into executable context. Teams get validation. Developers get Python functions. AI agents get structured outputs, lightweight summaries, compact TOON and GCF sidecars, bundled retrieval resources, graph reasoning, Data Contract reports, and safe tools for real workflows.
+            The SDK turns data product standards into executable context. Teams get validation. Developers get Python functions. AI agents get structured outputs, lightweight summaries, compact TOON and GCF sidecars, ODPR workflow recipes, bundled retrieval resources, graph reasoning, Data Contract reports, and safe tools for real workflows.
           </p>
         </div>
 
@@ -1274,6 +1274,11 @@
             <small>Source to artifact</small>
             <h3>Generate</h3>
             <p>Use local runtimes or hosted providers to create standards-aware ODPS, ODPC, and ODPG artifacts from business source material.</p>
+          </article>
+          <article class="capability-block">
+            <small>Workflow contracts</small>
+            <h3>Run recipes</h3>
+            <p>Use ODPR recipes to describe repeatable SDK workflows, including the steps, providers, inputs, outputs, validation checks, and review policy for each run.</p>
           </article>
           <article class="capability-block">
             <small>Bundled knowledge</small>
@@ -1330,7 +1335,7 @@
           <h2>Designed for local and provider LLM support</h2>
           <p>
             The SDK keeps generation workflows provider-aware while staying grounded in the Open Data Products standards family. Choose a local runtime for private or offline work, or connect a hosted provider when managed model access fits better.
-            A quickstart-style <a href="https://github.com/Open-Data-Product-Initiative/odp-agent-sdk/blob/main/docs/llm-selection-guide.md">LLM selection guide</a> helps match local or hosted models to validation, generation, graph, portfolio, localization, CI, and release-review jobs.
+            The names below are preconfigured SDK provider profiles you can select with <code>--provider &lt;name&gt;</code>, and the generation config can be extended with additional local models, hosted providers, and OpenAI-compatible endpoints. A quickstart-style <a href="https://github.com/Open-Data-Product-Initiative/odp-agent-sdk/blob/main/docs/llm-selection-guide.md">LLM selection guide</a> helps match those options to validation, generation, graph, portfolio, localization, CI, and release-review jobs.
           </p>
         </div>
 
@@ -1353,18 +1358,18 @@
         </div>
 
         <div class="llm-selection-heading">
-          <h3>Quick model picks by SDK job</h3>
-          <p>Use these as starting profiles, then tune the provider choice when privacy, runtime, quality, or release risk changes.</p>
+          <h3>Preconfigured model picks by SDK job</h3>
+          <p>These are bundled SDK provider profile names, ready to use in generation config and CLI commands. Add your own profiles when another model or provider fits the job better.</p>
         </div>
 
         <div class="llm-selection-table" aria-label="Simplified LLM selection table">
           <table>
-            <caption>Shortlist from the SDK LLM selection guide.</caption>
+            <caption>Shortlist of SDK provider profile names from the LLM selection guide.</caption>
             <thead>
               <tr>
                 <th scope="col">SDK job</th>
-                <th scope="col">Local starting point</th>
-                <th scope="col">Stronger or production choice</th>
+                <th scope="col">Preconfigured local profile</th>
+                <th scope="col">Preconfigured stronger or production profile</th>
               </tr>
             </thead>
             <tbody>
@@ -1392,6 +1397,11 @@
                 <td>Localization or release review</td>
                 <td><code>lmstudio-gemma4-12b</code></td>
                 <td><code>claude</code> or <code>openai</code> for production polish and review confidence.</td>
+              </tr>
+              <tr>
+                <td>ODPR workflow recipe runs</td>
+                <td>Recipe-selected provider profile</td>
+                <td>Let the workflow contract decide which steps are deterministic, local, hosted, or hybrid.</td>
               </tr>
             </tbody>
           </table>
@@ -1565,7 +1575,7 @@ open-data-products portfolio explain generated/portfolio/</pre>
         <div class="section-title">
           <h2>Designed for the Open Data Products standards family</h2>
           <p>
-            The SDK gives developers and AI agents one practical interface across product descriptions, ODPC catalogs, ODPG graphs, ODPV vocabulary, and data contract workflows.
+            The SDK gives developers and AI agents one practical interface across product descriptions, ODPC catalogs, ODPG graphs, ODPV vocabulary, ODPR workflow recipes, and data contract workflows.
           </p>
         </div>
 
@@ -1589,6 +1599,11 @@ open-data-products portfolio explain generated/portfolio/</pre>
             <small>ODPV</small>
             <h3>Vocabulary</h3>
             <p>Creates shared meaning for humans, platforms, and AI agents working with the standards.</p>
+          </article>
+          <article class="standard">
+            <small>ODPR</small>
+            <h3>Recipes</h3>
+            <p>Defines workflow contracts for repeatable SDK runs, provider choices, validation gates, and review steps.</p>
           </article>
           <article class="standard">
             <small>Contracts</small>
@@ -1648,10 +1663,11 @@ open-data-products summary examples/product.yaml</pre>
           </article>
           <article class="doc-card">
             <small>Generate</small>
-            <h3>LLM and Data Contract workflows</h3>
-            <p>Configure generation providers, copy prompt templates, validate contracts, and produce product-level reports.</p>
+            <h3>LLM, ODPR, and Data Contract workflows</h3>
+            <p>Configure generation providers, extend provider profiles, use ODPR recipes as workflow contracts, validate contracts, and produce product-level reports.</p>
             <ul>
               <li><a href="https://github.com/Open-Data-Product-Initiative/odp-agent-sdk/blob/main/docs/generation.md">LLM generation</a></li>
+              <li><a href="https://github.com/Open-Data-Product-Initiative/odp-agent-sdk/blob/main/docs/sdk-workflow-profiles-plan.md">ODPR workflow recipes</a></li>
               <li><a href="https://github.com/Open-Data-Product-Initiative/odp-agent-sdk/blob/main/docs/data-contracts.md">Data Contract workflows</a></li>
             </ul>
           </article>
@@ -1691,6 +1707,13 @@ open-data-products summary examples/product.yaml</pre>
             </details>
 
             <details class="faq-item">
+              <summary>What are workflow contracts?</summary>
+              <p>
+                Workflow contracts are ODPR recipes that describe how a repeatable SDK run should work. They are similar to reusable skills or playbooks for AI agents, but with explicit steps, inputs, outputs, provider profiles, validation gates, context formats, and review policy so humans, CI jobs, and agents can run the same workflow consistently.
+              </p>
+            </details>
+
+            <details class="faq-item">
               <summary>Is this only for AI agents?</summary>
               <p>
                 No. Developers can use the Python API and CLI directly, while AI agents can use the same capabilities through MCP, ARWS manifest metadata, and agent-facing context files. The goal is one standards-aware toolkit across human and agent workflows.
@@ -1725,7 +1748,7 @@ open-data-products summary examples/product.yaml</pre>
         <div>
           <h2>Build data product workflows that AI agents understand</h2>
           <p>
-            Use the SDK as the context and execution layer for AI agents working with data product standards, ODPC catalogs, data contracts, validation, graph traversal, vocabulary helpers, compact sidecars, and agent-ready workflows.
+            Use the SDK as the context and execution layer for AI agents working with data product standards, ODPC catalogs, ODPR workflow contracts, data contracts, validation, graph traversal, vocabulary helpers, compact sidecars, and agent-ready workflows.
           </p>
         </div>
         <a class="btn" href="https://github.com/Open-Data-Product-Initiative/odp-agent-sdk">Open GitHub repo</a>

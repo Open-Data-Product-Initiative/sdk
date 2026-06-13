@@ -2,7 +2,7 @@
 
 > Agent-facing guide for the Open Data Products SDK landing page at https://opendataproducts.org/sdk/.
 
-The Open Data Products SDK is the primary implementation toolkit for the Open Data Products standards family. It is an agent-ready Python SDK and MCP server for loading, detecting, validating, explaining, summarizing, generating, compacting, searching, traversing, and publishing Open Data Product artifacts.
+The Open Data Products SDK is the primary implementation toolkit for the Open Data Products standards family. It is an agent-ready Python SDK and MCP server for loading, detecting, validating, explaining, summarizing, generating, compacting, searching, traversing, and publishing Open Data Product artifacts and ODPR workflow recipes.
 
 Use it across:
 
@@ -10,6 +10,7 @@ Use it across:
 - ODPC: Open Data Product Catalog fragments, catalogs, object guidance, generated catalog artifacts, and optional TOON or GCF context sidecars.
 - ODPG: Open Data Product Graph validation, summaries, traversal, strategic analysis, graph explorer output, and optional TOON or GCF context sidecars.
 - ODPV: Open Data Product Vocabulary search, validation, term resolution, relationship checks, and agent context packets.
+- ODPR: workflow recipes as portable workflow contracts for repeatable SDK runs, provider choices, validation gates, context formats, and review policy.
 - Data Contracts: ODPS contract references, optional external `datacontract-cli` validation, schema extraction, alignment checks, and product-level reports.
 - Portfolio workspaces: build, refresh, sync, render, localize, and explain connected ODPC, ODPS, and ODPG portfolio outputs from source lanes.
 
@@ -21,6 +22,7 @@ Use it across:
 - Emitting compact TOON and experimental GCF sidecars for ODPC catalogs and ODPG graphs while YAML remains the canonical source.
 - Discovering bundled resources such as schemas, prompt templates, vocabulary records, catalog object records, and graph object records.
 - Generating standards-aware artifacts with local LLMs through Ollama, LM Studio, vLLM, llama.cpp server, LocalAI, or hosted providers such as Claude, OpenAI, OpenRouter, and Groq.
+- Using ODPR recipes as workflow contracts for repeatable SDK automation across local, hosted, deterministic, and hybrid steps.
 - Searching ODPV terms, ODPC catalog guidance, graph objects, Data Contract context, and product references.
 - Traversing product, objective, KPI, use-case, signal, and graph relationships.
 - Exposing safe SDK operations to AI agents through Model Context Protocol.
@@ -36,6 +38,7 @@ Use it across:
 - Command guide: https://github.com/Open-Data-Product-Initiative/odp-agent-sdk/blob/main/docs/commands.md
 - LLM generation guide: https://github.com/Open-Data-Product-Initiative/odp-agent-sdk/blob/main/docs/generation.md
 - LLM selection guide: https://github.com/Open-Data-Product-Initiative/odp-agent-sdk/blob/main/docs/llm-selection-guide.md
+- ODPR workflow recipes: https://github.com/Open-Data-Product-Initiative/odp-agent-sdk/blob/main/docs/sdk-workflow-profiles-plan.md
 - Agent surface guide: https://github.com/Open-Data-Product-Initiative/odp-agent-sdk/blob/main/docs/agent-surface.md
 - Data Contract workflows: https://github.com/Open-Data-Product-Initiative/odp-agent-sdk/blob/main/docs/data-contracts.md
 - Open Data Product Initiative: https://opendataproducts.org/
@@ -112,6 +115,8 @@ Most commands print human-readable output by default. Add `--json` when agents, 
 ## LLM Usage
 
 The SDK supports LLM-assisted generation workflows. Agents and developers can use local LLMs through Ollama, LM Studio, vLLM, llama.cpp server, and LocalAI, or hosted providers such as Claude, OpenAI, OpenRouter, and Groq, to help generate standards-aware ODPS, ODPC, and ODPG artifacts.
+
+The bundled generation config includes preconfigured provider profiles such as `ollama-gemma3n`, `ollama-qwen3`, `ollama-qwen3-14b`, `lmstudio-gemma4-12b`, `claude`, and `openai`. Select them with `--provider <name>`, extend the config with additional local models, hosted providers, or OpenAI-compatible endpoints, and use the LLM selection guide to match a profile to each SDK job.
 
 Local model names are provided by the selected runtime rather than hard-coded by the SDK. Common local model families include Llama, DeepSeek, Qwen, Mistral, Mixtral, Phi, Gemma, Code Llama, StarCoder, Yi, Command R, Falcon, Granite, Nemotron, Vicuna, WizardLM, and other models exposed through an Ollama or OpenAI-compatible local server.
 
@@ -203,6 +208,9 @@ Recommended website tracks:
 - Treat the SDK as the standards-family toolkit, not an ODPS-only tool.
 - Mention MCP and ARWS together when describing agent-host support.
 - Mention both local LLM runtimes, including LM Studio, and service providers when describing generation.
+- Mention that common provider profile names are preconfigured SDK options selected with `--provider <name>`.
+- Mention that teams can extend generation config with their own model and provider profiles.
+- Mention ODPR recipes as workflow contracts for repeatable SDK runs, not just another model setting.
 - Mention TOON and GCF as optional compact sidecars, not replacements for YAML.
 - Use `open-data-products serve` for the MCP server command.
 - Use `open-data-products manifest --json` for the ARWS agent manifest command.
