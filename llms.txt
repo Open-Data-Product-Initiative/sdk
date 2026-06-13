@@ -35,6 +35,7 @@ Use it across:
 - API reference: https://github.com/Open-Data-Product-Initiative/odp-agent-sdk/blob/main/docs/API.md
 - Command guide: https://github.com/Open-Data-Product-Initiative/odp-agent-sdk/blob/main/docs/commands.md
 - LLM generation guide: https://github.com/Open-Data-Product-Initiative/odp-agent-sdk/blob/main/docs/generation.md
+- LLM selection guide: https://github.com/Open-Data-Product-Initiative/odp-agent-sdk/blob/main/docs/llm-selection-guide.md
 - Agent surface guide: https://github.com/Open-Data-Product-Initiative/odp-agent-sdk/blob/main/docs/agent-surface.md
 - Data Contract workflows: https://github.com/Open-Data-Product-Initiative/odp-agent-sdk/blob/main/docs/data-contracts.md
 - Open Data Product Initiative: https://opendataproducts.org/
@@ -181,6 +182,7 @@ Recommended website tracks:
 - Generate:
   - Working with local LLMs: https://github.com/Open-Data-Product-Initiative/odp-agent-sdk/tree/main/examples/guides/10-working-with-local-llms
   - Working with online LLM providers: https://github.com/Open-Data-Product-Initiative/odp-agent-sdk/tree/main/examples/guides/11-working-with-online-llm-providers
+  - Choosing an LLM for each SDK job: https://github.com/Open-Data-Product-Initiative/odp-agent-sdk/blob/main/docs/llm-selection-guide.md
   - Working with generation and fragments: https://github.com/Open-Data-Product-Initiative/odp-agent-sdk/tree/main/examples/guides/13-working-with-generation-and-fragments
 - Reason:
   - Use ODPV vocabulary helpers: https://github.com/Open-Data-Product-Initiative/odp-agent-sdk/tree/main/examples/guides/09-use-odpv-vocabulary-helpers

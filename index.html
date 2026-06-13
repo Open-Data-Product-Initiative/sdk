@@ -698,6 +698,69 @@
       gap: 24px;
     }
 
+    .llm-selection-table {
+      overflow-x: auto;
+      margin: 16px 0 0;
+      border: 1px solid rgba(236, 222, 246, 0.2);
+      border-radius: 22px;
+      background: rgba(9, 0, 13, 0.36);
+    }
+
+    .llm-selection-heading {
+      margin: 34px 0 12px;
+    }
+
+    .llm-selection-heading h3 {
+      margin: 0 0 6px;
+      font-size: 1.35rem;
+      letter-spacing: -0.01em;
+    }
+
+    .llm-selection-heading p {
+      max-width: 760px;
+      color: var(--muted);
+      font-size: 0.96rem;
+    }
+
+    .llm-selection-table table {
+      width: 100%;
+      min-width: 760px;
+      border-collapse: collapse;
+    }
+
+    .llm-selection-table caption {
+      text-align: left;
+      padding: 20px 22px 10px;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .llm-selection-table th,
+    .llm-selection-table td {
+      padding: 16px 22px;
+      text-align: left;
+      vertical-align: top;
+      border-top: 1px solid rgba(236, 222, 246, 0.14);
+      font-size: 0.95rem;
+    }
+
+    .llm-selection-table th {
+      color: var(--gold);
+      font-size: 0.78rem;
+      font-weight: 850;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .llm-selection-table td {
+      color: var(--muted);
+    }
+
+    .llm-selection-table td:first-child {
+      color: var(--text);
+      font-weight: 800;
+    }
+
     .llm-card {
       background: rgba(63, 37, 81, 0.78);
       border: 1px solid var(--line);
@@ -1267,6 +1330,7 @@
           <h2>Designed for local and provider LLM support</h2>
           <p>
             The SDK keeps generation workflows provider-aware while staying grounded in the Open Data Products standards family. Choose a local runtime for private or offline work, or connect a hosted provider when managed model access fits better.
+            A quickstart-style <a href="https://github.com/Open-Data-Product-Initiative/odp-agent-sdk/blob/main/docs/llm-selection-guide.md">LLM selection guide</a> helps match local or hosted models to validation, generation, graph, portfolio, localization, CI, and release-review jobs.
           </p>
         </div>
 
@@ -1286,6 +1350,51 @@
             <h3>Use managed LLM APIs</h3>
             <p>Connect service providers such as Claude, OpenAI, OpenRouter, and Groq through generation configuration, then validate generated ODPS, ODPC, ODPG, ODPV, and data contract artifacts before use.</p>
           </article>
+        </div>
+
+        <div class="llm-selection-heading">
+          <h3>Quick model picks by SDK job</h3>
+          <p>Use these as starting profiles, then tune the provider choice when privacy, runtime, quality, or release risk changes.</p>
+        </div>
+
+        <div class="llm-selection-table" aria-label="Simplified LLM selection table">
+          <table>
+            <caption>Shortlist from the SDK LLM selection guide.</caption>
+            <thead>
+              <tr>
+                <th scope="col">SDK job</th>
+                <th scope="col">Local starting point</th>
+                <th scope="col">Stronger or production choice</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Validate, build, render, or create TOON/GCF sidecars</td>
+                <td>No LLM</td>
+                <td>No LLM; keep these deterministic in CLI and CI.</td>
+              </tr>
+              <tr>
+                <td>Fast draft generation</td>
+                <td><code>ollama-gemma3n</code>, <code>ollama-llama</code>, <code>ollama-mistral</code>, or <code>ollama-phi</code></td>
+                <td><code>claude</code> or <code>openai</code> when the draft becomes release-facing.</td>
+              </tr>
+              <tr>
+                <td>Structured ODPS, ODPC, or ODPG YAML generation</td>
+                <td><code>ollama-qwen3</code> or <code>ollama-qwen3-14b</code></td>
+                <td><code>lmstudio-gemma4-12b</code>, <code>claude</code>, or <code>openai</code>.</td>
+              </tr>
+              <tr>
+                <td>Graph inference and portfolio review</td>
+                <td><code>lmstudio-gemma4-12b</code> or <code>ollama-qwen3-14b</code></td>
+                <td><code>claude</code> or <code>openai</code> when consistency matters more than local-only execution.</td>
+              </tr>
+              <tr>
+                <td>Localization or release review</td>
+                <td><code>lmstudio-gemma4-12b</code></td>
+                <td><code>claude</code> or <code>openai</code> for production polish and review confidence.</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </section>
 
