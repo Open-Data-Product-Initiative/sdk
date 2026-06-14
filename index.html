@@ -887,6 +887,72 @@
       font-size: 0.96rem;
     }
 
+    .course-callout {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 24px;
+      align-items: center;
+      margin-top: 26px;
+      padding: 26px;
+      border-radius: 22px;
+      background: linear-gradient(135deg, rgba(255, 216, 77, 0.16), rgba(123, 44, 191, 0.28));
+      border: 1px solid rgba(255, 216, 77, 0.26);
+      box-shadow: 0 18px 48px rgba(0, 0, 0, 0.22);
+    }
+
+    .course-callout small {
+      color: var(--gold);
+      font-weight: 850;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .course-kicker {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .udemy-logo-link {
+      display: inline-flex;
+      align-items: center;
+      padding: 7px 10px;
+      border-radius: 10px;
+      background: #ffffff;
+      border: 1px solid rgba(255, 255, 255, 0.66);
+      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.18);
+    }
+
+    .udemy-logo {
+      display: block;
+      width: 86px;
+      height: auto;
+    }
+
+    .course-callout h3 {
+      margin: 8px 0 8px;
+      font-size: 1.42rem;
+      letter-spacing: -0.01em;
+    }
+
+    .course-callout p {
+      max-width: 780px;
+      color: #f4ecfa;
+      font-size: 1rem;
+    }
+
+    .course-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      justify-content: flex-end;
+    }
+
+    .course-callout a {
+      white-space: nowrap;
+    }
+
     .steps {
       display: grid;
       grid-template-columns: repeat(5, 1fr);
@@ -1145,6 +1211,8 @@
       .hero, .split, .cta, .mcp-panel, .portfolio-panel { grid-template-columns: 1fr; }
       .faq-layout { grid-template-columns: 1fr; gap: 28px; }
       .cards, .standards, .llm-grid, .context-grid, .capability-grid, .guide-grid, .doc-grid { grid-template-columns: repeat(2, 1fr); }
+      .course-callout { grid-template-columns: 1fr; }
+      .course-actions { justify-content: flex-start; }
       .outcome-grid, .portfolio-lanes { grid-template-columns: 1fr; }
       .steps { grid-template-columns: 1fr 1fr; }
       .footer-grid { grid-template-columns: repeat(2, 1fr); }
@@ -1164,6 +1232,8 @@
       .faq-item p { padding-right: 0; }
       .capability-grid { padding: 18px; }
       .cta { padding: 30px; }
+      .course-callout { padding: 22px; }
+      .course-callout a { width: 100%; white-space: normal; }
       .footer-grid { grid-template-columns: 1fr; }
       .footer-legal { justify-items: start; text-align: left; }
       .footer-legal nav { justify-content: flex-start; }
@@ -1305,6 +1375,7 @@
             <p>Build, refresh, sync, render, localize, and explain connected ODPC, ODPS, and ODPG portfolio workspaces from real source lanes.</p>
           </article>
         </div>
+
       </section>
 
       <section id="mcp">
@@ -1447,6 +1518,7 @@
             <p>Use <code>--toon</code> and <code>--gcf</code> as optional build outputs; keep YAML as the reviewed, validated, and exchanged standards artifact.</p>
           </article>
         </div>
+
       </section>
 
       <section id="capabilities">
@@ -1540,6 +1612,25 @@
               <li><a href="https://github.com/Open-Data-Product-Initiative/odp-agent-sdk/tree/main/examples/guides/20-final-review-human-view-and-agent-ready-yaml">Review HTML and YAML</a></li>
             </ul>
           </article>
+        </div>
+
+        <div class="course-callout">
+          <div>
+            <div class="course-kicker">
+              <a class="udemy-logo-link" href="https://www.udemy.com/user/jarkko-moilanen/" target="_blank" rel="noopener" aria-label="Data Product MasterClasses on Udemy">
+                <img class="udemy-logo" src="https://upload.wikimedia.org/wikipedia/commons/e/e3/Udemy_logo.svg" alt="Udemy" />
+              </a>
+              <small>Coming Course</small>
+            </div>
+            <h3>Data Product SDK Masterclass</h3>
+            <p>
+              A Udemy Masterclass for the Data Product SDK is coming. The course will turn these SDK updates into a guided, practical learning path. Browse the current Data Product MasterClasses, and reach out on LinkedIn for voucher access to the upcoming SDK Masterclass.
+            </p>
+          </div>
+          <div class="course-actions" aria-label="SDK Masterclass links">
+            <a class="btn btn-secondary" href="https://www.udemy.com/user/jarkko-moilanen/" target="_blank" rel="noopener">Data Product MasterClasses</a>
+            <a class="btn btn-primary" href="https://www.linkedin.com/in/jarkkomoilanen/" target="_blank" rel="noopener">LinkedIn vouchers</a>
+          </div>
         </div>
       </section>
 

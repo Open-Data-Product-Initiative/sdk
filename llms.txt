@@ -191,6 +191,14 @@ Use the full guide index when you need the course-aligned sequence:
 
 https://github.com/Open-Data-Product-Initiative/odp-agent-sdk/tree/main/examples/guides
 
+A Udemy Masterclass for the Data Product SDK is coming. It will turn the current SDK updates into a guided, practical learning path. Current Data Product MasterClasses are listed at:
+
+https://www.udemy.com/user/jarkko-moilanen/
+
+For voucher access to the upcoming SDK Masterclass, contact Jarkko Moilanen on LinkedIn:
+
+https://www.linkedin.com/in/jarkkomoilanen/
+
 Recommended website tracks:
 
 - Start:
