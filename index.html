@@ -121,11 +121,24 @@
     }
 
     .hero {
+      position: relative;
       padding: 88px 0 74px;
       display: grid;
       grid-template-columns: 1.04fr 0.96fr;
       gap: 64px;
       align-items: center;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0 calc(50% - 50vw);
+      background:
+        linear-gradient(90deg, rgba(3, 0, 6, 0.96) 0%, rgba(23, 2, 34, 0.86) 38%, rgba(23, 2, 34, 0.50) 62%, rgba(3, 0, 6, 0.82) 100%),
+        linear-gradient(180deg, rgba(3, 0, 6, 0.44) 0%, rgba(3, 0, 6, 0.08) 48%, rgba(3, 0, 6, 0.72) 100%),
+        url("images/hero-sdk-agents.png") center right / cover no-repeat;
+      opacity: 0.72;
+      z-index: -1;
     }
 
     .eyebrow {
@@ -434,6 +447,18 @@
       min-height: 100%;
     }
 
+    .portfolio-visual-image {
+      display: block;
+      width: 100%;
+      aspect-ratio: 16 / 10;
+      object-fit: cover;
+      object-position: center;
+      border-radius: 24px;
+      border: 1px solid rgba(236, 222, 246, 0.16);
+      box-shadow: 0 24px 64px rgba(0, 0, 0, 0.26);
+      background: rgba(9, 0, 13, 0.46);
+    }
+
     .portfolio-lanes {
       display: grid;
       grid-template-columns: 1fr auto 1fr;
@@ -710,20 +735,12 @@
       background: rgba(9, 0, 13, 0.36);
     }
 
-    .llm-selection-heading {
-      margin: 34px 0 12px;
+    .model-picks-title {
+      max-width: none;
     }
 
-    .llm-selection-heading h3 {
-      margin: 0 0 6px;
-      font-size: 1.35rem;
-      letter-spacing: -0.01em;
-    }
-
-    .llm-selection-heading p {
-      max-width: 760px;
-      color: var(--muted);
-      font-size: 0.96rem;
+    .model-picks-title p {
+      max-width: none;
     }
 
     .llm-selection-table table {
@@ -765,6 +782,54 @@
       font-weight: 800;
     }
 
+    .model-command-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+      margin: 14px 0 0;
+    }
+
+    .model-command-heading {
+      margin: 26px 0 0;
+    }
+
+    .model-command-heading h3 {
+      margin: 0 0 6px;
+      font-size: 1.2rem;
+      letter-spacing: 0;
+    }
+
+    .model-command-heading p {
+      max-width: 820px;
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.96rem;
+    }
+
+    .model-command-card {
+      min-width: 0;
+      border: 1px solid rgba(236, 222, 246, 0.18);
+      border-radius: 18px;
+      background: rgba(9, 0, 13, 0.46);
+      padding: 18px;
+    }
+
+    .model-command-card h3 {
+      margin: 0 0 12px;
+      font-size: 1rem;
+      letter-spacing: 0;
+    }
+
+    .model-command-card pre {
+      margin: 0;
+      overflow-x: auto;
+      color: #f6ecfb;
+      font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+      font-size: 0.82rem;
+      line-height: 1.6;
+      white-space: pre;
+    }
+
     .llm-card {
       background: rgba(63, 37, 81, 0.78);
       border: 1px solid var(--line);
@@ -789,6 +854,19 @@
     .llm-card p {
       color: var(--muted);
       font-size: 0.96rem;
+    }
+
+    .context-visual-image {
+      display: block;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      object-fit: cover;
+      object-position: center;
+      margin: 0 0 24px;
+      border-radius: 26px;
+      border: 1px solid rgba(236, 222, 246, 0.16);
+      box-shadow: 0 24px 64px rgba(0, 0, 0, 0.26);
+      background: rgba(9, 0, 13, 0.46);
     }
 
     .standard {
@@ -888,16 +966,22 @@
     }
 
     .course-callout {
+      position: relative;
       display: grid;
-      grid-template-columns: minmax(0, 1fr) auto;
+      grid-template-columns: 1fr;
       gap: 24px;
       align-items: center;
       margin-top: 26px;
-      padding: 26px;
+      min-height: 380px;
+      padding: 32px;
       border-radius: 22px;
-      background: linear-gradient(135deg, rgba(255, 216, 77, 0.16), rgba(123, 44, 191, 0.28));
+      background:
+        linear-gradient(90deg, rgba(9, 0, 13, 0.96) 0%, rgba(31, 4, 43, 0.86) 42%, rgba(31, 4, 43, 0.34) 70%, rgba(9, 0, 13, 0.42) 100%),
+        linear-gradient(180deg, rgba(9, 0, 13, 0.20) 0%, rgba(9, 0, 13, 0.72) 100%),
+        url("images/ads-marketing.png") center right / cover no-repeat;
       border: 1px solid rgba(255, 216, 77, 0.26);
       box-shadow: 0 18px 48px rgba(0, 0, 0, 0.22);
+      overflow: hidden;
     }
 
     .course-callout small {
@@ -937,16 +1021,27 @@
     }
 
     .course-callout p {
-      max-width: 780px;
+      max-width: none;
       color: #f4ecfa;
       font-size: 1rem;
+    }
+
+    .course-content {
+      position: relative;
+      z-index: 1;
+      width: min(100%, 780px);
     }
 
     .course-actions {
       display: flex;
       flex-wrap: wrap;
       gap: 12px;
-      justify-content: flex-end;
+      justify-content: flex-start;
+      margin-top: 18px;
+    }
+
+    .course-actions .btn {
+      flex: 1 1 240px;
     }
 
     .course-callout a {
@@ -1210,7 +1305,7 @@
       nav { display: none; }
       .hero, .split, .cta, .mcp-panel, .portfolio-panel { grid-template-columns: 1fr; }
       .faq-layout { grid-template-columns: 1fr; gap: 28px; }
-      .cards, .standards, .llm-grid, .context-grid, .capability-grid, .guide-grid, .doc-grid { grid-template-columns: repeat(2, 1fr); }
+      .cards, .standards, .llm-grid, .context-grid, .capability-grid, .guide-grid, .doc-grid, .model-command-grid { grid-template-columns: repeat(2, 1fr); }
       .course-callout { grid-template-columns: 1fr; }
       .course-actions { justify-content: flex-start; }
       .outcome-grid, .portfolio-lanes { grid-template-columns: 1fr; }
@@ -1221,7 +1316,7 @@
     }
 
     @media (max-width: 620px) {
-      .cards, .standards, .llm-grid, .context-grid, .steps, .status-grid, .capability-grid, .guide-grid, .doc-grid { grid-template-columns: 1fr; }
+      .cards, .standards, .llm-grid, .context-grid, .steps, .status-grid, .capability-grid, .guide-grid, .doc-grid, .model-command-grid { grid-template-columns: 1fr; }
       section { padding: 54px 0; }
       .section-title { margin-bottom: 28px; }
       .hero { padding-top: 40px; gap: 34px; }
@@ -1232,8 +1327,14 @@
       .faq-item p { padding-right: 0; }
       .capability-grid { padding: 18px; }
       .cta { padding: 30px; }
-      .course-callout { padding: 22px; }
-      .course-callout a { width: 100%; white-space: normal; }
+      .course-callout {
+        min-height: 520px;
+        padding: 22px;
+        background:
+          linear-gradient(180deg, rgba(9, 0, 13, 0.94) 0%, rgba(31, 4, 43, 0.86) 48%, rgba(9, 0, 13, 0.40) 100%),
+          url("images/ads-marketing.png") center bottom / cover no-repeat;
+      }
+      .course-actions a { width: 100%; white-space: normal; }
       .footer-grid { grid-template-columns: 1fr; }
       .footer-legal { justify-items: start; text-align: left; }
       .footer-legal nav { justify-content: flex-start; }
@@ -1260,6 +1361,7 @@
         <a href="#why">Why</a>
         <a href="#mcp">MCP</a>
         <a href="#llms">LLMs</a>
+        <a href="#model-picks">Models</a>
         <a href="#context">Context</a>
         <a href="#capabilities">Capabilities</a>
         <a href="#guides">Guides</a>
@@ -1410,7 +1512,7 @@
           <h2>Designed for local and provider LLM support</h2>
           <p>
             The SDK keeps generation workflows provider-aware while staying grounded in the Open Data Products standards family. Choose a local runtime for private or offline work, run a GGUF model directly with the optional embedded llama.cpp extra, or connect a hosted provider when managed model access fits better.
-            The names below are preconfigured SDK provider profiles you can select with <code>--provider &lt;name&gt;</code>, and the generation config can be extended with additional local models, hosted providers, and OpenAI-compatible endpoints. A quickstart-style <a href="https://github.com/Open-Data-Product-Initiative/odp-agent-sdk/blob/main/docs/user/llm-selection-guide.md">LLM selection guide</a> helps match those options to validation, generation, graph, portfolio, localization, CI, and release-review jobs.
+            Generation configuration can be extended with additional local models, hosted providers, and OpenAI-compatible endpoints.
           </p>
         </div>
 
@@ -1436,20 +1538,24 @@
             <p>Connect service providers such as Claude, OpenAI, OpenRouter, and Groq through generation configuration, then validate generated ODPS, ODPC, ODPG, ODPV, and data contract artifacts before use.</p>
           </article>
         </div>
+      </section>
 
-        <div class="llm-selection-heading">
-          <h3>Preconfigured model picks by SDK job</h3>
-          <p>These are bundled SDK provider profile names, ready to use in generation config and CLI commands. Add your own profiles when another model or provider fits the job better.</p>
+      <section id="model-picks">
+        <div class="section-title model-picks-title">
+          <h2>Default provider suggestions by SDK job</h2>
+          <p>
+            These provider profile names are suggested by the default SDK generation configuration and can be selected with <code>--provider &lt;name&gt;</code> in CLI commands. Add your own profiles when another model or provider fits the job better. The <a href="https://github.com/Open-Data-Product-Initiative/odp-agent-sdk/blob/main/docs/user/llm-selection-guide.md">LLM selection guide</a> expands the decision path for validation, generation, graph, portfolio, localization, CI, and release-review jobs.
+          </p>
         </div>
 
         <div class="llm-selection-table" aria-label="Simplified LLM selection table">
           <table>
-            <caption>Shortlist of SDK provider profile names from the LLM selection guide.</caption>
+            <caption>Shortlist of default SDK configuration suggestions from the LLM selection guide.</caption>
             <thead>
               <tr>
                 <th scope="col">SDK job</th>
-                <th scope="col">Preconfigured local profile</th>
-                <th scope="col">Preconfigured stronger or production profile</th>
+                <th scope="col">Suggested local profile</th>
+                <th scope="col">Suggested stronger or production profile</th>
               </tr>
             </thead>
             <tbody>
@@ -1486,6 +1592,35 @@
             </tbody>
           </table>
         </div>
+
+        <div class="model-command-heading">
+          <h3>Example SDK commands</h3>
+          <p>Use the suggested provider profile names from the default configuration when drafting artifacts, refreshing portfolios, or reviewing localized outputs.</p>
+        </div>
+
+        <div class="model-command-grid" aria-label="Example SDK commands for model provider profiles">
+          <article class="model-command-card">
+            <h3>Fast local draft</h3>
+<pre>open-data-products generate \
+  --input source_docs/products/ \
+  --kind product-reference \
+  --provider ollama-gemma3n \
+  --output generated/</pre>
+          </article>
+          <article class="model-command-card">
+            <h3>Portfolio refresh</h3>
+<pre>open-data-products portfolio refresh \
+  generated/portfolio/ \
+  --provider claude</pre>
+          </article>
+          <article class="model-command-card">
+            <h3>Localization review</h3>
+<pre>open-data-products portfolio localize \
+  generated/portfolio/ \
+  --languages "fi,sv" \
+  --provider lmstudio-gemma4-12b</pre>
+          </article>
+        </div>
       </section>
 
       <section id="context">
@@ -1495,6 +1630,8 @@
             TOON and GCF support give agents smaller sidecar files for repeated catalog rows and graph relationships. ODPR recipes can make those compact-context choices part of a workflow contract, so each repeatable agent run knows which sidecars, validation checks, providers, and review steps to use while YAML remains canonical.
           </p>
         </div>
+
+        <img class="context-visual-image" src="images/infographic-diagram.png" alt="Diagram showing standards documents and graph relationships being transformed into compact agent-ready context packets." />
 
         <div class="llm-grid context-grid">
           <article class="llm-card">
@@ -1615,21 +1752,21 @@
         </div>
 
         <div class="course-callout">
-          <div>
+          <div class="course-content">
             <div class="course-kicker">
               <a class="udemy-logo-link" href="https://www.udemy.com/user/jarkko-moilanen/" target="_blank" rel="noopener" aria-label="Data Product MasterClasses on Udemy">
                 <img class="udemy-logo" src="https://upload.wikimedia.org/wikipedia/commons/e/e3/Udemy_logo.svg" alt="Udemy" />
               </a>
-              <small>Coming Course</small>
+              <small>Coming June 2026</small>
             </div>
             <h3>Data Product SDK Masterclass</h3>
             <p>
-              A Udemy Masterclass for the Data Product SDK is coming. The course will turn these SDK updates into a guided, practical learning path. Browse the current Data Product MasterClasses, and reach out on LinkedIn for voucher access to the upcoming SDK Masterclass.
+              A Udemy Masterclass for the Data Product SDK is coming in June 2026. The course will turn these SDK updates into a guided, practical learning path. Browse the current Data Product MasterClasses, and reach out on LinkedIn for voucher access to the upcoming SDK Masterclass.
             </p>
-          </div>
-          <div class="course-actions" aria-label="SDK Masterclass links">
-            <a class="btn btn-secondary" href="https://www.udemy.com/user/jarkko-moilanen/" target="_blank" rel="noopener">Data Product MasterClasses</a>
-            <a class="btn btn-primary" href="https://www.linkedin.com/in/jarkkomoilanen/" target="_blank" rel="noopener">LinkedIn vouchers</a>
+            <div class="course-actions" aria-label="SDK Masterclass links">
+              <a class="btn btn-secondary" href="https://www.udemy.com/user/jarkko-moilanen/" target="_blank" rel="noopener">Data Product MasterClasses</a>
+              <a class="btn btn-primary" href="https://www.linkedin.com/in/jarkkomoilanen/" target="_blank" rel="noopener">LinkedIn vouchers</a>
+            </div>
           </div>
         </div>
       </section>
@@ -1644,27 +1781,8 @@
             </p>
           </div>
 
-          <div class="portfolio-flow" aria-label="Portfolio builder workflow visual">
-            <div class="portfolio-lanes">
-              <div class="lane-stack">
-                <div class="visual-label">Inputs</div>
-                <div class="lane-chip">Objectives <span>source lane</span></div>
-                <div class="lane-chip">Use cases <span>source lane</span></div>
-                <div class="lane-chip">Signals <span>source lane</span></div>
-                <div class="lane-chip">Products <span>source lane</span></div>
-              </div>
-
-              <div class="builder-node">Portfolio Builder</div>
-
-              <div class="lane-stack">
-                <div class="visual-label">Outputs</div>
-                <div class="lane-chip">ODPC catalog <span>YAML</span></div>
-                <div class="lane-chip">ODPG graph <span>YAML</span></div>
-                <div class="lane-chip">Context sidecars <span>TOON + GCF</span></div>
-                <div class="lane-chip">Review pages <span>HTML</span></div>
-                <div class="lane-chip">Version history <span>snapshots</span></div>
-              </div>
-            </div>
+          <div class="portfolio-flow">
+            <img class="portfolio-visual-image" src="images/productivity-visual.png" alt="Abstract workflow visual showing data, documents, code, and tables flowing into a central product hub and branching into catalog, graph, code, review, and version outputs." />
 
             <div class="code-panel">
 <pre><span class="comment"># Build and review the workspace</span>
@@ -1886,6 +2004,7 @@ open-data-products summary examples/product.yaml</pre>
             <li><a href="https://opendataproducts.org/odpv-v1.0/" target="_blank" rel="noopener">Open Data Product Vocab</a></li>
             <li><a href="https://opendataproducts.org/odpg-v1.0/" target="_blank" rel="noopener">Open Data Product Graphs</a></li>
             <li><a href="https://opendataproducts.org/odpc-v1.0/" target="_blank" rel="noopener">Open Data Product Catalogs</a></li>
+            <li><a href="https://opendataproducts.org/odpr-v1.0/" target="_blank" rel="noopener">Open Data Product Recipes</a></li>
           </ul>
         </div>
 
