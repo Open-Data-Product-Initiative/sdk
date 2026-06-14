@@ -21,7 +21,7 @@ Use it across:
 - Loading lightweight summaries with size, hash, spec, kind, and id without returning full document bodies.
 - Emitting compact TOON and experimental GCF sidecars for ODPC catalogs and ODPG graphs while YAML remains the canonical source.
 - Discovering bundled resources such as schemas, prompt templates, vocabulary records, catalog object records, and graph object records.
-- Generating standards-aware artifacts with local LLMs through Ollama, LM Studio, vLLM, llama.cpp server, LocalAI, or hosted providers such as Claude, OpenAI, OpenRouter, and Groq.
+- Generating standards-aware artifacts with local LLMs through Ollama, LM Studio, vLLM, llama.cpp server, embedded llama.cpp via `llama-cpp-python`, LocalAI, or hosted providers such as Claude, OpenAI, OpenRouter, and Groq.
 - Using ODPR recipes as workflow contracts for repeatable SDK automation across local, hosted, deterministic, and hybrid steps.
 - Searching ODPV terms, ODPC catalog guidance, graph objects, Data Contract context, and product references.
 - Traversing product, objective, KPI, use-case, signal, and graph relationships.
@@ -34,13 +34,14 @@ Use it across:
 - SDK page: https://opendataproducts.org/sdk/
 - GitHub repository: https://github.com/Open-Data-Product-Initiative/odp-agent-sdk
 - Repository guides: https://github.com/Open-Data-Product-Initiative/odp-agent-sdk/tree/main/examples/guides
-- API reference: https://github.com/Open-Data-Product-Initiative/odp-agent-sdk/blob/main/docs/API.md
-- Command guide: https://github.com/Open-Data-Product-Initiative/odp-agent-sdk/blob/main/docs/commands.md
-- LLM generation guide: https://github.com/Open-Data-Product-Initiative/odp-agent-sdk/blob/main/docs/generation.md
-- LLM selection guide: https://github.com/Open-Data-Product-Initiative/odp-agent-sdk/blob/main/docs/llm-selection-guide.md
-- ODPR workflow recipes: https://github.com/Open-Data-Product-Initiative/odp-agent-sdk/blob/main/docs/sdk-workflow-profiles-plan.md
-- Agent surface guide: https://github.com/Open-Data-Product-Initiative/odp-agent-sdk/blob/main/docs/agent-surface.md
-- Data Contract workflows: https://github.com/Open-Data-Product-Initiative/odp-agent-sdk/blob/main/docs/data-contracts.md
+- API reference: https://github.com/Open-Data-Product-Initiative/odp-agent-sdk/blob/main/docs/user/API.md
+- Command guide: https://github.com/Open-Data-Product-Initiative/odp-agent-sdk/blob/main/docs/user/commands.md
+- LLM generation guide: https://github.com/Open-Data-Product-Initiative/odp-agent-sdk/blob/main/docs/user/generation.md
+- Embedded llama.cpp guide: https://github.com/Open-Data-Product-Initiative/odp-agent-sdk/blob/main/docs/user/llama-cpp.md
+- LLM selection guide: https://github.com/Open-Data-Product-Initiative/odp-agent-sdk/blob/main/docs/user/llm-selection-guide.md
+- ODPR workflow recipes: https://github.com/Open-Data-Product-Initiative/odp-agent-sdk/blob/main/docs/planning/sdk-workflow-profiles-plan.md
+- Agent surface guide: https://github.com/Open-Data-Product-Initiative/odp-agent-sdk/blob/main/docs/user/agent-surface.md
+- Data Contract workflows: https://github.com/Open-Data-Product-Initiative/odp-agent-sdk/blob/main/docs/user/data-contracts.md
 - Open Data Product Initiative: https://opendataproducts.org/
 - Standards family:
   - ODPS: https://opendataproducts.org/v4.1/
@@ -58,6 +59,12 @@ Optional Data Contract adapter:
 
 ```bash
 pip install "open-data-products[contracts]"
+```
+
+Optional embedded llama.cpp support:
+
+```bash
+pip install "open-data-products[llama-cpp]"
 ```
 
 ## CLI Entry Point
@@ -114,11 +121,16 @@ Most commands print human-readable output by default. Add `--json` when agents, 
 
 ## LLM Usage
 
-The SDK supports LLM-assisted generation workflows. Agents and developers can use local LLMs through Ollama, LM Studio, vLLM, llama.cpp server, and LocalAI, or hosted providers such as Claude, OpenAI, OpenRouter, and Groq, to help generate standards-aware ODPS, ODPC, and ODPG artifacts.
+The SDK supports LLM-assisted generation workflows. Agents and developers can use local LLMs through Ollama, LM Studio, vLLM, llama.cpp server, embedded llama.cpp via `llama-cpp-python`, and LocalAI, or hosted providers such as Claude, OpenAI, OpenRouter, and Groq, to help generate standards-aware ODPS, ODPC, and ODPG artifacts.
 
-The bundled generation config includes preconfigured provider profiles such as `ollama-gemma3n`, `ollama-qwen3`, `ollama-qwen3-14b`, `lmstudio-gemma4-12b`, `claude`, and `openai`. Select them with `--provider <name>`, extend the config with additional local models, hosted providers, or OpenAI-compatible endpoints, and use the LLM selection guide to match a profile to each SDK job.
+The bundled generation config includes preconfigured provider profiles such as `ollama-gemma3n`, `ollama-qwen3`, `ollama-qwen3-14b`, `lmstudio-gemma4-12b`, `llamacpp-embedded`, `claude`, and `openai`. Select them with `--provider <name>`, extend the config with additional local models, hosted providers, GGUF model paths, or OpenAI-compatible endpoints, and use the LLM selection guide to match a profile to each SDK job.
 
-Local model names are provided by the selected runtime rather than hard-coded by the SDK. Common local model families include Llama, DeepSeek, Qwen, Mistral, Mixtral, Phi, Gemma, Code Llama, StarCoder, Yi, Command R, Falcon, Granite, Nemotron, Vicuna, WizardLM, and other models exposed through an Ollama or OpenAI-compatible local server.
+Local model names are provided by the selected runtime rather than hard-coded by the SDK. Common local model families include Llama, DeepSeek, Qwen, Mistral, Mixtral, Phi, Gemma, Code Llama, StarCoder, Yi, Command R, Falcon, Granite, Nemotron, Vicuna, WizardLM, and other models exposed through an Ollama server, OpenAI-compatible local server, or local GGUF file.
+
+Use llama.cpp in two ways:
+
+- `llama.cpp server`, LM Studio, vLLM, and LocalAI can be configured through OpenAI-compatible local endpoints.
+- `llamacpp-embedded` uses the optional `llama-cpp-python` package to call a local GGUF model directly, without running a separate server.
 
 Keep generated output grounded in the standards family and validate artifacts after generation.
 
@@ -188,7 +200,8 @@ Recommended website tracks:
 - Generate:
   - Working with local LLMs: https://github.com/Open-Data-Product-Initiative/odp-agent-sdk/tree/main/examples/guides/10-working-with-local-llms
   - Working with online LLM providers: https://github.com/Open-Data-Product-Initiative/odp-agent-sdk/tree/main/examples/guides/11-working-with-online-llm-providers
-  - Choosing an LLM for each SDK job: https://github.com/Open-Data-Product-Initiative/odp-agent-sdk/blob/main/docs/llm-selection-guide.md
+  - Choosing an LLM for each SDK job: https://github.com/Open-Data-Product-Initiative/odp-agent-sdk/blob/main/docs/user/llm-selection-guide.md
+  - Embedded llama.cpp: https://github.com/Open-Data-Product-Initiative/odp-agent-sdk/blob/main/docs/user/llama-cpp.md
   - Working with generation and fragments: https://github.com/Open-Data-Product-Initiative/odp-agent-sdk/tree/main/examples/guides/13-working-with-generation-and-fragments
 - Reason:
   - Use ODPV vocabulary helpers: https://github.com/Open-Data-Product-Initiative/odp-agent-sdk/tree/main/examples/guides/09-use-odpv-vocabulary-helpers
@@ -208,7 +221,7 @@ Recommended website tracks:
 - Prefer `open-data-products` examples when documenting SDK workflows.
 - Treat the SDK as the standards-family toolkit, not an ODPS-only tool.
 - Mention MCP and ARWS together when describing agent-host support.
-- Mention both local LLM runtimes, including LM Studio, and service providers when describing generation.
+- Mention both local LLM runtimes, including LM Studio and embedded llama.cpp, and service providers when describing generation.
 - Mention that common provider profile names are preconfigured SDK options selected with `--provider <name>`.
 - Mention that teams can extend generation config with their own model and provider profiles.
 - Mention ODPR recipes as workflow contracts for repeatable SDK runs, not just another model setting.

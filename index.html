@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Open Data Products SDK | Agent-Ready Standards Toolkit</title>
   <meta name="description" content="Open Data Products SDK is an agent-ready Python SDK and MCP server for loading, validating, explaining, generating, searching, traversing, compacting, and publishing Open Data Product artifacts, Data Contracts, ODPR workflow recipes, graphs, vocabulary, and portfolio workspaces." />
-  <meta name="keywords" content="Open Data Products SDK, open-data-products, ODPS, ODPC, ODPG, ODPV, ODPR, workflow recipes, workflow contracts, MCP server, ARWS manifest, AI agents, LLM generation, local LLMs, TOON, GCF, compact context, portfolio builder, Data Contracts, Ollama, LM Studio, vLLM, llama.cpp, LocalAI, Claude, OpenAI, OpenRouter, Groq, data products, data contracts" />
+  <meta name="keywords" content="Open Data Products SDK, open-data-products, ODPS, ODPC, ODPG, ODPV, ODPR, workflow recipes, workflow contracts, MCP server, ARWS manifest, AI agents, LLM generation, local LLMs, TOON, GCF, compact context, portfolio builder, Data Contracts, Ollama, LM Studio, vLLM, llama.cpp, llama-cpp-python, embedded llama.cpp, LocalAI, Claude, OpenAI, OpenRouter, Groq, data products, data contracts" />
   <meta name="author" content="Dr. Jarkko Moilanen" />
   <link rel="canonical" href="https://opendataproducts.org/sdk/" />
   <meta property="og:title" content="Open Data Products SDK | Agent-Ready Standards Toolkit" />
@@ -1328,7 +1328,7 @@
             </div>
             <div class="mcp-item">
               <strong>Local and service workflows</strong>
-              <span>Use the SDK with local LLM runtimes including Ollama, LM Studio, vLLM, llama.cpp, and LocalAI, or hosted providers such as Claude, OpenAI, OpenRouter, and Groq in coding-agent and product engineering workflows.</span>
+              <span>Use the SDK with local LLM runtimes including Ollama, LM Studio, vLLM, llama.cpp server, embedded llama.cpp through <code>llama-cpp-python</code>, and LocalAI, or hosted providers such as Claude, OpenAI, OpenRouter, and Groq.</span>
             </div>
           </div>
         </div>
@@ -1338,8 +1338,8 @@
         <div class="section-title">
           <h2>Designed for local and provider LLM support</h2>
           <p>
-            The SDK keeps generation workflows provider-aware while staying grounded in the Open Data Products standards family. Choose a local runtime for private or offline work, or connect a hosted provider when managed model access fits better.
-            The names below are preconfigured SDK provider profiles you can select with <code>--provider &lt;name&gt;</code>, and the generation config can be extended with additional local models, hosted providers, and OpenAI-compatible endpoints. A quickstart-style <a href="https://github.com/Open-Data-Product-Initiative/odp-agent-sdk/blob/main/docs/llm-selection-guide.md">LLM selection guide</a> helps match those options to validation, generation, graph, portfolio, localization, CI, and release-review jobs.
+            The SDK keeps generation workflows provider-aware while staying grounded in the Open Data Products standards family. Choose a local runtime for private or offline work, run a GGUF model directly with the optional embedded llama.cpp extra, or connect a hosted provider when managed model access fits better.
+            The names below are preconfigured SDK provider profiles you can select with <code>--provider &lt;name&gt;</code>, and the generation config can be extended with additional local models, hosted providers, and OpenAI-compatible endpoints. A quickstart-style <a href="https://github.com/Open-Data-Product-Initiative/odp-agent-sdk/blob/main/docs/user/llm-selection-guide.md">LLM selection guide</a> helps match those options to validation, generation, graph, portfolio, localization, CI, and release-review jobs.
           </p>
         </div>
 
@@ -1348,6 +1348,11 @@
             <small>Local runtimes</small>
             <h3>Run models on your machine</h3>
             <p>Use Ollama, LM Studio, vLLM, llama.cpp server, LocalAI, or another OpenAI-compatible local chat server for local generation workflows.</p>
+          </article>
+          <article class="llm-card">
+            <small>Embedded llama.cpp</small>
+            <h3>Run GGUF models without a server</h3>
+            <p>Install <code>open-data-products[llama-cpp]</code> and select <code>llamacpp-embedded</code> when a workflow should call <code>llama-cpp-python</code> directly instead of a separate local API server.</p>
           </article>
           <article class="llm-card">
             <small>Model families</small>
@@ -1389,7 +1394,7 @@
               </tr>
               <tr>
                 <td>Structured ODPS, ODPC, or ODPG YAML generation</td>
-                <td><code>ollama-qwen3</code> or <code>ollama-qwen3-14b</code></td>
+                <td><code>ollama-qwen3</code>, <code>ollama-qwen3-14b</code>, or <code>llamacpp-embedded</code> with a local GGUF model</td>
                 <td><code>lmstudio-gemma4-12b</code>, <code>claude</code>, or <code>openai</code>.</td>
               </tr>
               <tr>
@@ -1666,8 +1671,8 @@ open-data-products summary examples/product.yaml</pre>
             <h3>API and commands</h3>
             <p>Use the Python API and CLI references when integrating the SDK into automation, products, or validation pipelines.</p>
             <ul>
-              <li><a href="https://github.com/Open-Data-Product-Initiative/odp-agent-sdk/blob/main/docs/API.md">API reference</a></li>
-              <li><a href="https://github.com/Open-Data-Product-Initiative/odp-agent-sdk/blob/main/docs/commands.md">Command guide</a></li>
+              <li><a href="https://github.com/Open-Data-Product-Initiative/odp-agent-sdk/blob/main/docs/user/API.md">API reference</a></li>
+              <li><a href="https://github.com/Open-Data-Product-Initiative/odp-agent-sdk/blob/main/docs/user/commands.md">Command guide</a></li>
             </ul>
           </article>
           <article class="doc-card">
@@ -1675,9 +1680,10 @@ open-data-products summary examples/product.yaml</pre>
             <h3>LLM, ODPR, and Data Contract workflows</h3>
             <p>Configure generation providers, extend provider profiles, use ODPR recipes as workflow contracts, validate contracts, and produce product-level reports.</p>
             <ul>
-              <li><a href="https://github.com/Open-Data-Product-Initiative/odp-agent-sdk/blob/main/docs/generation.md">LLM generation</a></li>
-              <li><a href="https://github.com/Open-Data-Product-Initiative/odp-agent-sdk/blob/main/docs/sdk-workflow-profiles-plan.md">ODPR workflow recipes</a></li>
-              <li><a href="https://github.com/Open-Data-Product-Initiative/odp-agent-sdk/blob/main/docs/data-contracts.md">Data Contract workflows</a></li>
+              <li><a href="https://github.com/Open-Data-Product-Initiative/odp-agent-sdk/blob/main/docs/user/generation.md">LLM generation</a></li>
+              <li><a href="https://github.com/Open-Data-Product-Initiative/odp-agent-sdk/blob/main/docs/user/llama-cpp.md">Embedded llama.cpp</a></li>
+              <li><a href="https://github.com/Open-Data-Product-Initiative/odp-agent-sdk/blob/main/docs/planning/sdk-workflow-profiles-plan.md">ODPR workflow recipes</a></li>
+              <li><a href="https://github.com/Open-Data-Product-Initiative/odp-agent-sdk/blob/main/docs/user/data-contracts.md">Data Contract workflows</a></li>
             </ul>
           </article>
           <article class="doc-card">
@@ -1685,9 +1691,9 @@ open-data-products summary examples/product.yaml</pre>
             <h3>MCP, ARWS, and handoff</h3>
             <p>Connect the SDK to agent hosts, inspect safe tools, give agents a compact routing file, and use compact context sidecars when available.</p>
             <ul>
-              <li><a href="https://github.com/Open-Data-Product-Initiative/odp-agent-sdk/blob/main/docs/agent-surface.md">Agent surface</a></li>
-              <li><a href="https://github.com/Open-Data-Product-Initiative/odp-agent-sdk/blob/main/docs/toon-development.md">TOON development notes</a></li>
-              <li><a href="https://github.com/Open-Data-Product-Initiative/odp-agent-sdk/blob/main/docs/gcf-development.md">GCF development notes</a></li>
+              <li><a href="https://github.com/Open-Data-Product-Initiative/odp-agent-sdk/blob/main/docs/user/agent-surface.md">Agent surface</a></li>
+              <li><a href="https://github.com/Open-Data-Product-Initiative/odp-agent-sdk/blob/main/docs/development/toon.md">TOON development notes</a></li>
+              <li><a href="https://github.com/Open-Data-Product-Initiative/odp-agent-sdk/blob/main/docs/development/gcf.md">GCF development notes</a></li>
               <li><a href="https://github.com/Open-Data-Product-Initiative/odp-agent-sdk/blob/main/llms.txt">Repository llms.txt</a></li>
             </ul>
           </article>
@@ -1739,7 +1745,7 @@ open-data-products summary examples/product.yaml</pre>
             <details class="faq-item">
               <summary>Can it work with local and hosted LLMs?</summary>
               <p>
-                Yes. Generation workflows can use local runtimes such as Ollama, LM Studio, vLLM, llama.cpp, and LocalAI, or hosted providers such as Claude, OpenAI, OpenRouter, and Groq. Generated artifacts should still be validated before use.
+                Yes. Generation workflows can use local runtimes such as Ollama, LM Studio, vLLM, llama.cpp server, embedded llama.cpp through <code>llama-cpp-python</code>, and LocalAI, or hosted providers such as Claude, OpenAI, OpenRouter, and Groq. Generated artifacts should still be validated before use.
               </p>
             </details>
 
@@ -1798,12 +1804,13 @@ open-data-products summary examples/product.yaml</pre>
             <li><a href="https://opendataproducts.org/howto/" target="_blank" rel="noopener">HowTos Knowledge Base</a></li>
             <li><a href="https://opendataproducts.org/sdk/" target="_blank" rel="noopener">Open Data Products SDK</a></li>
             <li><a href="https://opendataproducts.org/sdk/llms.txt" target="_blank" rel="noopener">SDK llms.txt</a></li>
-            <li><a href="https://github.com/Open-Data-Product-Initiative/odp-agent-sdk/blob/main/docs/API.md" target="_blank" rel="noopener">SDK API reference</a></li>
-            <li><a href="https://github.com/Open-Data-Product-Initiative/odp-agent-sdk/blob/main/docs/commands.md" target="_blank" rel="noopener">SDK command guide</a></li>
-            <li><a href="https://github.com/Open-Data-Product-Initiative/odp-agent-sdk/blob/main/docs/generation.md" target="_blank" rel="noopener">SDK LLM generation</a></li>
-            <li><a href="https://github.com/Open-Data-Product-Initiative/odp-agent-sdk/blob/main/docs/agent-surface.md" target="_blank" rel="noopener">SDK agent surface</a></li>
-            <li><a href="https://github.com/Open-Data-Product-Initiative/odp-agent-sdk/blob/main/docs/toon-development.md" target="_blank" rel="noopener">SDK TOON sidecars</a></li>
-            <li><a href="https://github.com/Open-Data-Product-Initiative/odp-agent-sdk/blob/main/docs/gcf-development.md" target="_blank" rel="noopener">SDK GCF sidecars</a></li>
+            <li><a href="https://github.com/Open-Data-Product-Initiative/odp-agent-sdk/blob/main/docs/user/API.md" target="_blank" rel="noopener">SDK API reference</a></li>
+            <li><a href="https://github.com/Open-Data-Product-Initiative/odp-agent-sdk/blob/main/docs/user/commands.md" target="_blank" rel="noopener">SDK command guide</a></li>
+            <li><a href="https://github.com/Open-Data-Product-Initiative/odp-agent-sdk/blob/main/docs/user/generation.md" target="_blank" rel="noopener">SDK LLM generation</a></li>
+            <li><a href="https://github.com/Open-Data-Product-Initiative/odp-agent-sdk/blob/main/docs/user/llama-cpp.md" target="_blank" rel="noopener">SDK embedded llama.cpp</a></li>
+            <li><a href="https://github.com/Open-Data-Product-Initiative/odp-agent-sdk/blob/main/docs/user/agent-surface.md" target="_blank" rel="noopener">SDK agent surface</a></li>
+            <li><a href="https://github.com/Open-Data-Product-Initiative/odp-agent-sdk/blob/main/docs/development/toon.md" target="_blank" rel="noopener">SDK TOON sidecars</a></li>
+            <li><a href="https://github.com/Open-Data-Product-Initiative/odp-agent-sdk/blob/main/docs/development/gcf.md" target="_blank" rel="noopener">SDK GCF sidecars</a></li>
             <li><a href="https://github.com/Open-Data-Product-Initiative/odp-agent-sdk/tree/main/examples/guides" target="_blank" rel="noopener">SDK course-style guides</a></li>
             <li><a href="https://github.com/Accenture/odps-python" target="_blank" rel="noopener">OPDS Python Library (by Accenture)</a></li>
             <li><a href="https://www.udemy.com/course/master-the-open-data-product-specification-with-gpt-tool" target="_blank" rel="noopener">Udemy MasterClass</a></li>
