@@ -2,7 +2,7 @@
 
 > Agent-facing guide for the Open Data Products SDK landing page at https://opendataproducts.org/sdk/.
 
-The Open Data Products SDK is the primary implementation toolkit for the Open Data Products standards family. It is an agent-ready Python SDK and MCP server for loading, detecting, validating, explaining, summarizing, generating, compacting, searching, traversing, and publishing Open Data Product artifacts and ODPR workflow recipes.
+The Open Data Products SDK is the primary implementation toolkit for the Open Data Products standards family. It is an agent-ready Python SDK and MCP server for loading, detecting, validating, explaining, summarizing, generating, compacting, importing, exporting, searching, traversing, and publishing Open Data Product artifacts, OKF context bundles, and ODPR workflow recipes.
 
 Use it across:
 
@@ -14,13 +14,18 @@ Use it across:
 - Data Contracts: ODPS contract references, optional external `datacontract-cli` validation, schema extraction, alignment checks, and product-level reports.
 - Portfolio workspaces: build, refresh, sync, render, localize, and explain connected ODPC, ODPS, and ODPG portfolio outputs from source lanes.
 
+External context bundle support:
+
+- OKF: Open Knowledge Format Markdown/frontmatter bundles for portable human and agent review. OKF is not a fifth Open Data Products standard; ODPS, ODPC, ODPG, and ODPV remain the canonical structured artifacts.
+
 ## Use This For
 
 - Validating ODPS product specifications, ODPC catalogs, ODPG graphs, ODPV vocabulary, and Data Contract references.
 - Creating structured context for AI agents, product owners, stewards, and engineers.
 - Loading lightweight summaries with size, hash, spec, kind, and id without returning full document bodies.
+- Validating OKF bundles, listing OKF concepts safely for agents, importing OKF concepts as generation-ready Markdown, and exporting ODPC catalog or portfolio artifacts as OKF context.
 - Emitting compact TOON and experimental GCF sidecars for ODPC catalogs and ODPG graphs while YAML remains the canonical source.
-- Discovering bundled resources such as schemas, prompt templates, vocabulary records, catalog object records, and graph object records.
+- Discovering bundled resources such as schemas, prompt templates, vocabulary records, catalog object records, graph object records, and `okf.spec` metadata.
 - Generating standards-aware artifacts with local LLMs through Ollama, LM Studio, vLLM, llama.cpp server, embedded llama.cpp via `llama-cpp-python`, LocalAI, or hosted providers such as Claude, OpenAI, OpenRouter, and Groq.
 - Using ODPR recipes as workflow contracts for repeatable SDK automation across local, hosted, deterministic, and hybrid steps.
 - Searching ODPV terms, ODPC catalog guidance, graph objects, Data Contract context, and product references.
@@ -42,6 +47,8 @@ Use it across:
 - ODPR workflow recipes: https://github.com/Open-Data-Product-Initiative/odp-agent-sdk/blob/main/docs/planning/sdk-workflow-profiles-plan.md
 - Agent surface guide: https://github.com/Open-Data-Product-Initiative/odp-agent-sdk/blob/main/docs/user/agent-surface.md
 - Data Contract workflows: https://github.com/Open-Data-Product-Initiative/odp-agent-sdk/blob/main/docs/user/data-contracts.md
+- OKF commands: https://github.com/Open-Data-Product-Initiative/odp-agent-sdk/blob/main/docs/user/commands.md#okf-context-bundles
+- OKF adapter reference: https://github.com/Open-Data-Product-Initiative/odp-agent-sdk/blob/main/open_data_products/okf_spec.md
 - Open Data Product Initiative: https://opendataproducts.org/
 - Standards family:
   - ODPS: https://opendataproducts.org/v4.1/
@@ -89,6 +96,13 @@ open-data-products resources --json
 open-data-products resources --id odpv.terms --json
 open-data-products resources --id odpc.objects --json
 open-data-products resources --id odpg.objects --json
+open-data-products resources --id okf.spec --json
+
+# OKF context bundles
+open-data-products okf-validate knowledge-bundle/ --json
+open-data-products okf-summary knowledge-bundle/ --json
+open-data-products okf-import knowledge-bundle/ --output source_docs/okf/
+open-data-products okf-export generated/portfolio/ --output okf-bundle/
 
 # Compact context sidecars
 open-data-products odpc-build fragments/ --output catalog.yaml --toon catalog.toon --gcf catalog.gcf
@@ -186,6 +200,18 @@ Recommended generation loop:
 4. Explain or inspect the artifact with `open-data-products explain`.
 5. Build catalogs, graphs, compact sidecars, or portfolio outputs only after review.
 
+## OKF Context Bundles
+
+The SDK supports Open Knowledge Format as an external Markdown/frontmatter context bundle format:
+
+- Use `open-data-products okf-validate <bundle-dir>` to validate an OKF bundle.
+- Use `open-data-products okf-summary <bundle-dir>` to list concept metadata without returning full Markdown bodies.
+- Use `open-data-products okf-import <bundle-dir> --output <source-docs-dir>` to write OKF concepts as generation-ready Markdown source documents.
+- Use `open-data-products okf-export <catalog-or-portfolio> --output <bundle-dir>` to export an ODPC catalog file or portfolio workspace as a portable OKF bundle.
+- Use `open-data-products resources --id okf.spec --json` for bundled OKF adapter/spec metadata.
+
+OKF is a context exchange format, not a canonical Open Data Products structured artifact. Do not describe OKF as ODPS, ODPC, ODPG, ODPV, or as a fifth standard.
+
 ## MCP And ARWS Usage
 
 The SDK includes Model Context Protocol support for agent hosts.
@@ -202,7 +228,12 @@ Render the ARWS agent manifest:
 open-data-products manifest --json
 ```
 
-Use MCP when an agent needs structured resources, safe tools, validation, explanation, summaries, compact context artifact discovery, reference discovery, search, traversal, product context, standards-aware graph relationships, or LLM-assisted generation workflows.
+Use MCP when an agent needs structured resources, safe tools, validation, explanation, summaries, compact context artifact discovery, OKF bundle validation, OKF concept listing, reference discovery, search, traversal, product context, standards-aware graph relationships, or LLM-assisted generation workflows.
+
+Safe OKF MCP tools:
+
+- `validate_okf_bundle`
+- `list_okf_concepts`
 
 ## Selected Guide Tracks
 
@@ -252,6 +283,10 @@ Recommended website tracks:
 - Mention that common provider profile names are suggestions enabled by the default SDK generation configuration and selected with `--provider <name>`.
 - Mention that teams can extend generation config with their own model and provider profiles.
 - Mention ODPR recipes as workflow contracts for repeatable SDK runs, not just another model setting.
+- Mention OKF as an external Markdown/frontmatter context bundle format, not as a fifth Open Data Products standard.
+- Mention `open_data_products.okf` when Python helper surfaces are relevant: validation, concept summaries, import, and export.
+- Mention `validate_okf_bundle` and `list_okf_concepts` when describing safe MCP OKF support.
+- Mention `okf.spec` when describing bundled resource metadata.
 - Mention TOON and GCF as optional compact sidecars, not replacements for YAML.
 - Use `open-data-products serve` for the MCP server command.
 - Use `open-data-products manifest --json` for the ARWS agent manifest command.
