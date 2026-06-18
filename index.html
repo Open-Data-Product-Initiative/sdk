@@ -155,6 +155,18 @@
       margin-bottom: 22px;
     }
 
+    .hero-eyebrows {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 22px;
+    }
+
+    .hero-eyebrows .eyebrow {
+      margin-bottom: 0;
+    }
+
     h1 {
       font-size: clamp(2.8rem, 5vw, 5.1rem);
       line-height: 0.95;
@@ -1374,7 +1386,10 @@
     <main>
       <section class="hero">
         <div>
-          <div class="eyebrow">Agent-Ready Data Product Tooling</div>
+          <div class="hero-eyebrows" aria-label="SDK positioning and current release">
+            <div class="eyebrow">Agent-Ready Data Product Tooling</div>
+            <div class="eyebrow">v0.2.5</div>
+          </div>
           <h1>The standards toolkit for data product agents</h1>
           <p class="lead">
             A practical Python SDK and MCP server for loading, validating, explaining, generating, searching, traversing, importing, exporting, and publishing Open Data Product standards, external OKF context bundles, Data Contracts, ODPR workflow recipes, LLM workflows, and portfolio workspaces.

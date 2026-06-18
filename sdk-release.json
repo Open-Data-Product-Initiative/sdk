@@ -1,0 +1,12 @@
+{
+  "checked_at": "2026-06-18T12:20:17+00:00",
+  "consistency_check": "github_latest_release",
+  "github_repo": "Open-Data-Product-Initiative/odp-agent-sdk",
+  "github_tag": "v0.2.5",
+  "github_url": "https://github.com/Open-Data-Product-Initiative/odp-agent-sdk/releases/tag/v0.2.5",
+  "package": "open-data-products",
+  "pypi_url": "https://pypi.org/project/open-data-products/",
+  "source_of_truth": "pypi",
+  "version": "0.2.5",
+  "versions_match": true
+}
