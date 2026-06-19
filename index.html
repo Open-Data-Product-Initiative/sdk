@@ -729,6 +729,35 @@
       gap: 24px;
     }
 
+    .standards-layout {
+      display: grid;
+      grid-template-columns: minmax(380px, 1.12fr) minmax(0, 0.88fr);
+      gap: 30px;
+      align-items: start;
+    }
+
+    .standards-layout .standards {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .standards-visual {
+      position: sticky;
+      top: 28px;
+      margin: 0;
+    }
+
+    .standards-visual img {
+      display: block;
+      width: 100%;
+      max-height: 720px;
+      object-fit: cover;
+      object-position: center;
+      border: 1px solid rgba(236, 222, 246, 0.16);
+      border-radius: 28px;
+      box-shadow: var(--shadow);
+      background: rgba(9, 0, 13, 0.34);
+    }
+
     .llm-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -1318,6 +1347,14 @@
       .hero, .split, .cta, .mcp-panel, .portfolio-panel { grid-template-columns: 1fr; }
       .faq-layout { grid-template-columns: 1fr; gap: 28px; }
       .cards, .standards, .llm-grid, .context-grid, .capability-grid, .guide-grid, .doc-grid, .model-command-grid { grid-template-columns: repeat(2, 1fr); }
+      .standards-layout { grid-template-columns: 1fr; }
+      .standards-visual { position: static; }
+      .standards-visual img {
+        max-height: none;
+        height: auto;
+        object-fit: contain;
+        object-position: center;
+      }
       .course-callout { grid-template-columns: 1fr; }
       .course-actions { justify-content: flex-start; }
       .outcome-grid, .portfolio-lanes { grid-template-columns: 1fr; }
@@ -1329,6 +1366,7 @@
 
     @media (max-width: 620px) {
       .cards, .standards, .llm-grid, .context-grid, .steps, .status-grid, .capability-grid, .guide-grid, .doc-grid, .model-command-grid { grid-template-columns: 1fr; }
+      .standards-layout .standards { grid-template-columns: 1fr; }
       section { padding: 54px 0; }
       .section-title { margin-bottom: 28px; }
       .hero { padding-top: 40px; gap: 34px; }
@@ -1827,37 +1865,43 @@ open-data-products portfolio explain generated/portfolio/</pre>
           </p>
         </div>
 
-        <div class="standards">
-          <article class="standard">
-            <small>ODPS</small>
-            <h3>Product</h3>
-            <p>Defines the data product, its access, quality, SLA, pricing, support, license, and strategy.</p>
-          </article>
-          <article class="standard">
-            <small>ODPC</small>
-            <h3>Catalog</h3>
-            <p>Organizes products, objectives, use cases, KPIs, and demand signals at portfolio level.</p>
-          </article>
-          <article class="standard">
-            <small>ODPG</small>
-            <h3>Graph</h3>
-            <p>Connects products to business value through nodes, edges, and relationship paths.</p>
-          </article>
-          <article class="standard">
-            <small>ODPV</small>
-            <h3>Vocabulary</h3>
-            <p>Creates shared meaning for humans, platforms, and AI agents working with the standards.</p>
-          </article>
-          <article class="standard">
-            <small>ODPR</small>
-            <h3>Recipes</h3>
-            <p>Defines workflow contracts for repeatable SDK runs, provider choices, validation gates, and review steps.</p>
-          </article>
-          <article class="standard">
-            <small>Contracts</small>
-            <h3>Data Contracts</h3>
-            <p>Supports contract-aware workflows for structure, expectations, quality, access, and product handover.</p>
-          </article>
+        <div class="standards-layout">
+          <figure class="standards-visual">
+            <img src="images/family.png" alt="Visual overview of the Open Data Products standards family." />
+          </figure>
+
+          <div class="standards">
+            <article class="standard">
+              <small>ODPS</small>
+              <h3>Product</h3>
+              <p>Defines the data product, its access, quality, SLA, pricing, support, license, and strategy.</p>
+            </article>
+            <article class="standard">
+              <small>ODPC</small>
+              <h3>Catalog</h3>
+              <p>Organizes products, objectives, use cases, KPIs, and demand signals at portfolio level.</p>
+            </article>
+            <article class="standard">
+              <small>ODPG</small>
+              <h3>Graph</h3>
+              <p>Connects products to business value through nodes, edges, and relationship paths.</p>
+            </article>
+            <article class="standard">
+              <small>ODPV</small>
+              <h3>Vocabulary</h3>
+              <p>Creates shared meaning for humans, platforms, and AI agents working with the standards.</p>
+            </article>
+            <article class="standard">
+              <small>ODPR</small>
+              <h3>Recipes</h3>
+              <p>Defines workflow contracts for repeatable SDK runs, provider choices, validation gates, and review steps.</p>
+            </article>
+            <article class="standard">
+              <small>Contracts</small>
+              <h3>Data Contracts</h3>
+              <p>Supports contract-aware workflows for structure, expectations, quality, access, and product handover.</p>
+            </article>
+          </div>
         </div>
       </section>
 
@@ -1871,9 +1915,9 @@ open-data-products portfolio explain generated/portfolio/</pre>
           </div>
 
           <div class="code-panel">
-<pre><span class="comment"># Create a project folder</span>
-mkdir odps-sdk-course
-cd odps-sdk-course
+<pre><span class="comment"># Create a portfolio project folder</span>
+mkdir data-products-portfolio
+cd data-products-portfolio
 
 <span class="comment"># Create and activate a virtual environment</span>
 python3 -m venv .venv-sdk
