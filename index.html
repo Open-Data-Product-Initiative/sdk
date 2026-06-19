@@ -764,6 +764,50 @@
       gap: 24px;
     }
 
+    .llm-support-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 0.9fr) minmax(360px, 1.1fr);
+      grid-template-areas:
+        "title visual"
+        "cards visual";
+      gap: 34px;
+      align-items: start;
+    }
+
+    .llm-support-title {
+      grid-area: title;
+      max-width: none;
+      margin-bottom: 0;
+    }
+
+    .llm-support-cards {
+      grid-area: cards;
+      display: grid;
+      gap: 16px;
+    }
+
+    .llm-support-cards .llm-card {
+      min-height: 0;
+      padding: 22px;
+    }
+
+    .llm-support-visual {
+      grid-area: visual;
+      position: sticky;
+      top: 28px;
+      margin: 0;
+    }
+
+    .llm-support-visual img {
+      display: block;
+      width: 100%;
+      height: auto;
+      border: 1px solid rgba(236, 222, 246, 0.16);
+      border-radius: 28px;
+      box-shadow: var(--shadow);
+      background: rgba(9, 0, 13, 0.34);
+    }
+
     .context-grid {
       grid-template-columns: repeat(4, 1fr);
     }
@@ -1347,6 +1391,14 @@
       .hero, .split, .cta, .mcp-panel, .portfolio-panel { grid-template-columns: 1fr; }
       .faq-layout { grid-template-columns: 1fr; gap: 28px; }
       .cards, .standards, .llm-grid, .context-grid, .capability-grid, .guide-grid, .doc-grid, .model-command-grid { grid-template-columns: repeat(2, 1fr); }
+      .llm-support-layout {
+        grid-template-columns: 1fr;
+        grid-template-areas:
+          "title"
+          "visual"
+          "cards";
+      }
+      .llm-support-visual { position: static; }
       .standards-layout { grid-template-columns: 1fr; }
       .standards-visual { position: static; }
       .standards-visual img {
@@ -1367,6 +1419,7 @@
     @media (max-width: 620px) {
       .cards, .standards, .llm-grid, .context-grid, .steps, .status-grid, .capability-grid, .guide-grid, .doc-grid, .model-command-grid { grid-template-columns: 1fr; }
       .standards-layout .standards { grid-template-columns: 1fr; }
+      .llm-support-cards .llm-card { padding: 20px; }
       section { padding: 54px 0; }
       .section-title { margin-bottom: 28px; }
       .hero { padding-top: 40px; gap: 34px; }
@@ -1551,35 +1604,41 @@
       </section>
 
       <section id="llms">
-        <div class="section-title">
-          <h2>Designed for local and provider LLM support</h2>
-          <p>
-            The SDK keeps generation workflows provider-aware while staying grounded in the Open Data Products standards family. Choose a local runtime for private or offline work, run a GGUF model directly with the optional embedded llama.cpp extra, or connect a hosted provider when managed model access fits better.
-            Generation configuration can be extended with additional local models, hosted providers, and OpenAI-compatible endpoints.
-          </p>
-        </div>
+        <div class="llm-support-layout">
+          <div class="section-title llm-support-title">
+            <h2>Designed for local and provider LLM support</h2>
+            <p>
+              The SDK keeps generation workflows provider-aware while staying grounded in the Open Data Products standards family. Choose a local runtime for private or offline work, run a GGUF model directly with the optional embedded llama.cpp extra, or connect a hosted provider when managed model access fits better.
+              Generation configuration can be extended with additional local models, hosted providers, and OpenAI-compatible endpoints.
+            </p>
+          </div>
 
-        <div class="llm-grid">
-          <article class="llm-card">
-            <small>Local runtimes</small>
-            <h3>Run models on your machine</h3>
-            <p>Use Ollama, LM Studio, vLLM, llama.cpp server, LocalAI, or another OpenAI-compatible local chat server for local generation workflows.</p>
-          </article>
-          <article class="llm-card">
-            <small>Embedded llama.cpp</small>
-            <h3>Run GGUF models without a server</h3>
-            <p>Install <code>open-data-products[llama-cpp]</code> and select <code>llamacpp-embedded</code> when a workflow should call <code>llama-cpp-python</code> directly instead of a separate local API server.</p>
-          </article>
-          <article class="llm-card">
-            <small>Model families</small>
-            <h3>Bring the local model you trust</h3>
-            <p>Work with model families such as Llama, DeepSeek, Qwen, Mistral, Mixtral, Phi, Gemma, Code Llama, StarCoder, Yi, Command R, Falcon, Granite, Nemotron, Vicuna, and WizardLM when exposed by your runtime.</p>
-          </article>
-          <article class="llm-card">
-            <small>Hosted providers</small>
-            <h3>Use managed LLM APIs</h3>
-            <p>Connect service providers such as Claude, OpenAI, OpenRouter, and Groq through generation configuration, then validate generated ODPS, ODPC, ODPG, ODPV, and data contract artifacts before use.</p>
-          </article>
+          <div class="llm-support-cards">
+            <article class="llm-card">
+              <small>Local runtimes</small>
+              <h3>Run models on your machine</h3>
+              <p>Use Ollama, LM Studio, vLLM, llama.cpp server, LocalAI, or another OpenAI-compatible local chat server for local generation workflows.</p>
+            </article>
+            <article class="llm-card">
+              <small>Embedded llama.cpp</small>
+              <h3>Run GGUF models without a server</h3>
+              <p>Install <code>open-data-products[llama-cpp]</code> and select <code>llamacpp-embedded</code> when a workflow should call <code>llama-cpp-python</code> directly instead of a separate local API server.</p>
+            </article>
+            <article class="llm-card">
+              <small>Model families</small>
+              <h3>Bring the local model you trust</h3>
+              <p>Work with model families such as Llama, DeepSeek, Qwen, Mistral, Mixtral, Phi, Gemma, Code Llama, StarCoder, Yi, Command R, Falcon, Granite, Nemotron, Vicuna, and WizardLM when exposed by your runtime.</p>
+            </article>
+            <article class="llm-card">
+              <small>Hosted providers</small>
+              <h3>Use managed LLM APIs</h3>
+              <p>Connect service providers such as Claude, OpenAI, OpenRouter, and Groq through generation configuration, then validate generated ODPS, ODPC, ODPG, ODPV, and data contract artifacts before use.</p>
+            </article>
+          </div>
+
+          <figure class="llm-support-visual">
+            <img src="images/llm-soup.png" alt="Illustration of local and hosted LLM provider options around the Open Data Products SDK." />
+          </figure>
         </div>
       </section>
 
