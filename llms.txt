@@ -241,11 +241,11 @@ Use the full guide index when you need the course-aligned sequence:
 
 https://github.com/Open-Data-Product-Initiative/odp-agent-sdk/tree/main/examples/guides
 
-A Udemy Masterclass for the Data Product SDK is coming in June 2026. It will turn the current SDK updates into a guided, practical learning path. Current Data Product MasterClasses are listed at:
+The Udemy Masterclass for the Data Product SDK is now available. It turns the current SDK updates into a guided, practical learning path for building scalable, agent-ready data product value management workflows:
 
-https://www.udemy.com/user/jarkko-moilanen/
+https://www.udemy.com/course/scalable-data-product-value-management-with-agent-ready-sdk/?referralCode=DE23AF7C13D47E90B996
 
-For voucher access to the upcoming SDK Masterclass, contact Jarkko Moilanen on LinkedIn:
+For voucher access to the SDK Masterclass, contact Jarkko Moilanen on LinkedIn:
 
 https://www.linkedin.com/in/jarkkomoilanen/
 
