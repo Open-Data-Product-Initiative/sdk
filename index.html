@@ -1111,6 +1111,37 @@
       font-size: 1rem;
     }
 
+    .course-facts {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px 18px;
+      margin: 18px 0 0;
+      padding: 0;
+      list-style: none;
+      color: #fff8dd;
+      font-size: 0.96rem;
+      font-weight: 760;
+    }
+
+    .course-facts li {
+      display: flex;
+      gap: 9px;
+      align-items: flex-start;
+      min-width: 0;
+      line-height: 1.35;
+    }
+
+    .course-facts li::before {
+      content: "";
+      flex: 0 0 7px;
+      width: 7px;
+      height: 7px;
+      margin-top: 0.45em;
+      border-radius: 50%;
+      background: var(--gold);
+      box-shadow: 0 0 0 4px rgba(255, 216, 77, 0.15);
+    }
+
     .course-content {
       position: relative;
       z-index: 1;
@@ -1424,6 +1455,7 @@
       .section-title { margin-bottom: 28px; }
       .hero { padding-top: 40px; gap: 34px; }
       .hero-card, .mcp-panel, .portfolio-panel, .workflow { padding: 26px; }
+      .course-facts { grid-template-columns: 1fr; }
       .sdk-hero-visual { min-height: auto; padding: 22px; }
       .builder-node { width: 100%; min-height: 86px; }
       .faq-item summary { padding: 24px 0; }
@@ -1489,7 +1521,7 @@
 
           <div class="actions">
             <a class="btn btn-primary" href="https://github.com/Open-Data-Product-Initiative/odp-agent-sdk">View on GitHub</a>
-            <a class="btn btn-secondary" href="#guides">Explore guides</a>
+            <a class="btn btn-secondary" href="https://www.udemy.com/course/scalable-data-product-value-management-with-agent-ready-sdk/?referralCode=DE23AF7C13D47E90B996" target="_blank" rel="noopener">Enroll in Udemy Masterclass</a>
           </div>
 
           <div class="install" aria-label="Installation command">
@@ -1870,6 +1902,13 @@
             <p>
               The Data Product SDK Masterclass is now available on Udemy. It turns the current SDK updates into a guided, practical learning path for building scalable, agent-ready data product value management workflows. Use the course page to enroll, or reach out on LinkedIn for voucher access.
             </p>
+            <ul class="course-facts" aria-label="Course contents">
+              <li>3.5 hours of on-demand video</li>
+              <li>19 downloadable resources</li>
+              <li>2 executable Colab workbooks</li>
+              <li>Full GitHub repository with all materials</li>
+              <li>Practical SDK workflows for validation, generation, catalogs, and graphs</li>
+            </ul>
             <div class="course-actions" aria-label="SDK Masterclass links">
               <a class="btn btn-secondary" href="https://www.udemy.com/course/scalable-data-product-value-management-with-agent-ready-sdk/?referralCode=DE23AF7C13D47E90B996" target="_blank" rel="noopener">View Udemy course</a>
               <a class="btn btn-primary" href="https://www.linkedin.com/in/jarkkomoilanen/" target="_blank" rel="noopener">LinkedIn vouchers</a>
