@@ -33,7 +33,7 @@
         </div>
         <div class="nav-section">
           <a class="nav-link active" href="portfolio.html"><span class="nav-title">Portfolio Workflows</span></a>
-          <div class="nav-subitems"><a href="portfolio.html#source-lane-layout">Source lanes</a><a href="portfolio.html#build-first-workspace">Build workspace</a><a href="portfolio.html#lifecycle-commands">Lifecycle</a></div>
+          <div class="nav-subitems"><a href="portfolio.html#source-lane-layout">Source lanes</a><a href="portfolio.html#build-first-workspace">Build one lane</a><a href="portfolio.html#lifecycle-commands">Lifecycle</a></div>
         </div>
         <div class="nav-section">
           <a class="nav-link" href="agents.html"><span class="nav-title">Agents and Recipes</span></a>
@@ -50,7 +50,7 @@
       <main class="content">
         <span class="eyebrow">Portfolio</span>
         <h1>Portfolio workflows</h1>
-        <p class="lead">Portfolio commands turn source lanes into connected ODPC, ODPS, ODPG, HTML, localization, and version outputs. Run intake first when evidence quality matters.</p>
+        <p class="lead">Portfolio commands turn source lanes into connected ODPC, ODPS, ODPG, HTML, localization, and version outputs. The recommended workflow is to inspect and build one lane first, then add the other lanes when the source extraction and generated shape look right.</p>
 
         <h2 id="source-lane-layout">Source lane layout</h2>
         <p>Each lane represents a different evidence type. Keep source files close to the lane they support so the portfolio prompt can distinguish business goals, user demand, external or operational signals, and actual product candidates.</p>
@@ -65,10 +65,55 @@ generated/
   portfolio/</pre>
         </div>
 
-        <h2 id="inspect-intake">Inspect intake without calling an LLM</h2>
-        <p><code>portfolio intake</code> is the most important debugging command in the portfolio workflow. It reads source files, detects file types, extracts text, masks personal data when enabled, applies prompt budgets, and reports what would be sent to the model. It does not call an LLM.</p>
+        <h2 id="inspect-intake">Inspect one lane first</h2>
+        <p><code>portfolio intake</code> is the most important debugging command in the portfolio workflow. Start with one lane, not the whole bundled portfolio. It reads source files, detects file types, extracts text, masks personal data when enabled, applies prompt budgets, and reports what would be sent to the model. It does not call an LLM.</p>
         <div class="code-panel">
-          <div class="code-title"><span>Dry run</span><span>source extraction and budget</span></div>
+          <div class="code-title"><span>Recommended first check</span><span>one lane, no LLM call</span></div>
+<pre>open-data-products portfolio intake \
+  --signals source_docs/signals/ \
+  --config generation.config.yaml \
+  --json</pre>
+        </div>
+        <p>Use the lane that is easiest to verify manually. If you have product briefs, start with <code>--products</code>. If you have market evidence or operational observations, start with <code>--signals</code>. The goal is to confirm that the SDK sees the right files, extracts useful text, and reports the expected source count before any model call.</p>
+        <div class="code-panel">
+          <div class="code-title"><span>Other single-lane checks</span><span>swap the lane, keep the pattern</span></div>
+<pre>open-data-products portfolio intake \
+  --products source_docs/products/ \
+  --config generation.config.yaml \
+  --json
+
+open-data-products portfolio intake \
+  --objectives source_docs/objectives/ \
+  --config generation.config.yaml \
+  --json
+
+open-data-products portfolio intake \
+  --use-cases source_docs/use-cases/ \
+  --config generation.config.yaml \
+  --json</pre>
+        </div>
+
+        <h2 id="build-first-workspace">Build one lane first</h2>
+        <p>After one-lane intake looks right, build a small workspace from that same lane. This is the safest first LLM-backed portfolio run because the output is easier to inspect. Use <code>--strict-validation</code> when invalid generated portfolio artifacts should fail the command instead of completing with warnings.</p>
+        <div class="code-panel">
+          <div class="code-title"><span>Recommended first build</span><span>one lane, small output</span></div>
+<pre>open-data-products portfolio build \
+  --signals source_docs/signals/ \
+  --config generation.config.yaml \
+  --output generated/portfolio-signals/ \
+  --strict-validation \
+  --json
+
+open-data-products portfolio explain generated/portfolio-signals/ --json
+open-data-products validate generated/portfolio-signals/odpc/catalog.yaml
+open-data-products validate generated/portfolio-signals/odpg/graph.yaml</pre>
+        </div>
+        <p>Review the generated HTML and YAML before adding more lanes. Look for duplicated concepts, vague product names, weak source evidence, or relationships that do not match the source material. Fix the source folder or prompt configuration while the workspace is still small.</p>
+
+        <h2 id="build-combined-workspace">Build the combined workspace</h2>
+        <p>Use the bundled all-lanes command only after one-lane intake and one-lane build have proved the workflow. The combined run is useful for the final connected portfolio, but it is harder to debug because objectives, use cases, signals, and products can all affect the generated catalog and graph.</p>
+        <div class="code-panel">
+          <div class="code-title"><span>All lanes</span><span>connected portfolio output</span></div>
 <pre>open-data-products portfolio intake \
   --objectives source_docs/objectives/ \
   --use-cases source_docs/use-cases/ \
@@ -77,11 +122,8 @@ generated/
   --config generation.config.yaml \
   --json</pre>
         </div>
-
-        <h2 id="build-first-workspace">Build the first workspace</h2>
-        <p>Build after intake shows the expected source counts and previews. Use <code>--strict-validation</code> when invalid generated portfolio artifacts should fail the command instead of completing with warnings. The lane paths are examples; create those folders first or replace them with paths in your project.</p>
         <div class="code-panel">
-          <div class="code-title"><span>Build</span><span>LLM-backed portfolio</span></div>
+          <div class="code-title"><span>Combined build</span><span>after lane-level review</span></div>
 <pre>open-data-products portfolio build \
   --objectives source_docs/objectives/ \
   --use-cases source_docs/use-cases/ \
