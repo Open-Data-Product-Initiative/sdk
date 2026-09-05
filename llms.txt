@@ -37,6 +37,13 @@ External context bundle support:
 ## Project Links
 
 - SDK page: https://opendataproducts.org/sdk/
+- Full website how-to: https://opendataproducts.org/sdk/docs/
+- Website how-to pages:
+  - Getting started: https://opendataproducts.org/sdk/docs/getting-started.html
+  - Generation and config: https://opendataproducts.org/sdk/docs/generation.html
+  - Portfolio workflows: https://opendataproducts.org/sdk/docs/portfolio.html
+  - Agents and recipes: https://opendataproducts.org/sdk/docs/agents.html
+  - Reference patterns: https://opendataproducts.org/sdk/docs/reference.html
 - GitHub repository: https://github.com/Open-Data-Product-Initiative/odp-agent-sdk
 - Repository guides: https://github.com/Open-Data-Product-Initiative/odp-agent-sdk/tree/main/examples/guides
 - API reference: https://github.com/Open-Data-Product-Initiative/odp-agent-sdk/blob/main/docs/user/API.md

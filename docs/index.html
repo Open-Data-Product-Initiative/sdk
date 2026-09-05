@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Open Data Products SDK How-To | Overview</title>
+  <meta name="description" content="Traditional documentation overview for the Open Data Products SDK with install, validation, generation, portfolio, agent, and reference paths." />
+  <link rel="canonical" href="https://opendataproducts.org/sdk/docs/" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="docs-shell">
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <a class="brand" href="../"><img src="../logo.png" alt="Open Data Products SDK" /></a>
+        <button class="mobile-nav-toggle" type="button" aria-controls="docs-nav" aria-expanded="false">
+          <span>Menu</span>
+          <span class="hamburger" aria-hidden="true"><span></span><span></span><span></span></span>
+        </button>
+      </div>
+      <div class="nav-group" id="docs-nav">
+        <div class="nav-label">How-to</div>
+        <div class="nav-section">
+          <a class="nav-link active" href="index.html"><span class="nav-title">Overview</span></a>
+          <div class="nav-subitems"><a href="index.html#recommended-path">Recommended path</a><a href="index.html#quick-command-map">Quick command map</a></div>
+        </div>
+        <div class="nav-section">
+          <a class="nav-link" href="getting-started.html"><span class="nav-title">Getting Started</span></a>
+          <div class="nav-subitems"><a href="getting-started.html#install">Install</a><a href="getting-started.html#validate-and-explain">Validate and explain</a><a href="getting-started.html#bundled-resources">Bundled resources</a></div>
+        </div>
+        <div class="nav-section">
+          <a class="nav-link" href="generation.html"><span class="nav-title">Generation and Config</span></a>
+          <div class="nav-subitems"><a href="generation.html#copy-config-and-prompts">Copy config</a><a href="generation.html#use-copied-config">Use config</a><a href="generation.html#provider-configuration">Providers</a><a href="generation.html#ai-gateway">AI Gateway</a><a href="generation.html#validation-loop">Validation loop</a></div>
+        </div>
+        <div class="nav-section">
+          <a class="nav-link" href="portfolio.html"><span class="nav-title">Portfolio Workflows</span></a>
+          <div class="nav-subitems"><a href="portfolio.html#source-lane-layout">Source lanes</a><a href="portfolio.html#build-first-workspace">Build workspace</a><a href="portfolio.html#lifecycle-commands">Lifecycle</a></div>
+        </div>
+        <div class="nav-section">
+          <a class="nav-link" href="agents.html"><span class="nav-title">Agents and Recipes</span></a>
+          <div class="nav-subitems"><a href="agents.html#mcp-server">MCP server</a><a href="agents.html#codex-configuration">Codex config</a><a href="agents.html#odpr-recipes">ODPR recipes</a></div>
+        </div>
+        <div class="nav-section">
+          <a class="nav-link" href="reference.html"><span class="nav-title">Reference Patterns</span></a>
+          <div class="nav-subitems"><a href="reference.html#odpc-catalog-outputs">ODPC outputs</a><a href="reference.html#odpg-graph-outputs">ODPG outputs</a><a href="reference.html#data-contract-workflows">Data Contracts</a></div>
+        </div>
+      </div>
+    </aside>
+    <div class="main">
+      <div class="topbar">
+        <a href="../">SDK Home</a>
+        <a href="../llms.txt">Agent guide</a>
+      </div>
+      <main class="content">
+        <span class="eyebrow">Open Data Products SDK v0.3.6</span>
+        <h1>SDK how-to</h1>
+        <p class="lead">Use this section as the practical website documentation for the SDK. It starts with basic CLI checks, then moves into generation, configuration, catalog and graph outputs, portfolio workflows, agent surfaces, recipes, OKF, Data Contracts, and Python usage.</p>
+
+        <div class="callout">
+          <p><strong>Source of truth:</strong> commands on these pages are grounded in the local <code>odps-python</code> CLI and user docs. YAML remains the canonical standards artifact. HTML, TOON, and GCF outputs are review views or context sidecars.</p>
+        </div>
+
+        <div class="cards">
+          <a class="card" href="getting-started.html">
+            <strong>Getting Started</strong>
+            <p>Install the package, run the CLI, validate a file, explain it, inspect references, and discover bundled resources.</p>
+          </a>
+          <a class="card" href="generation.html">
+            <strong>Generation and Config</strong>
+            <p>Copy generation config, choose provider profiles, use local or hosted LLMs, generate fragments, and validate output.</p>
+          </a>
+          <a class="card" href="portfolio.html">
+            <strong>Portfolio Workflows</strong>
+            <p>Inspect source lanes, build a portfolio workspace, refresh, sync, localize, render, and debug source intake.</p>
+          </a>
+          <a class="card" href="agents.html">
+            <strong>Agents and Recipes</strong>
+            <p>Run the MCP server, emit the ARWS manifest, and use ODPR recipes for repeatable dry-run-first workflows.</p>
+          </a>
+        </div>
+
+        <h2 id="recommended-path">Recommended path</h2>
+        <ol>
+          <li>Create a clean Python virtual environment.</li>
+          <li>Run <code>open-data-products --version</code> and validate one known file.</li>
+          <li>Copy <code>generation.config.yaml</code> before editing provider settings.</li>
+          <li>Generate one small artifact and validate it before building catalogs or portfolios.</li>
+          <li>Use portfolio intake JSON when generated outputs look incomplete.</li>
+          <li>Expose MCP only after the CLI works in the same environment.</li>
+        </ol>
+
+        <h2 id="quick-command-map">Quick command map</h2>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Need</th>
+                <th>Command</th>
+                <th>Page</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Validate a standards file</td>
+                <td><code>open-data-products validate product.yaml</code></td>
+                <td><a href="getting-started.html">Getting Started</a></td>
+              </tr>
+              <tr>
+                <td>Generate one signal or product reference</td>
+                <td><code>open-data-products generate --input source_docs/signals/ --kind signal --output generated/</code></td>
+                <td><a href="generation.html">Generation</a></td>
+              </tr>
+              <tr>
+                <td>Build catalog and graph sidecars</td>
+                <td><code>open-data-products odpc-build fragments/ --output catalog.yaml --toon catalog.toon --gcf catalog.gcf</code></td>
+                <td><a href="reference.html">Reference Patterns</a></td>
+              </tr>
+              <tr>
+                <td>Build a portfolio workspace</td>
+                <td><code>open-data-products portfolio build --objectives source_docs/objectives/ --products source_docs/products/ --output generated/portfolio/</code></td>
+                <td><a href="portfolio.html">Portfolio</a></td>
+              </tr>
+              <tr>
+                <td>Expose agent tools</td>
+                <td><code>open-data-products serve</code></td>
+                <td><a href="agents.html">Agents</a></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <nav class="pager" aria-label="Next page">
+          <span></span>
+          <a href="getting-started.html">Next: Getting Started</a>
+        </nav>
+      </main>
+    </div>
+  </div>
+  <script src="nav.js"></script>
+</body>
+</html>

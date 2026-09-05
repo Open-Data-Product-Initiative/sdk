@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Getting Started | Open Data Products SDK</title>
+  <meta name="description" content="Install the Open Data Products SDK and run core validation, explanation, summary, reference, and resource commands." />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="docs-shell">
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <a class="brand" href="../"><img src="../logo.png" alt="Open Data Products SDK" /></a>
+        <button class="mobile-nav-toggle" type="button" aria-controls="docs-nav" aria-expanded="false">
+          <span>Menu</span>
+          <span class="hamburger" aria-hidden="true"><span></span><span></span><span></span></span>
+        </button>
+      </div>
+      <div class="nav-group" id="docs-nav">
+        <div class="nav-label">How-to</div>
+        <div class="nav-section">
+          <a class="nav-link" href="index.html"><span class="nav-title">Overview</span></a>
+          <div class="nav-subitems"><a href="index.html#recommended-path">Recommended path</a><a href="index.html#quick-command-map">Quick command map</a></div>
+        </div>
+        <div class="nav-section">
+          <a class="nav-link active" href="getting-started.html"><span class="nav-title">Getting Started</span></a>
+          <div class="nav-subitems"><a href="getting-started.html#install">Install</a><a href="getting-started.html#validate-and-explain">Validate and explain</a><a href="getting-started.html#bundled-resources">Bundled resources</a></div>
+        </div>
+        <div class="nav-section">
+          <a class="nav-link" href="generation.html"><span class="nav-title">Generation and Config</span></a>
+          <div class="nav-subitems"><a href="generation.html#copy-config-and-prompts">Copy config</a><a href="generation.html#use-copied-config">Use config</a><a href="generation.html#provider-configuration">Providers</a><a href="generation.html#ai-gateway">AI Gateway</a><a href="generation.html#validation-loop">Validation loop</a></div>
+        </div>
+        <div class="nav-section">
+          <a class="nav-link" href="portfolio.html"><span class="nav-title">Portfolio Workflows</span></a>
+          <div class="nav-subitems"><a href="portfolio.html#source-lane-layout">Source lanes</a><a href="portfolio.html#build-first-workspace">Build workspace</a><a href="portfolio.html#lifecycle-commands">Lifecycle</a></div>
+        </div>
+        <div class="nav-section">
+          <a class="nav-link" href="agents.html"><span class="nav-title">Agents and Recipes</span></a>
+          <div class="nav-subitems"><a href="agents.html#mcp-server">MCP server</a><a href="agents.html#codex-configuration">Codex config</a><a href="agents.html#odpr-recipes">ODPR recipes</a></div>
+        </div>
+        <div class="nav-section">
+          <a class="nav-link" href="reference.html"><span class="nav-title">Reference Patterns</span></a>
+          <div class="nav-subitems"><a href="reference.html#odpc-catalog-outputs">ODPC outputs</a><a href="reference.html#odpg-graph-outputs">ODPG outputs</a><a href="reference.html#data-contract-workflows">Data Contracts</a></div>
+        </div>
+      </div>
+    </aside>
+    <div class="main">
+      <div class="topbar"><a href="../">SDK Home</a><a href="../llms.txt">Agent guide</a></div>
+      <main class="content">
+        <span class="eyebrow">Basics</span>
+        <h1>Getting started</h1>
+        <p class="lead">Start with a clean environment, confirm the CLI entry point, then run the read-oriented commands that are safe for local checks, CI, scripts, and agents.</p>
+
+        <h2 id="install">Install</h2>
+        <p>The SDK is distributed as the open-data-products Python package. Use a virtual environment for each project because optional extras and model-runtime dependencies can differ between a simple validation workflow, a Data Contract workflow, and a local llama.cpp workflow.</p>
+        <div class="code-panel">
+          <div class="code-title"><span>Terminal</span><span>clean setup</span></div>
+<pre>mkdir data-product-sdk-howto
+cd data-product-sdk-howto
+python3 -m venv .venv
+source .venv/bin/activate
+python3 -m pip install --upgrade pip
+
+pip install open-data-products
+open-data-products --version
+open-data-products --help</pre>
+        </div>
+        <p>After installation, <code>open-data-products --version</code> should print the installed package version and <code>open-data-products --help</code> should show the unified command tree. If the command is not found, the virtual environment is usually not active or the agent host is using a different Python environment. The file paths below are examples; replace them with files in your project, or run them from a cloned SDK repository that contains the sample files.</p>
+
+        <div class="cards">
+          <div class="card">
+            <strong>Core install</strong>
+            <p><code>pip install open-data-products</code> installs the SDK, unified CLI, generation templates, portfolio commands, and MCP server entry point.</p>
+          </div>
+          <div class="card">
+            <strong>Optional extras</strong>
+            <p>Use <code>pip install "open-data-products[contracts]"</code> for optional Data Contract CLI integration, <code>pip install "open-data-products[email]"</code> for Outlook MSG intake, and <code>pip install "open-data-products[llama-cpp]"</code> for embedded GGUF inference.</p>
+          </div>
+        </div>
+
+        <h2 id="validate-and-explain">Validate and explain</h2>
+        <p>Validation should be the first command in every workflow. It catches schema and SDK rule issues before you ask an LLM to use the file, render it, build a graph from it, or include it in a portfolio workspace.</p>
+        <div class="code-panel">
+          <div class="code-title"><span>Documents</span><span>human and JSON output</span></div>
+<pre>open-data-products validate product.yaml
+open-data-products validate product.yaml --json
+
+open-data-products explain product.yaml
+open-data-products explain product.yaml --json
+
+open-data-products summary product.yaml --json
+open-data-products refs graph.yaml --json</pre>
+        </div>
+        <p>Use <code>validate</code> as the quality gate, <code>explain</code> for a readable summary, <code>summary</code> for small metadata such as spec, kind, id, size, line count, and hash, and <code>refs</code> when a workflow needs to discover linked artifacts.</p>
+
+        <h2 id="json-automation">Use JSON for automation</h2>
+        <p>Readable output is better at the terminal. JSON output is better for CI, scripts, notebooks, and agent tools because it gives a stable object shape and avoids parsing terminal prose.</p>
+        <div class="code-panel">
+          <div class="code-title"><span>CI pattern</span><span>fail on invalid artifact</span></div>
+<pre>mkdir -p reports
+
+open-data-products validate products/customer-risk.yaml --json
+open-data-products explain products/customer-risk.yaml --json
+open-data-products summary products/customer-risk.yaml --json</pre>
+        </div>
+
+        <h2 id="bundled-resources">Discover bundled resources</h2>
+        <p>Resources are useful when you need to inspect the SDK's built-in knowledge before choosing a command. For example, an agent can fetch vocabulary records before resolving a term, or inspect prompt resource metadata before deciding whether generation should use bundled prompts or project-owned prompts.</p>
+        <div class="code-panel">
+          <div class="code-title"><span>Resources</span><span>schemas, prompts, vocabulary, guidance</span></div>
+<pre>open-data-products resources --json
+open-data-products resources --id generation.prompt.system --json
+open-data-products resources --id odpc.objects --json
+open-data-products resources --id odpv.terms --json
+open-data-products resources --id odpg.objects --json
+open-data-products resources --id okf.spec --json</pre>
+        </div>
+
+        <h2 id="first-project-folder">First project folder</h2>
+        <p>A small project structure keeps generated files separate from source material and reports. This makes it clear which files humans wrote, which files the SDK generated, and which files are derived evidence.</p>
+        <div class="code-panel">
+          <div class="code-title"><span>Folders</span><span>practical starter layout</span></div>
+<pre>source_docs/
+  products/
+  use-cases/
+  objectives/
+  signals/
+generated/
+  fragments/
+  catalogs/
+  graphs/
+reports/</pre>
+        </div>
+
+        <h2 id="basic-decision-table">Basic decision table</h2>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Command</th><th>Use when</th><th>Output shape</th></tr></thead>
+            <tbody>
+              <tr><td><code>validate</code></td><td>You need pass/fail quality evidence.</td><td>Readable by default, JSON with <code>--json</code>.</td></tr>
+              <tr><td><code>explain</code></td><td>A human or agent needs a compact explanation.</td><td>Text or structured JSON.</td></tr>
+              <tr><td><code>summary</code></td><td>You need identity and file metadata without loading the full body.</td><td>Text or structured JSON.</td></tr>
+              <tr><td><code>resources</code></td><td>You need bundled schemas, prompts, vocabulary, catalog records, or graph guidance.</td><td>Resource list or one resource by id.</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <nav class="pager" aria-label="Pagination">
+          <a href="index.html">Back: Overview</a>
+          <a href="generation.html">Next: Generation</a>
+        </nav>
+      </main>
+    </div>
+  </div>
+  <script src="nav.js"></script>
+</body>
+</html>

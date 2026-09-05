@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Reference Patterns | Open Data Products SDK</title>
+  <meta name="description" content="Reference command patterns for ODPC catalogs, ODPG graphs, OKF bundles, Data Contracts, troubleshooting, and Python API usage in the Open Data Products SDK." />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="docs-shell">
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <a class="brand" href="../"><img src="../logo.png" alt="Open Data Products SDK" /></a>
+        <button class="mobile-nav-toggle" type="button" aria-controls="docs-nav" aria-expanded="false">
+          <span>Menu</span>
+          <span class="hamburger" aria-hidden="true"><span></span><span></span><span></span></span>
+        </button>
+      </div>
+      <div class="nav-group" id="docs-nav">
+        <div class="nav-label">How-to</div>
+        <div class="nav-section">
+          <a class="nav-link" href="index.html"><span class="nav-title">Overview</span></a>
+          <div class="nav-subitems"><a href="index.html#recommended-path">Recommended path</a><a href="index.html#quick-command-map">Quick command map</a></div>
+        </div>
+        <div class="nav-section">
+          <a class="nav-link" href="getting-started.html"><span class="nav-title">Getting Started</span></a>
+          <div class="nav-subitems"><a href="getting-started.html#install">Install</a><a href="getting-started.html#validate-and-explain">Validate and explain</a><a href="getting-started.html#bundled-resources">Bundled resources</a></div>
+        </div>
+        <div class="nav-section">
+          <a class="nav-link" href="generation.html"><span class="nav-title">Generation and Config</span></a>
+          <div class="nav-subitems"><a href="generation.html#copy-config-and-prompts">Copy config</a><a href="generation.html#use-copied-config">Use config</a><a href="generation.html#provider-configuration">Providers</a><a href="generation.html#ai-gateway">AI Gateway</a><a href="generation.html#validation-loop">Validation loop</a></div>
+        </div>
+        <div class="nav-section">
+          <a class="nav-link" href="portfolio.html"><span class="nav-title">Portfolio Workflows</span></a>
+          <div class="nav-subitems"><a href="portfolio.html#source-lane-layout">Source lanes</a><a href="portfolio.html#build-first-workspace">Build workspace</a><a href="portfolio.html#lifecycle-commands">Lifecycle</a></div>
+        </div>
+        <div class="nav-section">
+          <a class="nav-link" href="agents.html"><span class="nav-title">Agents and Recipes</span></a>
+          <div class="nav-subitems"><a href="agents.html#mcp-server">MCP server</a><a href="agents.html#codex-configuration">Codex config</a><a href="agents.html#odpr-recipes">ODPR recipes</a></div>
+        </div>
+        <div class="nav-section">
+          <a class="nav-link active" href="reference.html"><span class="nav-title">Reference Patterns</span></a>
+          <div class="nav-subitems"><a href="reference.html#odpc-catalog-outputs">ODPC outputs</a><a href="reference.html#odpg-graph-outputs">ODPG outputs</a><a href="reference.html#data-contract-workflows">Data Contracts</a></div>
+        </div>
+      </div>
+    </aside>
+    <div class="main">
+      <div class="topbar"><a href="../">SDK Home</a><a href="../llms.txt">Agent guide</a></div>
+      <main class="content">
+        <span class="eyebrow">Reference</span>
+        <h1>Reference patterns</h1>
+        <p class="lead">Use this page for common command patterns after the basics are working: catalogs, graphs, compact context sidecars, OKF bundles, Data Contracts, Python API, and troubleshooting.</p>
+
+        <h2 id="odpc-catalog-outputs">ODPC catalog outputs</h2>
+        <p>Catalog builds assemble ODPC fragments or compatible product references into one catalog YAML. Add HTML when humans need a review surface. Add TOON or GCF when agents need compact sidecar context, but keep YAML as the canonical artifact. Replace <code>fragments/</code> with a real folder containing ODPC fragments, ODPC catalogs, or ODPS product files.</p>
+        <div class="code-panel">
+          <div class="code-title"><span>Catalog</span><span>YAML, HTML, TOON, GCF</span></div>
+<pre>open-data-products odpc-build fragments/ \
+  --output generated/catalog.yaml \
+  --html generated/catalog.html \
+  --toon generated/catalog.toon \
+  --gcf generated/catalog.gcf
+
+open-data-products odpc-summary generated/catalog.yaml
+open-data-products odpc-search "retention governance risk" --limit 3</pre>
+        </div>
+
+        <h2 id="odpg-graph-outputs">ODPG graph outputs</h2>
+        <p>Graph commands help inspect relationships after fragments or portfolio outputs exist. Use summaries for counts, traversal for path discovery, agent context for a focused prompt packet, and the standalone explorer when reviewers need a browser view. <code>odpg-build</code> can use the configured generation provider for edge inference, so local provider readiness still matters.</p>
+        <div class="code-panel">
+          <div class="code-title"><span>Graph</span><span>build, traverse, inspect</span></div>
+<pre>open-data-products odpg-build fragments/ \
+  --output generated/graph.yaml \
+  --toon generated/graph.toon \
+  --gcf generated/graph.gcf
+
+open-data-products odpg-summary generated/graph.yaml
+open-data-products odpg-traverse generated/graph.yaml --start DATA-PRODUCT-001 --depth 2
+open-data-products odpg-agent-context generated/graph.yaml --node DATA-PRODUCT-001
+open-data-products odpg-generate generated/graph.yaml --output generated/graph-explorer.html
+open-data-products odpg-convert --input graph.graphml --output graph.yaml</pre>
+        </div>
+
+        <h2 id="okf-bundles">OKF bundles</h2>
+        <div class="code-panel">
+          <div class="code-title"><span>OKF</span><span>external context format</span></div>
+<pre>open-data-products okf-validate knowledge-bundle/ --json
+open-data-products okf-summary knowledge-bundle/ --json
+open-data-products okf-import knowledge-bundle/ --output source_docs/okf/
+open-data-products okf-export generated/portfolio/ --output okf-bundle/
+open-data-products resources --id okf.spec --json</pre>
+        </div>
+        <p>OKF is a Markdown/frontmatter context bundle format. It is not ODPS, ODPC, ODPG, ODPV, or a fifth Open Data Products standard.</p>
+
+        <h2 id="compact-sidecar-policy">Compact sidecar policy</h2>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Artifact</th><th>Role</th><th>Do not use it as</th></tr></thead>
+            <tbody>
+              <tr><td><code>.yaml</code></td><td>Canonical standards source.</td><td>A temporary prompt-only scratch file.</td></tr>
+              <tr><td><code>.html</code></td><td>Human review surface.</td><td>The machine-readable source of truth.</td></tr>
+              <tr><td><code>.toon</code></td><td>Compact repeated-object context for agents and prompts.</td><td>A replacement for validated YAML.</td></tr>
+              <tr><td><code>.gcf</code></td><td>Experimental graph/catalog context sidecar.</td><td>A conformance artifact or separate standard.</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2 id="data-contract-workflows">Data Contract workflows</h2>
+        <p>Use product contract commands when an ODPS product references, ships with, or needs comparison against an external Data Contract. Install the contracts extra before relying on optional contract CLI behavior.</p>
+        <div class="code-panel">
+          <div class="code-title"><span>Contracts</span><span>optional integration</span></div>
+<pre>pip install "open-data-products[contracts]"
+
+open-data-products product resolve-contracts product.yaml --json
+open-data-products product check-contract product.yaml contract.yaml --json
+open-data-products product align-contract product.yaml contract.yaml --json
+open-data-products product contract-schema contract.yaml --json
+open-data-products product contract-report product.yaml contract.yaml --json
+open-data-products product audit product.yaml --contract contract.yaml --json</pre>
+        </div>
+
+        <h2 id="python-api">Python API</h2>
+        <div class="code-panel">
+          <div class="code-title"><span>Python</span><span>core helpers</span></div>
+<pre>from open_data_products import (
+    copy_config_template,
+    copy_generation_prompts,
+    explain_document,
+    generate_local_artifact,
+    get_resource,
+    list_resources,
+    load_document,
+    load_summary,
+    resolve_references,
+    validate_config,
+    validate_document,
+)
+
+document = load_document("examples/product.yaml")
+validation = validate_document(document)
+explanation = explain_document(document)
+references = resolve_references(document)
+metadata = load_summary("examples/product.yaml")
+resources = list_resources()
+terms = get_resource("odpv.terms")
+
+copy_config_template("generation", "generation.config.yaml")
+copy_generation_prompts("prompts")
+config_report = validate_config("generation", "generation.config.yaml")
+
+signal_path = generate_local_artifact(
+    "signal",
+    "source_docs/signals/turnaround-delay-signal.txt",
+    "generated/fragments",
+    model="qwen2.5",
+)</pre>
+        </div>
+
+        <h2 id="troubleshooting">Troubleshooting</h2>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Symptom</th><th>Check</th><th>Fix</th></tr></thead>
+            <tbody>
+              <tr><td>Config check fails with unknown keys.</td><td>Look for snake_case keys such as <code>base_url</code>.</td><td>Use exact keys such as <code>baseUrl</code>, <code>apiKeyEnv</code>, <code>sourceBudget</code>, and <code>obfuscatePersonalData</code>.</td></tr>
+              <tr><td>Generation cannot reach a provider.</td><td>Check <code>provider</code>, <code>type</code>, <code>baseUrl</code>, model name, and required environment variable.</td><td>Run the local server, pull the model, or export the env var named by <code>apiKeyEnv</code>.</td></tr>
+              <tr><td>Portfolio output is missing source evidence.</td><td>Run <code>portfolio intake --json</code> and inspect skipped sources, source budget, and source privacy.</td><td>Fix lane paths, install optional extras, move text into supported files, or adjust budget knowingly.</td></tr>
+              <tr><td>Generated YAML fails validation.</td><td>Run <code>validate</code> and inspect errors before building catalogs or graphs.</td><td>Repair the artifact, use a stronger provider/profile, narrow source input, or generate a minimal ODPS shell first.</td></tr>
+              <tr><td>Agent host cannot launch MCP.</td><td>Check that <code>open-data-products --help</code> works in the host environment.</td><td>Install the package into the active environment and use <code>open-data-products serve</code>.</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <nav class="pager" aria-label="Pagination">
+          <a href="agents.html">Back: Agents</a>
+          <a href="index.html">Back to Overview</a>
+        </nav>
+      </main>
+    </div>
+  </div>
+  <script src="nav.js"></script>
+</body>
+</html>

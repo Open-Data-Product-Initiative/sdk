@@ -560,6 +560,56 @@
       box-shadow: var(--shadow);
     }
 
+    .example-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .example-card {
+      display: grid;
+      align-content: start;
+      gap: 12px;
+      min-height: 260px;
+      padding: 22px;
+      border: 1px solid rgba(236, 222, 246, 0.16);
+      border-radius: 18px;
+      background: rgba(63, 37, 81, 0.58);
+      box-shadow: 0 16px 42px rgba(0, 0, 0, 0.18);
+    }
+
+    .example-card small {
+      color: var(--gold);
+      font-weight: 850;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .example-card h3 {
+      font-size: 1.14rem;
+      line-height: 1.2;
+      letter-spacing: -0.01em;
+    }
+
+    .example-card p {
+      color: var(--muted);
+      font-size: 0.94rem;
+    }
+
+    .example-card pre {
+      margin-top: auto;
+      padding: 13px;
+      border: 1px solid rgba(236, 222, 246, 0.14);
+      border-radius: 14px;
+      background: #09000d;
+      color: #f6ecfb;
+      font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+      font-size: 0.78rem;
+      line-height: 1.55;
+      overflow-x: auto;
+      white-space: pre;
+    }
+
     .guide-grid {
       grid-template-columns: repeat(4, 1fr);
     }
@@ -1421,7 +1471,7 @@
       nav { display: none; }
       .hero, .split, .cta, .mcp-panel, .portfolio-panel { grid-template-columns: 1fr; }
       .faq-layout { grid-template-columns: 1fr; gap: 28px; }
-      .cards, .standards, .llm-grid, .context-grid, .capability-grid, .guide-grid, .doc-grid, .model-command-grid { grid-template-columns: repeat(2, 1fr); }
+      .cards, .standards, .llm-grid, .context-grid, .capability-grid, .example-grid, .guide-grid, .doc-grid, .model-command-grid { grid-template-columns: repeat(2, 1fr); }
       .llm-support-layout {
         grid-template-columns: 1fr;
         grid-template-areas:
@@ -1448,7 +1498,7 @@
     }
 
     @media (max-width: 620px) {
-      .cards, .standards, .llm-grid, .context-grid, .steps, .status-grid, .capability-grid, .guide-grid, .doc-grid, .model-command-grid { grid-template-columns: 1fr; }
+      .cards, .standards, .llm-grid, .context-grid, .steps, .status-grid, .capability-grid, .example-grid, .guide-grid, .doc-grid, .model-command-grid { grid-template-columns: 1fr; }
       .standards-layout .standards { grid-template-columns: 1fr; }
       .llm-support-cards .llm-card { padding: 20px; }
       section { padding: 54px 0; }
@@ -1494,6 +1544,8 @@
       </a>
       <nav aria-label="Main navigation">
         <a href="#why">Why</a>
+        <a href="#examples">Examples</a>
+        <a href="docs/">How-to</a>
         <a href="#mcp">MCP</a>
         <a href="#llms">LLMs</a>
         <a href="#model-picks">Models</a>
@@ -1521,6 +1573,7 @@
 
           <div class="actions">
             <a class="btn btn-primary" href="https://github.com/Open-Data-Product-Initiative/odp-agent-sdk">View on GitHub</a>
+            <a class="btn btn-secondary" href="docs/">Read the how-to</a>
             <a class="btn btn-secondary" href="https://www.udemy.com/course/scalable-data-product-value-management-with-agent-ready-sdk/?referralCode=DE23AF7C13D47E90B996" target="_blank" rel="noopener">Enroll in Udemy Masterclass</a>
           </div>
 
@@ -1606,6 +1659,69 @@
           </article>
         </div>
 
+      </section>
+
+      <section id="examples">
+        <div class="section-title">
+          <h2>Simple examples of what the SDK can do</h2>
+          <p>
+            The same toolkit works from the terminal, Python automation, CI jobs, and agent hosts. These examples are
+            intentionally small: each one shows a practical job before the deeper guides and provider setup.
+          </p>
+        </div>
+
+        <div class="example-grid" aria-label="Simple SDK usage examples">
+          <article class="example-card">
+            <small>Quality gate</small>
+            <h3>Validate a product file</h3>
+            <p>Check whether an ODPS product, ODPC catalog, ODPG graph, vocabulary file, or contract reference is safe to use.</p>
+<pre>open-data-products validate examples/product.yaml</pre>
+          </article>
+
+          <article class="example-card">
+            <small>Readable context</small>
+            <h3>Explain standards YAML</h3>
+            <p>Turn a technical data product file into a readable explanation for reviewers, agents, or CI reports.</p>
+<pre>open-data-products explain examples/product.yaml --json</pre>
+          </article>
+
+          <article class="example-card">
+            <small>Bundled knowledge</small>
+            <h3>Discover SDK resources</h3>
+            <p>List bundled schemas, prompts, vocabulary records, catalog guidance, and graph resources available to tools and agents.</p>
+<pre>open-data-products resources --json</pre>
+          </article>
+
+          <article class="example-card">
+            <small>Agent surface</small>
+            <h3>Start the MCP server</h3>
+            <p>Expose safe SDK operations to compatible agent hosts through the Model Context Protocol.</p>
+<pre>open-data-products serve</pre>
+          </article>
+
+          <article class="example-card">
+            <small>Source to artifact</small>
+            <h3>Generate a draft artifact</h3>
+            <p>Create reviewable ODPS, ODPC, or ODPG-oriented output from source notes with a selected generation profile.</p>
+<pre>open-data-products generate \
+  --input source_docs/products/ \
+  --kind product-reference \
+  --provider ollama-gemma3n \
+  --output generated/</pre>
+          </article>
+
+          <article class="example-card">
+            <small>Portfolio workflow</small>
+            <h3>Build a portfolio workspace</h3>
+            <p>Turn objectives, use cases, signals, and product notes into connected portfolio outputs for human and agent review.</p>
+<pre>open-data-products portfolio build \
+  --objectives sources/objectives/ \
+  --use-cases sources/use-cases/ \
+  --signals sources/signals/ \
+  --products sources/products/ \
+  --output generated/portfolio/</pre>
+          </article>
+        </div>
       </section>
 
       <section id="mcp">
@@ -2032,6 +2148,7 @@ open-data-products summary examples/product.yaml</pre>
             <h3>API and commands</h3>
             <p>Use the Python API and CLI references when integrating the SDK into automation, products, or validation pipelines.</p>
             <ul>
+              <li><a href="docs/">Full website how-to</a></li>
               <li><a href="https://github.com/Open-Data-Product-Initiative/odp-agent-sdk/blob/main/docs/user/API.md">API reference</a></li>
               <li><a href="https://github.com/Open-Data-Product-Initiative/odp-agent-sdk/blob/main/docs/user/commands.md">Command guide</a></li>
             </ul>
@@ -2181,6 +2298,7 @@ open-data-products summary examples/product.yaml</pre>
           <ul>
             <li><a href="https://opendataproducts.org/howto/" target="_blank" rel="noopener">HowTos Knowledge Base</a></li>
             <li><a href="https://opendataproducts.org/sdk/" target="_blank" rel="noopener">Open Data Products SDK</a></li>
+            <li><a href="https://opendataproducts.org/sdk/docs/" target="_blank" rel="noopener">SDK full how-to</a></li>
             <li><a href="https://opendataproducts.org/sdk/llms.txt" target="_blank" rel="noopener">SDK llms.txt</a></li>
             <li><a href="https://github.com/Open-Data-Product-Initiative/odp-agent-sdk/blob/main/docs/user/API.md" target="_blank" rel="noopener">SDK API reference</a></li>
             <li><a href="https://github.com/Open-Data-Product-Initiative/odp-agent-sdk/blob/main/docs/user/commands.md" target="_blank" rel="noopener">SDK command guide</a></li>

@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Portfolio Workflows | Open Data Products SDK</title>
+  <meta name="description" content="Build, inspect, refresh, sync, localize, render, and troubleshoot Open Data Products SDK portfolio workspaces." />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="docs-shell">
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <a class="brand" href="../"><img src="../logo.png" alt="Open Data Products SDK" /></a>
+        <button class="mobile-nav-toggle" type="button" aria-controls="docs-nav" aria-expanded="false">
+          <span>Menu</span>
+          <span class="hamburger" aria-hidden="true"><span></span><span></span><span></span></span>
+        </button>
+      </div>
+      <div class="nav-group" id="docs-nav">
+        <div class="nav-label">How-to</div>
+        <div class="nav-section">
+          <a class="nav-link" href="index.html"><span class="nav-title">Overview</span></a>
+          <div class="nav-subitems"><a href="index.html#recommended-path">Recommended path</a><a href="index.html#quick-command-map">Quick command map</a></div>
+        </div>
+        <div class="nav-section">
+          <a class="nav-link" href="getting-started.html"><span class="nav-title">Getting Started</span></a>
+          <div class="nav-subitems"><a href="getting-started.html#install">Install</a><a href="getting-started.html#validate-and-explain">Validate and explain</a><a href="getting-started.html#bundled-resources">Bundled resources</a></div>
+        </div>
+        <div class="nav-section">
+          <a class="nav-link" href="generation.html"><span class="nav-title">Generation and Config</span></a>
+          <div class="nav-subitems"><a href="generation.html#copy-config-and-prompts">Copy config</a><a href="generation.html#use-copied-config">Use config</a><a href="generation.html#provider-configuration">Providers</a><a href="generation.html#ai-gateway">AI Gateway</a><a href="generation.html#validation-loop">Validation loop</a></div>
+        </div>
+        <div class="nav-section">
+          <a class="nav-link active" href="portfolio.html"><span class="nav-title">Portfolio Workflows</span></a>
+          <div class="nav-subitems"><a href="portfolio.html#source-lane-layout">Source lanes</a><a href="portfolio.html#build-first-workspace">Build workspace</a><a href="portfolio.html#lifecycle-commands">Lifecycle</a></div>
+        </div>
+        <div class="nav-section">
+          <a class="nav-link" href="agents.html"><span class="nav-title">Agents and Recipes</span></a>
+          <div class="nav-subitems"><a href="agents.html#mcp-server">MCP server</a><a href="agents.html#codex-configuration">Codex config</a><a href="agents.html#odpr-recipes">ODPR recipes</a></div>
+        </div>
+        <div class="nav-section">
+          <a class="nav-link" href="reference.html"><span class="nav-title">Reference Patterns</span></a>
+          <div class="nav-subitems"><a href="reference.html#odpc-catalog-outputs">ODPC outputs</a><a href="reference.html#odpg-graph-outputs">ODPG outputs</a><a href="reference.html#data-contract-workflows">Data Contracts</a></div>
+        </div>
+      </div>
+    </aside>
+    <div class="main">
+      <div class="topbar"><a href="../">SDK Home</a><a href="../llms.txt">Agent guide</a></div>
+      <main class="content">
+        <span class="eyebrow">Portfolio</span>
+        <h1>Portfolio workflows</h1>
+        <p class="lead">Portfolio commands turn source lanes into connected ODPC, ODPS, ODPG, HTML, localization, and version outputs. Run intake first when evidence quality matters.</p>
+
+        <h2 id="source-lane-layout">Source lane layout</h2>
+        <p>Each lane represents a different evidence type. Keep source files close to the lane they support so the portfolio prompt can distinguish business goals, user demand, external or operational signals, and actual product candidates.</p>
+        <div class="code-panel">
+          <div class="code-title"><span>Folders</span><span>recommended shape</span></div>
+<pre>source_docs/
+  objectives/
+  use-cases/
+  signals/
+  products/
+generated/
+  portfolio/</pre>
+        </div>
+
+        <h2 id="inspect-intake">Inspect intake without calling an LLM</h2>
+        <p><code>portfolio intake</code> is the most important debugging command in the portfolio workflow. It reads source files, detects file types, extracts text, masks personal data when enabled, applies prompt budgets, and reports what would be sent to the model. It does not call an LLM.</p>
+        <div class="code-panel">
+          <div class="code-title"><span>Dry run</span><span>source extraction and budget</span></div>
+<pre>open-data-products portfolio intake \
+  --objectives source_docs/objectives/ \
+  --use-cases source_docs/use-cases/ \
+  --signals source_docs/signals/ \
+  --products source_docs/products/ \
+  --config generation.config.yaml \
+  --json</pre>
+        </div>
+
+        <h2 id="build-first-workspace">Build the first workspace</h2>
+        <p>Build after intake shows the expected source counts and previews. Use <code>--strict-validation</code> when invalid generated portfolio artifacts should fail the command instead of completing with warnings. The lane paths are examples; create those folders first or replace them with paths in your project.</p>
+        <div class="code-panel">
+          <div class="code-title"><span>Build</span><span>LLM-backed portfolio</span></div>
+<pre>open-data-products portfolio build \
+  --objectives source_docs/objectives/ \
+  --use-cases source_docs/use-cases/ \
+  --signals source_docs/signals/ \
+  --products source_docs/products/ \
+  --config generation.config.yaml \
+  --output generated/portfolio/ \
+  --strict-validation \
+  --json</pre>
+        </div>
+
+        <h2 id="lifecycle-commands">Lifecycle commands</h2>
+        <div class="code-panel">
+          <div class="code-title"><span>After build</span><span>refresh, sync, localize, render</span></div>
+<pre>open-data-products portfolio refresh generated/portfolio/
+open-data-products portfolio refresh generated/portfolio/ --all-sources
+
+open-data-products portfolio sync generated/portfolio/
+
+open-data-products portfolio localize generated/portfolio/ \
+  --languages "fi,sv,ar,vi" \
+  --provider claude \
+  --model claude-sonnet-4-5
+
+open-data-products portfolio render generated/portfolio/
+open-data-products portfolio explain generated/portfolio/ --json</pre>
+        </div>
+
+        <h2 id="what-gets-created">What gets created</h2>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Output</th><th>Purpose</th><th>Review action</th></tr></thead>
+            <tbody>
+              <tr><td><code>index.html</code></td><td>Human review page for the portfolio workspace.</td><td>Open in a browser and review value narrative, product grouping, evidence, and gaps.</td></tr>
+              <tr><td><code>portfolio.yaml</code></td><td>Structured portfolio state.</td><td>Use as the workspace-level source for refresh, sync, render, and explain.</td></tr>
+              <tr><td><code>odpc/catalog.yaml</code></td><td>Catalog-level ODPC output.</td><td>Validate and inspect catalog contents before publishing or reuse.</td></tr>
+              <tr><td><code>odpc/fragments/</code></td><td>Generated objectives, use cases, signals, and product references.</td><td>Review IDs, names, evidence links, and duplicates.</td></tr>
+              <tr><td><code>odpg/graph.yaml</code></td><td>Graph relationship context between objectives, products, use cases, signals, and KPIs.</td><td>Run graph summary, traversal, and agent-context commands.</td></tr>
+              <tr><td><code>odps/products/</code></td><td>ODPS product drafts created for portfolio candidates.</td><td>Validate product files and refine product details before handover.</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2 id="supported-source-inputs">Supported source inputs</h2>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Lane</th><th>Purpose</th><th>Supported inputs</th></tr></thead>
+            <tbody>
+              <tr><td><code>--objectives</code></td><td>Business objectives, outcomes, strategy notes, executive targets.</td><td rowspan="4">Markdown, text, YAML, JSON, EML, DOCX, PPTX, XLSX, PDF with embedded text, CSV, and Outlook MSG when installed with <code>pip install "open-data-products[email]"</code>.</td></tr>
+              <tr><td><code>--use-cases</code></td><td>Use cases, user journeys, decision needs, stakeholder workflows.</td></tr>
+              <tr><td><code>--signals</code></td><td>Market signals, operational signals, risks, quality evidence, usage evidence.</td></tr>
+              <tr><td><code>--products</code></td><td>Existing products, candidate products, product notes, product briefs.</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2 id="debug-intake-first">Debug intake first</h2>
+        <p>When generated portfolio output looks incomplete, inspect the intake JSON before changing the prompt. Check <code>sourceCounts</code>, <code>sourceExtraction.skippedSources</code>, per-source <code>status</code>, <code>sourceBudget.omittedChunkCount</code>, <code>sourcePrivacy.enabled</code>, and <code>warnings</code>.</p>
+        <div class="callout">
+          <p><strong>Important:</strong> image-only PDFs, images, hidden spreadsheet sheets, hidden slides, PowerPoint notes, and email attachments are not silently extracted by the base workflow. Put required evidence into supported text-bearing source files.</p>
+        </div>
+
+        <h2 id="common-portfolio-fixes">Common portfolio fixes</h2>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Finding in intake JSON</th><th>Meaning</th><th>Practical fix</th></tr></thead>
+            <tbody>
+              <tr><td><code>status: skipped</code></td><td>The SDK detected the file but did not extract usable text.</td><td>Check the warning, install optional extras if needed, or convert the content into supported text-bearing input.</td></tr>
+              <tr><td><code>status: empty</code></td><td>The file was readable but produced no extracted text.</td><td>Check whether the source contains only images, hidden data, comments, speaker notes, or attachments.</td></tr>
+              <tr><td><code>status: reduced</code></td><td>Text was extracted but not all chunks fit into the configured prompt budget.</td><td>Split the source, reduce irrelevant content, or raise <code>maxPromptChars</code> only when the selected model can handle it.</td></tr>
+              <tr><td><code>sourcePrivacy.enabled: true</code></td><td>Personal data masking changed values before prompt construction.</td><td>Review replacement counts and keep masking enabled for external providers unless the workflow is controlled and local-only.</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <nav class="pager" aria-label="Pagination">
+          <a href="generation.html">Back: Generation</a>
+          <a href="agents.html">Next: Agents</a>
+        </nav>
+      </main>
+    </div>
+  </div>
+  <script src="nav.js"></script>
+</body>
+</html>

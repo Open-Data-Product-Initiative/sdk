@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Agents and Recipes | Open Data Products SDK</title>
+  <meta name="description" content="Use Open Data Products SDK MCP, ARWS manifests, and ODPR recipes for agent-ready workflows." />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="docs-shell">
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <a class="brand" href="../"><img src="../logo.png" alt="Open Data Products SDK" /></a>
+        <button class="mobile-nav-toggle" type="button" aria-controls="docs-nav" aria-expanded="false">
+          <span>Menu</span>
+          <span class="hamburger" aria-hidden="true"><span></span><span></span><span></span></span>
+        </button>
+      </div>
+      <div class="nav-group" id="docs-nav">
+        <div class="nav-label">How-to</div>
+        <div class="nav-section">
+          <a class="nav-link" href="index.html"><span class="nav-title">Overview</span></a>
+          <div class="nav-subitems"><a href="index.html#recommended-path">Recommended path</a><a href="index.html#quick-command-map">Quick command map</a></div>
+        </div>
+        <div class="nav-section">
+          <a class="nav-link" href="getting-started.html"><span class="nav-title">Getting Started</span></a>
+          <div class="nav-subitems"><a href="getting-started.html#install">Install</a><a href="getting-started.html#validate-and-explain">Validate and explain</a><a href="getting-started.html#bundled-resources">Bundled resources</a></div>
+        </div>
+        <div class="nav-section">
+          <a class="nav-link" href="generation.html"><span class="nav-title">Generation and Config</span></a>
+          <div class="nav-subitems"><a href="generation.html#copy-config-and-prompts">Copy config</a><a href="generation.html#use-copied-config">Use config</a><a href="generation.html#provider-configuration">Providers</a><a href="generation.html#ai-gateway">AI Gateway</a><a href="generation.html#validation-loop">Validation loop</a></div>
+        </div>
+        <div class="nav-section">
+          <a class="nav-link" href="portfolio.html"><span class="nav-title">Portfolio Workflows</span></a>
+          <div class="nav-subitems"><a href="portfolio.html#source-lane-layout">Source lanes</a><a href="portfolio.html#build-first-workspace">Build workspace</a><a href="portfolio.html#lifecycle-commands">Lifecycle</a></div>
+        </div>
+        <div class="nav-section">
+          <a class="nav-link active" href="agents.html"><span class="nav-title">Agents and Recipes</span></a>
+          <div class="nav-subitems"><a href="agents.html#mcp-server">MCP server</a><a href="agents.html#codex-configuration">Codex config</a><a href="agents.html#odpr-recipes">ODPR recipes</a></div>
+        </div>
+        <div class="nav-section">
+          <a class="nav-link" href="reference.html"><span class="nav-title">Reference Patterns</span></a>
+          <div class="nav-subitems"><a href="reference.html#odpc-catalog-outputs">ODPC outputs</a><a href="reference.html#odpg-graph-outputs">ODPG outputs</a><a href="reference.html#data-contract-workflows">Data Contracts</a></div>
+        </div>
+      </div>
+    </aside>
+    <div class="main">
+      <div class="topbar"><a href="../">SDK Home</a><a href="../llms.txt">Agent guide</a></div>
+      <main class="content">
+        <span class="eyebrow">Agents</span>
+        <h1>Agents and recipes</h1>
+        <p class="lead">The SDK can run as a CLI, a Python API, a stdio MCP server, and an ARWS-compatible manifest source. Use ODPR recipes when the workflow itself needs a repeatable contract.</p>
+
+        <h2 id="mcp-server">MCP server</h2>
+        <p>Use MCP after the CLI works locally. The agent host launches <code>open-data-products serve</code> and calls SDK tools over stdio, so the host environment must have the same package installed and the same file permissions as your terminal workflow.</p>
+        <div class="code-panel">
+          <div class="code-title"><span>MCP</span><span>stdio server</span></div>
+<pre>open-data-products serve
+open-data-products manifest --json</pre>
+        </div>
+
+        <h2 id="codex-configuration">Codex configuration</h2>
+        <div class="code-panel">
+          <div class="code-title"><span>.codex/config.toml</span><span>portable command</span></div>
+<pre>[mcp_servers.open_data_products]
+command = "open-data-products"
+args = ["serve"]
+enabled = true
+startup_timeout_sec = 10
+tool_timeout_sec = 60</pre>
+        </div>
+        <p>Install the package in the same environment the agent host uses. The command is intentionally portable and assumes <code>open-data-products --help</code> works on <code>PATH</code>.</p>
+
+        <h2 id="agent-surface">What the agent surface is for</h2>
+        <div class="cards">
+          <div class="card"><strong>Read and validate</strong><p>Validation, explanation, reference discovery, summaries, and resource discovery.</p></div>
+          <div class="card"><strong>Search and reason</strong><p>Vocabulary search, graph traversal, graph summaries, graph analysis, and focus-node context.</p></div>
+          <div class="card"><strong>Context bundles</strong><p>OKF bundle validation and OKF concept listing without returning full Markdown bodies.</p></div>
+          <div class="card"><strong>Product-contract context</strong><p>Contract reference resolution, alignment checks, schema summaries, and product-level reports.</p></div>
+        </div>
+
+        <h2 id="mcp-tool-categories">Useful MCP tool categories</h2>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Category</th><th>Typical tools</th><th>Use case</th></tr></thead>
+            <tbody>
+              <tr><td>Documents</td><td><code>validate_document</code>, <code>explain_document</code>, <code>resolve_references</code>, <code>load_summary</code></td><td>Let an agent inspect files without inventing schema rules.</td></tr>
+              <tr><td>Resources</td><td><code>list_resources</code>, <code>get_resource</code></td><td>Discover schemas, prompts, vocabulary records, and guidance.</td></tr>
+              <tr><td>Vocabulary and catalogs</td><td><code>search_terms</code>, <code>search_objects</code>, <code>resolve_vocabulary_term</code></td><td>Ground terminology and catalog object choices.</td></tr>
+              <tr><td>Graphs</td><td><code>summarize_graph</code>, <code>traverse_graph</code>, <code>analyze_graph</code>, <code>agent_context</code></td><td>Extract relationship context around products, objectives, use cases, and signals.</td></tr>
+              <tr><td>Contracts</td><td><code>resolve_product_contracts</code>, <code>check_product_contract_alignment</code>, <code>generate_product_contract_report</code></td><td>Review product and Data Contract alignment before handover.</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2 id="odpr-recipes">ODPR recipes</h2>
+        <p>ODPR recipes are workflow contracts. They describe ordered SDK steps, providers, inputs, outputs, validation gates, context formats, write policy, review policy, and run manifests.</p>
+        <p>Use recipes when the same workflow must run repeatedly in a project, CI job, or agent-led process. The dry run shows resolved step parameters, planned writes, provider readiness, review requirements, and blocking reasons before any write-heavy or provider-backed execution.</p>
+        <div class="code-panel">
+          <div class="code-title"><span>Starter workflow</span><span>dry-run first</span></div>
+<pre>open-data-products recipe list --json
+open-data-products recipe init build-data-product-portfolio --parameterized --json
+cd recipes/build-data-product-portfolio
+open-data-products recipe explain recipe.yaml --json
+open-data-products recipe plan --json</pre>
+        </div>
+        <div class="code-panel">
+          <div class="code-title"><span>Configured project</span><span>review before execute</span></div>
+<pre>open-data-products config recipes --copy-to recipes.config.yaml
+open-data-products config recipes --config recipes.config.yaml --check --json
+open-data-products recipe list --config recipes.config.yaml --json
+open-data-products recipe validate recipes/ci-validate.yaml --json
+open-data-products recipe run recipes/ci-validate.yaml \
+  --config recipes.config.yaml \
+  --dry-run \
+  --json</pre>
+        </div>
+
+        <div class="callout">
+          <p><strong>Boundary:</strong> use CLI or Python for artifact-writing workflows. Use MCP when agents need safer discovery, validation, search, summary, and context operations.</p>
+        </div>
+
+        <nav class="pager" aria-label="Pagination">
+          <a href="portfolio.html">Back: Portfolio</a>
+          <a href="reference.html">Next: Reference</a>
+        </nav>
+      </main>
+    </div>
+  </div>
+  <script src="nav.js"></script>
+</body>
+</html>

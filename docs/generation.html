@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Generation and Config | Open Data Products SDK</title>
+  <meta name="description" content="Configure local and hosted LLM providers for the Open Data Products SDK and generate ODPS, ODPC, and ODPG artifacts." />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="docs-shell">
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <a class="brand" href="../"><img src="../logo.png" alt="Open Data Products SDK" /></a>
+        <button class="mobile-nav-toggle" type="button" aria-controls="docs-nav" aria-expanded="false">
+          <span>Menu</span>
+          <span class="hamburger" aria-hidden="true"><span></span><span></span><span></span></span>
+        </button>
+      </div>
+      <div class="nav-group" id="docs-nav">
+        <div class="nav-label">How-to</div>
+        <div class="nav-section">
+          <a class="nav-link" href="index.html"><span class="nav-title">Overview</span></a>
+          <div class="nav-subitems"><a href="index.html#recommended-path">Recommended path</a><a href="index.html#quick-command-map">Quick command map</a></div>
+        </div>
+        <div class="nav-section">
+          <a class="nav-link" href="getting-started.html"><span class="nav-title">Getting Started</span></a>
+          <div class="nav-subitems"><a href="getting-started.html#install">Install</a><a href="getting-started.html#validate-and-explain">Validate and explain</a><a href="getting-started.html#bundled-resources">Bundled resources</a></div>
+        </div>
+        <div class="nav-section">
+          <a class="nav-link active" href="generation.html"><span class="nav-title">Generation and Config</span></a>
+          <div class="nav-subitems"><a href="generation.html#copy-config-and-prompts">Copy config</a><a href="generation.html#use-copied-config">Use config</a><a href="generation.html#provider-configuration">Providers</a><a href="generation.html#ai-gateway">AI Gateway</a><a href="generation.html#validation-loop">Validation loop</a></div>
+        </div>
+        <div class="nav-section">
+          <a class="nav-link" href="portfolio.html"><span class="nav-title">Portfolio Workflows</span></a>
+          <div class="nav-subitems"><a href="portfolio.html#source-lane-layout">Source lanes</a><a href="portfolio.html#build-first-workspace">Build workspace</a><a href="portfolio.html#lifecycle-commands">Lifecycle</a></div>
+        </div>
+        <div class="nav-section">
+          <a class="nav-link" href="agents.html"><span class="nav-title">Agents and Recipes</span></a>
+          <div class="nav-subitems"><a href="agents.html#mcp-server">MCP server</a><a href="agents.html#codex-configuration">Codex config</a><a href="agents.html#odpr-recipes">ODPR recipes</a></div>
+        </div>
+        <div class="nav-section">
+          <a class="nav-link" href="reference.html"><span class="nav-title">Reference Patterns</span></a>
+          <div class="nav-subitems"><a href="reference.html#odpc-catalog-outputs">ODPC outputs</a><a href="reference.html#odpg-graph-outputs">ODPG outputs</a><a href="reference.html#data-contract-workflows">Data Contracts</a></div>
+        </div>
+      </div>
+    </aside>
+    <div class="main">
+      <div class="topbar"><a href="../">SDK Home</a><a href="../llms.txt">Agent guide</a></div>
+      <main class="content">
+        <span class="eyebrow">LLM workflows</span>
+        <h1>Generation and config</h1>
+        <p class="lead">Generation turns source notes into selected standards artifacts. Keep each source folder aligned with the selected <code>--kind</code>, copy config before editing, and validate generated YAML before downstream use.</p>
+
+        <h2 id="copy-config-and-prompts">Copy config and prompts</h2>
+        <p>The copied config becomes the file you pass to generation with <code>--config</code>. Copying it does not generate anything by itself. The useful flow is: create project folders, copy the bundled config, edit the project copy, check it, run generation with that config, then validate the YAML that was written to the configured output folder.</p>
+        <div class="code-panel">
+          <div class="code-title"><span>Config workflow</span><span>copy, inspect, check</span></div>
+<pre>mkdir -p config prompts source_docs/signals generated/fragments generated/catalogs
+
+open-data-products config generation --copy-to config/generation.config.yaml
+open-data-products config generation --copy-prompts-to prompts/
+
+<span class="comment"># Edit config/generation.config.yaml before running generation.</span>
+open-data-products config generation --config config/generation.config.yaml --print
+open-data-products config generation --config config/generation.config.yaml --check
+open-data-products config generation --config config/generation.config.yaml --check --json</pre>
+        </div>
+        <p>In the copied file, set the top-level <code>provider</code> to the provider profile you want to use by default. Set <code>input</code> to the folder or file that contains source notes, and set <code>output</code> to the folder where generated YAML should be written. The command can still override these values for one run with <code>--provider</code>, <code>--model</code>, <code>--input</code>, and <code>--output</code>.</p>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Config field</th><th>Example value</th><th>What happens later</th></tr></thead>
+            <tbody>
+              <tr><td><code>provider</code></td><td><code>ollama-qwen3</code></td><td><code>generate --config config/generation.config.yaml</code> uses the matching entry under <code>providers</code>.</td></tr>
+              <tr><td><code>input</code></td><td><code>source_docs/signals/</code></td><td>Generation reads every supported source file in that folder unless <code>--input</code> overrides it.</td></tr>
+              <tr><td><code>output</code></td><td><code>generated/fragments/</code></td><td>Generated ODPC fragment YAML is written there, then validated or assembled into a catalog.</td></tr>
+              <tr><td><code>providers.ollama-qwen3.model</code></td><td><code>qwen3:8b</code></td><td>The provider adapter sends the prompt to that model when <code>ollama-qwen3</code> is selected.</td></tr>
+              <tr><td><code>providers.openai.apiKeyEnv</code></td><td><code>OPENAI_API_KEY</code></td><td>The SDK reads the secret from the environment variable at runtime; the YAML stores only the variable name.</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="callout">
+          <p><strong>Do not store secrets in YAML.</strong> Provider entries store the environment variable name in <code>apiKeyEnv</code>. Export the actual key in the environment before running generation.</p>
+        </div>
+
+        <h2 id="use-copied-config">Use the copied config</h2>
+        <p>The source file below is plain text. The <code>--kind signal</code> flag tells the SDK which prompt and output shape to use. The copied config supplies the default provider, model, input folder, and output folder; the command below overrides provider, input, and output for one controlled test run.</p>
+        <div class="code-panel">
+          <div class="code-title"><span>One complete local run</span><span>source to validated fragment</span></div>
+<pre>cat &gt; source_docs/signals/turnaround-delay-signal.txt &lt;&lt;'TXT'
+Airport operations teams need an early signal when aircraft turnaround is at
+risk of exceeding planned ground time. The signal should consider late inbound
+arrival, missing cleaning crew assignment, delayed baggage unloading, and gate
+conflict status.
+TXT
+
+ollama pull qwen3:8b
+
+open-data-products generate \
+  --config config/generation.config.yaml \
+  --provider ollama-qwen3 \
+  --input source_docs/signals/turnaround-delay-signal.txt \
+  --kind signal \
+  --output generated/fragments/ \
+  --json
+
+ls generated/fragments/
+open-data-products validate generated/fragments/&lt;generated-signal&gt;.yaml
+open-data-products explain generated/fragments/&lt;generated-signal&gt;.yaml --json</pre>
+        </div>
+        <p>The result is not a report about the source file. It is a standards YAML artifact, usually named from the generated object id, such as <code>signal_turnaround-delay-risk.yaml</code>. Use that YAML as input to the next workflow: validate it for quality, build it into an ODPC catalog, include it in a portfolio workspace, or use it as graph context.</p>
+
+        <div class="code-panel">
+          <div class="code-title"><span>Use the generated fragment next</span><span>catalog sidecars</span></div>
+<pre>open-data-products odpc-build generated/fragments/ \
+  --output generated/catalogs/catalog.yaml \
+  --html generated/catalogs/catalog.html \
+  --toon generated/catalogs/catalog.toon \
+  --gcf generated/catalogs/catalog.gcf \
+  --json
+
+open-data-products odpc-summary generated/catalogs/catalog.yaml --json</pre>
+        </div>
+
+        <h2 id="online-provider-variant">Online provider variant</h2>
+        <p>For an online provider, the generated file is used the same way. The only difference is the selected provider profile and the exported environment variable. If the copied config contains <code>apiKeyEnv: OPENAI_API_KEY</code>, export <code>OPENAI_API_KEY</code> before running generation. For Anthropic, export the variable named by the selected Anthropic profile.</p>
+        <div class="code-panel">
+          <div class="code-title"><span>OpenAI-compatible run</span><span>same output workflow</span></div>
+<pre>export OPENAI_API_KEY="..."
+
+open-data-products generate \
+  --config config/generation.config.yaml \
+  --provider openai \
+  --model gpt-4.1-mini \
+  --input source_docs/signals/turnaround-delay-signal.txt \
+  --kind signal \
+  --output generated/fragments/ \
+  --json
+
+open-data-products validate generated/fragments/&lt;generated-signal&gt;.yaml</pre>
+        </div>
+
+        <h2 id="prepare-source-files">Prepare source files</h2>
+        <p>The generator reads Markdown and text files directly. It can also include YAML catalog or graph context when the YAML file has a sibling <code>.toon</code> or <code>.gcf</code> sidecar. Keep folder inputs type-specific so one prompt does not receive mixed product, signal, use-case, and objective material.</p>
+        <div class="code-panel">
+          <div class="code-title"><span>Source examples</span><span>small text inputs</span></div>
+<pre>source_docs/
+  products/
+    customer-retention-product.md
+  signals/
+    churn-risk-signal.txt
+  use-cases/
+    renewal-intervention-use-case.md
+  objectives/
+    reduce-enterprise-churn.txt</pre>
+        </div>
+
+        <h2 id="generate-one-artifact">Generate one artifact</h2>
+        <p>Use one file first when testing a provider or prompt. The output file name is derived from the generated artifact id for fragment kinds, so validate the generated folder rather than assuming the output filename will match the source filename exactly.</p>
+        <div class="code-panel">
+          <div class="code-title"><span>Single source</span><span>selected artifact kind</span></div>
+<pre>open-data-products generate \
+  --input source_docs/signals/turnaround-delay-signal.txt \
+  --kind signal \
+  --output generated/fragments/ \
+  --model qwen2.5 \
+  --json
+
+open-data-products validate generated/fragments/&lt;generated-signal&gt;.yaml</pre>
+        </div>
+
+        <h2 id="generate-from-folder">Generate from a folder</h2>
+        <p>For folder generation, put only matching source files in the folder. If <code>--kind signal</code> points at a mixed folder containing products, objectives, and signal notes, the selected signal prompt receives the wrong evidence.</p>
+        <div class="code-panel">
+          <div class="code-title"><span>Folder source</span><span>matching source files only</span></div>
+<pre>open-data-products generate \
+  --config generation.config.yaml \
+  --input source_docs/products/ \
+  --kind product-reference \
+  --provider ollama-gemma3n \
+  --output generated/fragments/ \
+  --json</pre>
+        </div>
+        <p>Supported generation kinds are <code>product-reference</code>, <code>odps-product</code>, <code>use-case</code>, <code>objective</code>, <code>signal</code>, and <code>graph</code>.</p>
+
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Kind</th><th>Typical input</th><th>Typical output</th><th>Use next</th></tr></thead>
+            <tbody>
+              <tr><td><code>product-reference</code></td><td>Product brief, system description, dataset notes.</td><td>ODPC <code>productReference</code> fragment.</td><td><code>odpc-build</code> or portfolio build.</td></tr>
+              <tr><td><code>odps-product</code></td><td>Full product narrative or product spec notes.</td><td>ODPS product YAML.</td><td><code>validate</code>, contract checks, catalog inclusion.</td></tr>
+              <tr><td><code>use-case</code></td><td>User journey, decision workflow, stakeholder need.</td><td>ODPC <code>useCase</code> fragment.</td><td>Portfolio build and graph context.</td></tr>
+              <tr><td><code>objective</code></td><td>Business target, OKR, strategic goal.</td><td>ODPC <code>businessObjective</code> fragment.</td><td>Portfolio build and graph context.</td></tr>
+              <tr><td><code>signal</code></td><td>Risk, demand, market, usage, or quality evidence.</td><td>ODPC <code>signal</code> fragment.</td><td>Portfolio build and graph context.</td></tr>
+              <tr><td><code>graph</code></td><td>Fragments, catalog context, or graph notes.</td><td>ODPG graph YAML.</td><td><code>odpg-summary</code>, traversal, graph explorer.</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2 id="odps-product-profiles">ODPS product profiles</h2>
+        <div class="code-panel">
+          <div class="code-title"><span>Product draft</span><span>minimal or complete</span></div>
+<pre>open-data-products generate \
+  --input source_docs/products/revenue-product.md \
+  --kind odps-product \
+  --profile minimal \
+  --output generated/products/ \
+  --json
+
+open-data-products generate \
+  --input source_docs/products/revenue-product.md \
+  --kind odps-product \
+  --profile complete-draft \
+  --include-components SLA,dataQuality,pricingPlans,dataAccess,productStrategy \
+  --output generated/products/ \
+  --json</pre>
+        </div>
+
+        <h2 id="provider-configuration">Provider configuration</h2>
+        <p>The selected top-level <code>provider</code> points to one entry in <code>providers</code>. CLI flags such as <code>--provider</code>, <code>--model</code>, <code>--input</code>, and <code>--output</code> override the file for one run. Use overrides for testing; put stable team defaults in the config.</p>
+        <div class="code-panel">
+          <div class="code-title"><span>YAML</span><span>safe provider profile</span></div>
+<pre>provider: enterprise-gateway
+input: source_docs/products/
+output: generated/fragments/
+
+providers:
+  enterprise-gateway:
+    type: openai-chat
+    model: data-product-generation
+    baseUrl: https://gateway.example.com/v1
+    apiKeyEnv: ENTERPRISE_LLM_API_KEY
+
+portfolio:
+  sourceBudget:
+    maxSourceChars: 2000
+    maxPromptChars: 32000
+  privacy:
+    obfuscatePersonalData: true</pre>
+        </div>
+
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Type</th><th>Use for</th><th>Keys</th></tr></thead>
+            <tbody>
+              <tr><td><code>ollama</code></td><td>Local Ollama models.</td><td><code>model</code>, <code>baseUrl</code></td></tr>
+              <tr><td><code>openai-chat</code></td><td>OpenAI-compatible chat completions, including LM Studio, vLLM, NVIDIA NIM, llama.cpp server, LocalAI, hosted chat providers, and enterprise gateways.</td><td><code>model</code>, <code>baseUrl</code>, <code>apiKeyEnv</code></td></tr>
+              <tr><td><code>openai</code></td><td>Responses API compatible profiles such as OpenAI, OpenRouter, Groq, and Sakana Fugu.</td><td><code>model</code>, <code>baseUrl</code>, <code>apiKeyEnv</code></td></tr>
+              <tr><td><code>anthropic</code></td><td>Claude through Anthropic Messages API.</td><td><code>model</code>, <code>baseUrl</code>, <code>apiKeyEnv</code>, <code>version</code>, <code>maxTokens</code></td></tr>
+              <tr><td><code>llama-cpp</code></td><td>Direct local GGUF inference through <code>llama-cpp-python</code>.</td><td><code>modelPath</code>, <code>contextWindow</code>, <code>gpuLayers</code></td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2 id="ai-gateway">AI Gateway</h2>
+        <p>Use the normal generation config for an AI Gateway. The SDK does not need a separate gateway config when the gateway exposes an OpenAI-compatible chat endpoint. Point <code>baseUrl</code> to the gateway, set <code>type</code> to <code>openai-chat</code>, and set <code>model</code> to the gateway route or workload alias. The SDK sends that alias in the request. The gateway decides which real provider and model handle the request, and can apply its own policy, fallback, logging, budget, and key management.</p>
+        <div class="code-panel">
+          <div class="code-title"><span>Gateway config</span><span>route alias instead of direct model ownership</span></div>
+<pre>provider: ai-gateway
+input: source_docs/products/
+output: generated/products/
+
+providers:
+  ai-gateway:
+    type: openai-chat
+    model: data-product-generation
+    baseUrl: https://ai-gateway.example.com/v1
+    apiKeyEnv: AI_GATEWAY_API_KEY</pre>
+        </div>
+        <p>In this example, <code>data-product-generation</code> is not a hard-coded vendor model in the SDK. It is the route name your gateway understands. The gateway may map it to a hosted model, a local model, a fallback chain, or a cost-controlled policy. Keep that mapping in the gateway, not in the SDK docs project.</p>
+        <div class="code-panel">
+          <div class="code-title"><span>Gateway run</span><span>SDK calls the route</span></div>
+<pre>export AI_GATEWAY_API_KEY="..."
+
+open-data-products config generation --config config/generation.config.yaml --check
+
+open-data-products generate \
+  --config config/generation.config.yaml \
+  --provider ai-gateway \
+  --input source_docs/products/revenue-product.md \
+  --kind odps-product \
+  --profile minimal \
+  --output generated/products/ \
+  --json
+
+open-data-products validate generated/products/&lt;generated-product&gt;.yaml</pre>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Concern</th><th>Owned by SDK config</th><th>Owned by gateway</th></tr></thead>
+            <tbody>
+              <tr><td>Where requests go</td><td><code>baseUrl</code> points to the gateway endpoint.</td><td>Gateway receives the OpenAI-compatible request.</td></tr>
+              <tr><td>Which workload is requested</td><td><code>model</code> carries the route alias, such as <code>data-product-generation</code>.</td><td>Gateway maps that alias to actual model policy.</td></tr>
+              <tr><td>Secrets</td><td><code>apiKeyEnv</code> names the environment variable.</td><td>Gateway can hold downstream provider keys.</td></tr>
+              <tr><td>Provider selection</td><td>Not hard-coded when using a gateway route.</td><td>Gateway chooses provider, model, fallback, retries, and budget controls.</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2 id="temporary-overrides">Temporary overrides</h2>
+        <div class="code-panel">
+          <div class="code-title"><span>CLI flags</span><span>one run only</span></div>
+<pre>export OPENAI_API_KEY="..."
+
+open-data-products generate \
+  --config generation.config.yaml \
+  --provider openai \
+  --model gpt-4.1-mini \
+  --input source_docs/signals/ \
+  --kind signal \
+  --output generated/openai-test/ \
+  --json</pre>
+        </div>
+
+        <h2 id="local-runtime-examples">Local runtime examples</h2>
+        <div class="code-panel">
+          <div class="code-title"><span>Ollama</span><span>local model path</span></div>
+<pre>ollama pull qwen3:8b
+
+open-data-products generate \
+  --config generation.config.yaml \
+  --provider ollama-qwen3 \
+  --input source_docs/signals/ \
+  --kind signal \
+  --output generated/fragments/ \
+  --json</pre>
+        </div>
+        <div class="code-panel">
+          <div class="code-title"><span>LM Studio or gateway</span><span>OpenAI-compatible chat</span></div>
+<pre>open-data-products generate \
+  --config generation.config.yaml \
+  --provider lmstudio \
+  --model local-model \
+  --input source_docs/products/ \
+  --kind product-reference \
+  --output generated/fragments/ \
+  --json</pre>
+        </div>
+
+        <h2 id="validation-loop">Validation loop</h2>
+        <ol>
+          <li>Run generation with one small source file.</li>
+          <li>Validate generated YAML with <code>open-data-products validate generated/fragments/artifact.yaml</code>.</li>
+          <li>Explain the artifact with <code>open-data-products explain generated/fragments/artifact.yaml --json</code>.</li>
+          <li>Only then build ODPC catalogs, ODPG graphs, or portfolio outputs.</li>
+        </ol>
+
+        <nav class="pager" aria-label="Pagination">
+          <a href="getting-started.html">Back: Getting Started</a>
+          <a href="portfolio.html">Next: Portfolio</a>
+        </nav>
+      </main>
+    </div>
+  </div>
+  <script src="nav.js"></script>
+</body>
+</html>
