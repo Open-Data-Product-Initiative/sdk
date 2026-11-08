@@ -11,7 +11,7 @@ Use it across:
 - ODPG: Open Data Product Graph validation, summaries, traversal, strategic analysis, graph explorer output, and optional TOON or GCF context sidecars.
 - ODPV: Open Data Product Vocabulary search, validation, term resolution, relationship checks, and agent context packets.
 - ODPR: workflow recipes as portable workflow contracts for repeatable SDK runs, provider choices, validation gates, context formats, and review policy.
-- Data Contracts: ODPS contract references, optional external `datacontract-cli` validation, schema extraction, alignment checks, and product-level reports.
+- Data Contracts: ODPS contract references, optional external `datacontract-cli` validation, schema extraction, alignment checks, product-level reports, validated ODPS 4.2 drafts from ODCS 3.0, 3.1, and 3.2 contracts, and evidence-backed Data Contract Intelligence with an offline HTML report.
 - Portfolio workspaces: build, refresh, sync, render, localize, and explain connected ODPC, ODPS, and ODPG portfolio outputs from source lanes.
 
 External context bundle support:
@@ -21,6 +21,8 @@ External context bundle support:
 ## Use This For
 
 - Validating ODPS product specifications, ODPC catalogs, ODPG graphs, ODPV vocabulary, and Data Contract references.
+- Drafting a validated ODPS 4.2 product from an ODCS 3.0, 3.1, or 3.2 contract, with optional enrichment kept distinct from approved product facts.
+- Discovering Data Contract Intelligence from local ODCS folders: source-backed duplicates, overlaps, shared technical resources, metadata gaps, and review-only opportunities with an offline HTML report. It does not automatically create or approve data products.
 - Creating structured context for AI agents, product owners, stewards, and engineers.
 - Loading lightweight summaries with size, hash, spec, kind, and id without returning full document bodies.
 - Validating OKF bundles, listing OKF concepts safely for agents, importing OKF concepts as generation-ready Markdown, and exporting ODPC catalog or portfolio artifacts as OKF context.
@@ -124,6 +126,10 @@ open-data-products generate \
   --input source_docs/products/ \
   --kind product-reference \
   --output generated/
+
+# Data Contract workflows
+open-data-products product wrap-contract --input contract.yaml --output product.yaml
+open-data-products portfolio discover-contracts ./contracts --output ./portfolio-discovery --json
 
 # Portfolio workspace orchestration
 open-data-products portfolio build \

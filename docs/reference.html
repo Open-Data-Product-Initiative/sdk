@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Reference Patterns | Open Data Products SDK</title>
-  <meta name="description" content="Reference command patterns for ODPC catalogs, ODPG graphs, OKF bundles, Data Contracts, troubleshooting, and Python API usage in the Open Data Products SDK." />
+  <meta name="description" content="Reference command patterns for ODPC catalogs, ODPG graphs, OKF bundles, ODCS-to-ODPS drafting, Data Contract Intelligence, troubleshooting, and Python API usage in the Open Data Products SDK." />
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
@@ -50,7 +50,7 @@
       <main class="content">
         <span class="eyebrow">Reference</span>
         <h1>Reference patterns</h1>
-        <p class="lead">Use this page for common command patterns after the basics are working: catalogs, graphs, compact context sidecars, OKF bundles, Data Contracts, Python API, and troubleshooting.</p>
+        <p class="lead">Use this page for common command patterns after the basics are working: catalogs, graphs, compact context sidecars, OKF bundles, ODCS-to-ODPS drafting, Data Contract Intelligence, Python API, and troubleshooting.</p>
 
         <h2 id="odpc-catalog-outputs">ODPC catalog outputs</h2>
         <p>Catalog builds assemble ODPC fragments or compatible product references into one catalog YAML. Add HTML when humans need a review surface. Add TOON or GCF when agents need compact sidecar context, but keep YAML as the canonical artifact. Replace <code>fragments/</code> with a real folder containing ODPC fragments, ODPC catalogs, or ODPS product files.</p>
@@ -107,7 +107,23 @@ open-data-products resources --id okf.spec --json</pre>
         </div>
 
         <h2 id="data-contract-workflows">Data Contract workflows</h2>
-        <p>Use product contract commands when an ODPS product references, ships with, or needs comparison against an external Data Contract. Install the contracts extra before relying on optional contract CLI behavior.</p>
+        <p>Use these workflows to draft a product from an ODCS contract, inventory a contract folder for review, or compare an existing ODPS product with an external Data Contract. Install the contracts extra before relying on optional contract CLI behavior.</p>
+
+        <h3>Draft ODPS from an ODCS contract</h3>
+        <p>Wrap an ODCS 3.0, 3.1, or 3.2 contract into a validated ODPS 4.2 draft. Optional enrichment adds proposals; it does not approve or publish a data product.</p>
+        <div class="code-panel">
+          <div class="code-title"><span>ODCS to ODPS</span><span>validated draft</span></div>
+<pre>open-data-products product wrap-contract --input contract.yaml --output product.yaml</pre>
+        </div>
+
+        <h3>Discover Data Contract Intelligence</h3>
+        <p>Inventory local ODCS contracts to surface source-backed duplicates, overlaps, shared technical resources, metadata gaps, and review-only opportunities. The output includes structured evidence and an offline HTML report. It does not automatically create or approve data products.</p>
+        <div class="code-panel">
+          <div class="code-title"><span>Contract intelligence</span><span>review output</span></div>
+<pre>open-data-products portfolio discover-contracts ./contracts --output ./portfolio-discovery --json</pre>
+        </div>
+
+        <h3>Compare a product with its contract</h3>
         <div class="code-panel">
           <div class="code-title"><span>Contracts</span><span>optional integration</span></div>
 <pre>pip install "open-data-products[contracts]"

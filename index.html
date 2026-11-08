@@ -4,19 +4,19 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Open Data Products SDK | Agent-Ready Standards Toolkit</title>
-  <meta name="description" content="Open Data Products SDK is an agent-ready Python SDK and MCP server for loading, validating, explaining, generating, searching, traversing, compacting, importing, exporting, and publishing Open Data Product artifacts, OKF context bundles, Data Contracts, ODPR workflow recipes, graphs, vocabulary, and portfolio workspaces." />
-  <meta name="keywords" content="Open Data Products SDK, open-data-products, ODPS, ODPC, ODPG, ODPV, ODPR, OKF, Open Knowledge Format, context bundles, Markdown frontmatter, workflow recipes, workflow contracts, MCP server, ARWS manifest, AI agents, LLM generation, local LLMs, TOON, GCF, compact context, portfolio builder, Data Contracts, Ollama, LM Studio, vLLM, llama.cpp, llama-cpp-python, embedded llama.cpp, LocalAI, Claude, OpenAI, OpenRouter, Groq, data products, data contracts" />
+  <meta name="description" content="Open Data Products SDK is an agent-ready Python SDK and MCP server for Open Data Product artifacts, OKF context bundles, Data Contracts, ODCS-to-ODPS drafts, evidence-backed Data Contract Intelligence, ODPR workflow recipes, graphs, vocabulary, and portfolio workspaces." />
+  <meta name="keywords" content="Open Data Products SDK, open-data-products, ODPS, ODCS, ODCS to ODPS, ODPC, ODPG, ODPV, ODPR, OKF, Open Knowledge Format, context bundles, Markdown frontmatter, workflow recipes, workflow contracts, MCP server, ARWS manifest, AI agents, LLM generation, local LLMs, TOON, GCF, compact context, portfolio builder, Data Contracts, Data Contract Intelligence, offline HTML report, Ollama, LM Studio, vLLM, llama.cpp, llama-cpp-python, embedded llama.cpp, LocalAI, Claude, OpenAI, OpenRouter, Groq, data products, data contracts" />
   <meta name="author" content="Dr. Jarkko Moilanen" />
   <link rel="canonical" href="https://opendataproducts.org/sdk/" />
   <meta property="og:title" content="Open Data Products SDK | Agent-Ready Standards Toolkit" />
-  <meta property="og:description" content="Load, validate, explain, generate, compact, search, traverse, import, export, and publish Open Data Product artifacts with a Python SDK, MCP server, OKF context bundles, ARWS manifest, TOON and GCF sidecars, ODPR workflow recipes, portfolio builder, and local or hosted LLM workflows." />
+  <meta property="og:description" content="Load, validate, explain, generate, and publish Open Data Product artifacts; draft validated ODPS products from ODCS contracts; and discover evidence-backed Data Contract Intelligence with a Python SDK and MCP server." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://opendataproducts.org/sdk/" />
   <meta property="og:image" content="https://opendataproducts.org/sdk/social.png" />
   <link rel="alternate" type="text/plain" href="https://opendataproducts.org/sdk/llms.txt" title="LLMs guide for the Open Data Products SDK" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Open Data Products SDK | Agent-Ready Standards Toolkit" />
-  <meta name="twitter:description" content="Python SDK and MCP server for Open Data Product standards, OKF context bundles, Data Contracts, ODPR workflow recipes, graph reasoning, TOON and GCF context sidecars, portfolio workspaces, and LLM-assisted generation." />
+  <meta name="twitter:description" content="Python SDK and MCP server for Open Data Product standards, ODCS-to-ODPS drafts, Data Contract Intelligence, OKF context bundles, workflow recipes, graph reasoning, portfolio workspaces, and LLM-assisted generation." />
   <meta name="twitter:image" content="https://opendataproducts.org/sdk/social.png" />
   <style>
     :root {
@@ -1678,7 +1678,7 @@
           </div>
           <h1>The SDK for agent-ready data products</h1>
           <p class="lead">
-            A practical Python SDK and MCP server for loading, validating, explaining, generating, searching, traversing, importing, exporting, and publishing Open Data Product standards, external OKF context bundles, Data Contracts, ODPR workflow recipes, LLM workflows, and portfolio workspaces.
+            A practical Python SDK and MCP server for loading, validating, explaining, generating, searching, traversing, importing, exporting, and publishing Open Data Product standards, external OKF context bundles, Data Contracts, validated ODPS drafts from ODCS contracts, Data Contract Intelligence, ODPR workflow recipes, LLM workflows, and portfolio workspaces.
           </p>
 
 
@@ -1733,7 +1733,7 @@
         <div class="section-title">
           <h2>Built to give AI agents the context to operate</h2>
           <p>
-            The SDK turns data product standards into executable context. Teams get validation, developers get Python functions, and AI agents get structured outputs, summaries, workflow recipes, bundled resources, graph reasoning, Data Contract reports, and safe tools for real workflows.
+            The SDK turns data product standards into executable context. Teams get validation, developers get Python functions, and AI agents get structured outputs, summaries, workflow recipes, bundled resources, graph reasoning, ODCS-to-ODPS drafts, evidence-backed Data Contract Intelligence with an offline HTML report and review-only opportunities, and safe tools for real workflows.
           </p>
         </div>
 
@@ -1831,6 +1831,20 @@
   --signals sources/signals/ \
   --products sources/products/ \
   --output generated/portfolio/</pre>
+          </article>
+
+          <article class="example-card">
+            <small>Contract to product</small>
+            <h3>Draft ODPS from an ODCS contract</h3>
+            <p>Wrap ODCS 3.0, 3.1, and 3.2 contracts into a validated ODPS 4.2 draft. AI enrichment is optional; the command does not approve or publish a data product.</p>
+<pre>open-data-products product wrap-contract --input contract.yaml --output product.yaml</pre>
+          </article>
+
+          <article class="example-card">
+            <small>Data Contract Intelligence</small>
+            <h3>Discover contract intelligence</h3>
+            <p>Inventory local ODCS contracts, surface evidence-backed duplicates, gaps, overlaps, and review-only opportunities, then export structured results and an offline HTML report. It does not automatically create or approve data products.</p>
+<pre>open-data-products portfolio discover-contracts ./contracts --output ./portfolio-discovery --json</pre>
           </article>
         </div>
       </section>
